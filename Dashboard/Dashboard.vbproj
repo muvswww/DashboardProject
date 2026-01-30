@@ -610,7 +610,6 @@
     <Content Include="strategy-progress.aspx" />
     <Content Include="test1.aspx" />
     <Content Include="testRES.aspx" />
-    <Content Include="Up-research.aspx" />
     <Content Include="Web.config" />
     <Content Include="packages.config" />
     <Content Include="MinibleV2.Master" />
@@ -839,13 +838,6 @@
     <Compile Include="testRES.aspx.vb">
       <DependentUpon>testRES.aspx</DependentUpon>
       <SubType>ASPXCodebehind</SubType>
-    </Compile>
-    <Compile Include="Up-research.aspx.designer.vb">
-      <DependentUpon>Up-research.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="Up-research.aspx.vb">
-      <DependentUpon>Up-research.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="WebForm1.aspx.designer.vb">
       <DependentUpon>WebForm1.aspx</DependentUpon>
