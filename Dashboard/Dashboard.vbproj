@@ -1,0 +1,940 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props" Condition="Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" />
+  <Import Project="..\packages\Microsoft.Net.Compilers.1.0.0\build\Microsoft.Net.Compilers.props" Condition="Exists('..\packages\Microsoft.Net.Compilers.1.0.0\build\Microsoft.Net.Compilers.props')" />
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>
+    </SchemaVersion>
+    <ProjectGuid>{CD8E53D2-B177-494B-AE08-1CEEF98E43D7}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{F184B08F-C81C-45F6-A57F-5ABD9991F28F}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <RootNamespace>Dashboard</RootNamespace>
+    <AssemblyName>Dashboard</AssemblyName>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <MyType>Custom</MyType>
+    <UseIISExpress>true</UseIISExpress>
+    <IISExpressSSLPort />
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
+    <UseGlobalApplicationHostFile />
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+    <Use64BitIISExpress />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <DefineDebug>true</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <OutputPath>bin\</OutputPath>
+    <DocumentationFile>WebForms_Basic.xml</DocumentationFile>
+    <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <DefineDebug>false</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DocumentationFile>WebForms_Basic.xml</DocumentationFile>
+    <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="BouncyCastle.Cryptography, Version=2.0.0.0, Culture=neutral, PublicKeyToken=072edcf4a5328938, processorArchitecture=MSIL">
+      <HintPath>..\packages\BouncyCastle.Cryptography.2.4.0\lib\net461\BouncyCastle.Cryptography.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="itextsharp, Version=5.5.13.4, Culture=neutral, PublicKeyToken=8354ae6d2174ddca, processorArchitecture=MSIL">
+      <HintPath>..\packages\iTextSharp.5.5.13.4\lib\net461\itextsharp.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.EnterpriseServices" />
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+    </Reference>
+    <Reference Include="AspNet.ScriptManager.bootstrap">
+      <HintPath>..\packages\AspNet.ScriptManager.bootstrap.3.0.0\lib\net45\AspNet.ScriptManager.bootstrap.dll</HintPath>
+    </Reference>
+    <Reference Include="AspNet.ScriptManager.jQuery">
+      <HintPath>..\packages\AspNet.ScriptManager.jQuery.1.10.2\lib\net45\AspNet.ScriptManager.jQuery.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.ScriptManager.MSAjax">
+      <HintPath>..\packages\Microsoft.AspNet.ScriptManager.MSAjax.5.0.0\lib\net45\Microsoft.ScriptManager.MSAjax.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.ScriptManager.WebForms">
+      <HintPath>..\packages\Microsoft.AspNet.ScriptManager.WebForms.5.0.0\lib\net45\Microsoft.ScriptManager.WebForms.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Optimization, Version=1.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35">
+      <HintPath>..\packages\Microsoft.AspNet.Web.Optimization.1.1.3\lib\net40\System.Web.Optimization.dll</HintPath>
+    </Reference>
+    <Reference Include="WebGrease">
+      <Private>True</Private>
+      <HintPath>..\packages\WebGrease.1.5.2\lib\WebGrease.dll</HintPath>
+    </Reference>
+    <Reference Include="Antlr3.Runtime">
+      <Private>True</Private>
+      <HintPath>..\packages\Antlr.3.4.1.9004\lib\Antlr3.Runtime.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <Private>True</Private>
+      <HintPath>..\packages\Newtonsoft.Json.6.0.4\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Web.Optimization.WebForms">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.Web.Optimization.WebForms.1.1.3\lib\net45\Microsoft.AspNet.Web.Optimization.WebForms.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.FriendlyUrls">
+      <HintPath>..\packages\Microsoft.AspNet.FriendlyUrls.Core.1.0.2\lib\net45\Microsoft.AspNet.FriendlyUrls.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.Core">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.Core.2.2.1\lib\net45\Microsoft.AspNet.Identity.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.Owin">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.Owin.2.2.1\lib\net45\Microsoft.AspNet.Identity.Owin.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.EntityFramework">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.EntityFramework.2.2.1\lib\net45\Microsoft.AspNet.Identity.EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Providers">
+      <HintPath>..\packages\Microsoft.AspNet.Providers.Core.2.0.0\lib\net40\System.Web.Providers.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin">
+      <HintPath>..\packages\Microsoft.Owin.3.0.1\lib\net45\Microsoft.Owin.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Host.SystemWeb">
+      <HintPath>..\packages\Microsoft.Owin.Host.SystemWeb.3.0.1\lib\net45\Microsoft.Owin.Host.SystemWeb.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security">
+      <HintPath>..\packages\Microsoft.Owin.Security.3.0.1\lib\net45\Microsoft.Owin.Security.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.Facebook">
+      <HintPath>..\packages\Microsoft.Owin.Security.Facebook.3.0.1\lib\net45\Microsoft.Owin.Security.Facebook.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.Cookies">
+      <HintPath>..\packages\Microsoft.Owin.Security.Cookies.3.0.1\lib\net45\Microsoft.Owin.Security.Cookies.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.Google">
+      <HintPath>..\packages\Microsoft.Owin.Security.Google.3.0.1\lib\net45\Microsoft.Owin.Security.Google.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.Twitter">
+      <HintPath>..\packages\Microsoft.Owin.Security.Twitter.3.0.1\lib\net45\Microsoft.Owin.Security.Twitter.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.MicrosoftAccount">
+      <HintPath>..\packages\Microsoft.Owin.Security.MicrosoftAccount.3.0.1\lib\net45\Microsoft.Owin.Security.MicrosoftAccount.dll</HintPath>
+    </Reference>
+    <Reference Include="Owin">
+      <HintPath>..\packages\Owin.1.0\lib\net40\Owin.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.OAuth">
+      <HintPath>..\packages\Microsoft.Owin.Security.OAuth.3.0.1\lib\net45\Microsoft.Owin.Security.OAuth.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Import Include="Microsoft.VisualBasic" />
+    <Import Include="System" />
+    <Import Include="System.Collections" />
+    <Import Include="System.Collections.Generic" />
+    <Import Include="System.Data" />
+    <Import Include="System.Linq" />
+    <Import Include="System.Xml.Linq" />
+    <Import Include="System.Diagnostics" />
+    <Import Include="System.Collections.Specialized" />
+    <Import Include="System.Configuration" />
+    <Import Include="System.Text" />
+    <Import Include="System.Text.RegularExpressions" />
+    <Import Include="System.Web" />
+    <Import Include="System.Web.Caching" />
+    <Import Include="System.Web.Routing" />
+    <Import Include="System.Web.SessionState" />
+    <Import Include="System.Web.Security" />
+    <Import Include="System.Web.Profile" />
+    <Import Include="System.Web.UI" />
+    <Import Include="System.Web.UI.WebControls" />
+    <Import Include="System.Web.UI.WebControls.WebParts" />
+    <Import Include="System.Web.UI.HtmlControls" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Default.aspx" />
+    <Content Include="Global.asax" />
+    <Content Include="Login.aspx" />
+    <Content Include="minible\layouts\assets\css\app-dark.min.css" />
+    <Content Include="minible\layouts\assets\css\app-rtl.min.css" />
+    <Content Include="minible\layouts\assets\css\app.min.css" />
+    <Content Include="minible\layouts\assets\css\bootstrap.min.css" />
+    <Content Include="minible\layouts\assets\css\bootstrap.Modal.css" />
+    <Content Include="minible\layouts\assets\css\font-awesome.min.css" />
+    <Content Include="minible\layouts\assets\css\fonts\fontawesome-webfont-v=4.0.3.svg" />
+    <Content Include="minible\layouts\assets\css\fonts\fontawesome-webfont.svg" />
+    <Content Include="minible\layouts\assets\css\icons.min.css" />
+    <Content Include="minible\layouts\assets\css\Style.css" />
+    <Content Include="minible\layouts\assets\fonts\dripicons-v2.svg" />
+    <Content Include="minible\layouts\assets\fonts\fa-brands-400.html" />
+    <Content Include="minible\layouts\assets\fonts\fa-brands-400.svg" />
+    <Content Include="minible\layouts\assets\fonts\fa-regular-400.html" />
+    <Content Include="minible\layouts\assets\fonts\fa-regular-400.svg" />
+    <Content Include="minible\layouts\assets\fonts\fa-solid-900.html" />
+    <Content Include="minible\layouts\assets\fonts\fa-solid-900.svg" />
+    <Content Include="minible\layouts\assets\images\3.2.png" />
+    <Content Include="minible\layouts\assets\images\4.2.png" />
+    <Content Include="minible\layouts\assets\images\404-error.png" />
+    <Content Include="minible\layouts\assets\images\500-error.png" />
+    <Content Include="minible\layouts\assets\images\brands\bitbucket.png" />
+    <Content Include="minible\layouts\assets\images\brands\dribbble.png" />
+    <Content Include="minible\layouts\assets\images\brands\dropbox.png" />
+    <Content Include="minible\layouts\assets\images\brands\github.png" />
+    <Content Include="minible\layouts\assets\images\brands\mail_chimp.png" />
+    <Content Include="minible\layouts\assets\images\brands\slack.png" />
+    <Content Include="minible\layouts\assets\images\coming-soon-img.png" />
+    <Content Include="minible\layouts\assets\images\evote.png" />
+    <Content Include="minible\layouts\assets\images\evote2.png" />
+    <Content Include="minible\layouts\assets\images\faqs-img.png" />
+    <Content Include="minible\layouts\assets\images\favicon.ico" />
+    <Content Include="minible\layouts\assets\images\favicon1.ico" />
+    <Content Include="minible\layouts\assets\images\flags\germany.jpg" />
+    <Content Include="minible\layouts\assets\images\flags\italy.jpg" />
+    <Content Include="minible\layouts\assets\images\flags\russia.jpg" />
+    <Content Include="minible\layouts\assets\images\flags\spain.jpg" />
+    <Content Include="minible\layouts\assets\images\flags\thai.jpg" />
+    <Content Include="minible\layouts\assets\images\flags\us.jpg" />
+    <Content Include="minible\layouts\assets\images\layouts\layout-1.jpg" />
+    <Content Include="minible\layouts\assets\images\layouts\layout-2.jpg" />
+    <Content Include="minible\layouts\assets\images\layouts\layout-3.jpg" />
+    <Content Include="minible\layouts\assets\images\logo-dark.png" />
+    <Content Include="minible\layouts\assets\images\logo-dark1.png" />
+    <Content Include="minible\layouts\assets\images\logo-dark2.png" />
+    <Content Include="minible\layouts\assets\images\logo-light.png" />
+    <Content Include="minible\layouts\assets\images\logo-light1.png" />
+    <Content Include="minible\layouts\assets\images\logo-MU_Color.png" />
+    <Content Include="minible\layouts\assets\images\logo-sm.png" />
+    <Content Include="minible\layouts\assets\images\logo-sm1.png" />
+    <Content Include="minible\layouts\assets\images\maintenance.png" />
+    <Content Include="minible\layouts\assets\images\product\img-1.png" />
+    <Content Include="minible\layouts\assets\images\product\img-2.png" />
+    <Content Include="minible\layouts\assets\images\product\img-3.png" />
+    <Content Include="minible\layouts\assets\images\product\img-4.png" />
+    <Content Include="minible\layouts\assets\images\product\img-5.png" />
+    <Content Include="minible\layouts\assets\images\product\img-6.png" />
+    <Content Include="minible\layouts\assets\images\Res1.png" />
+    <Content Include="minible\layouts\assets\images\Res2.png" />
+    <Content Include="minible\layouts\assets\images\setup-analytics-amico.svg" />
+    <Content Include="minible\layouts\assets\images\small\img-1.jpg" />
+    <Content Include="minible\layouts\assets\images\small\img-2.jpg" />
+    <Content Include="minible\layouts\assets\images\small\img-3.jpg" />
+    <Content Include="minible\layouts\assets\images\small\img-4.jpg" />
+    <Content Include="minible\layouts\assets\images\small\img-5.jpg" />
+    <Content Include="minible\layouts\assets\images\small\img-6.jpg" />
+    <Content Include="minible\layouts\assets\images\small\img-7.jpg" />
+    <Content Include="minible\layouts\assets\images\system\approval.jpg" />
+    <Content Include="minible\layouts\assets\images\system\asset.jpg" />
+    <Content Include="minible\layouts\assets\images\system\hr.jpg" />
+    <Content Include="minible\layouts\assets\images\system\intra.jpg" />
+    <Content Include="minible\layouts\assets\images\system\itservice.jpg" />
+    <Content Include="minible\layouts\assets\images\system\km.jpg" />
+    <Content Include="minible\layouts\assets\images\system\km2.jpg" />
+    <Content Include="minible\layouts\assets\images\system\leave.jpg" />
+    <Content Include="minible\layouts\assets\images\system\meeting.jpg" />
+    <Content Include="minible\layouts\assets\images\system\Register.jpg" />
+    <Content Include="minible\layouts\assets\images\system\tender.jpg" />
+    <Content Include="minible\layouts\assets\images\system\vote.jpg" />
+    <Content Include="minible\layouts\assets\images\users\avatar-1.jpg" />
+    <Content Include="minible\layouts\assets\images\users\avatar-2.jpg" />
+    <Content Include="minible\layouts\assets\images\users\avatar-3.jpg" />
+    <Content Include="minible\layouts\assets\images\users\avatar-4.jpg" />
+    <Content Include="minible\layouts\assets\images\users\avatar-5.jpg" />
+    <Content Include="minible\layouts\assets\images\users\avatar-6.jpg" />
+    <Content Include="minible\layouts\assets\images\users\avatar-7.jpg" />
+    <Content Include="minible\layouts\assets\images\users\avatar-8.jpg" />
+    <Content Include="minible\layouts\assets\js\app.js" />
+    <Content Include="minible\layouts\assets\js\pages\apexcharts.init.js" />
+    <Content Include="minible\layouts\assets\js\pages\auth-carousel.init.js" />
+    <Content Include="minible\layouts\assets\js\pages\calendar.init.js" />
+    <Content Include="minible\layouts\assets\js\pages\chartjs.init.js" />
+    <Content Include="minible\layouts\assets\js\pages\coming-soon.init.js" />
+    <Content Include="minible\layouts\assets\js\pages\dashboard.init.js" />
+    <Content Include="minible\layouts\assets\js\pages\datatables.init.js" />
+    <Content Include="minible\layouts\assets\js\pages\ecommerce-add-product.init.js" />
+    <Content Include="minible\layouts\assets\js\pages\ecommerce-cart.init.js" />
+    <Content Include="minible\layouts\assets\js\pages\ecommerce-datatables.init.js" />
+    <Content Include="minible\layouts\assets\js\pages\email-editor.init.js" />
+    <Content Include="minible\layouts\assets\js\pages\flot.init.js" />
+    <Content Include="minible\layouts\assets\js\pages\fontawesome.init.js" />
+    <Content Include="minible\layouts\assets\js\pages\form-advanced.init.js" />
+    <Content Include="minible\layouts\assets\js\pages\form-editor.init.js" />
+    <Content Include="minible\layouts\assets\js\pages\form-mask.init.js" />
+    <Content Include="minible\layouts\assets\js\pages\form-repeater.int.js" />
+    <Content Include="minible\layouts\assets\js\pages\form-validation.init.js" />
+    <Content Include="minible\layouts\assets\js\pages\form-wizard.init.js" />
+    <Content Include="minible\layouts\assets\js\pages\form-xeditable.init.js" />
+    <Content Include="minible\layouts\assets\js\pages\gmaps.init.js" />
+    <Content Include="minible\layouts\assets\js\pages\jquery-knob.init.js" />
+    <Content Include="minible\layouts\assets\js\pages\leaflet-map.init.js" />
+    <Content Include="minible\layouts\assets\js\pages\leaflet-us-states.js" />
+    <Content Include="minible\layouts\assets\js\pages\lightbox.init.js" />
+    <Content Include="minible\layouts\assets\js\pages\materialdesign.init.js" />
+    <Content Include="minible\layouts\assets\js\pages\product-filter-range.init.js" />
+    <Content Include="minible\layouts\assets\js\pages\range-sliders.init.js" />
+    <Content Include="minible\layouts\assets\js\pages\rating-init.js" />
+    <Content Include="minible\layouts\assets\js\pages\session-timeout.init.js" />
+    <Content Include="minible\layouts\assets\js\pages\sparklines.init.js" />
+    <Content Include="minible\layouts\assets\js\pages\sweet-alerts.init.js" />
+    <Content Include="minible\layouts\assets\js\pages\table-editable.int.js" />
+    <Content Include="minible\layouts\assets\js\pages\table-responsive.init.js" />
+    <Content Include="minible\layouts\assets\js\pages\timeline.init.js" />
+    <Content Include="minible\layouts\assets\js\pages\toastr.init.js" />
+    <Content Include="minible\layouts\assets\js\pages\vector-maps.init.js" />
+    <Content Include="minible\layouts\assets\libs\%40chenfengyuan\datepicker\datepicker.min.css" />
+    <Content Include="minible\layouts\assets\libs\%40chenfengyuan\datepicker\datepicker.min.js" />
+    <Content Include="minible\layouts\assets\libs\%40ckeditor\ckeditor5-build-classic\build\ckeditor.js" />
+    <Content Include="minible\layouts\assets\libs\%40curiosityx\bootstrap-session-timeout\index.js" />
+    <Content Include="minible\layouts\assets\libs\%40fullcalendar\bootstrap\main.min.css" />
+    <Content Include="minible\layouts\assets\libs\%40fullcalendar\bootstrap\main.min.js" />
+    <Content Include="minible\layouts\assets\libs\%40fullcalendar\core\main.min.css" />
+    <Content Include="minible\layouts\assets\libs\%40fullcalendar\core\main.min.js" />
+    <Content Include="minible\layouts\assets\libs\%40fullcalendar\daygrid\main.min.css" />
+    <Content Include="minible\layouts\assets\libs\%40fullcalendar\daygrid\main.min.js" />
+    <Content Include="minible\layouts\assets\libs\%40fullcalendar\interaction\main.min.js" />
+    <Content Include="minible\layouts\assets\libs\%40fullcalendar\timegrid\main.min.css" />
+    <Content Include="minible\layouts\assets\libs\%40fullcalendar\timegrid\main.min.js" />
+    <Content Include="minible\layouts\assets\libs\admin-resources\jquery.vectormap\jquery-jvectormap-1.2.2.css" />
+    <Content Include="minible\layouts\assets\libs\admin-resources\jquery.vectormap\jquery-jvectormap-1.2.2.min.js" />
+    <Content Include="minible\layouts\assets\libs\admin-resources\jquery.vectormap\maps\jquery-jvectormap-au-mill-en.js" />
+    <Content Include="minible\layouts\assets\libs\admin-resources\jquery.vectormap\maps\jquery-jvectormap-ca-lcc-en.js" />
+    <Content Include="minible\layouts\assets\libs\admin-resources\jquery.vectormap\maps\jquery-jvectormap-in-mill-en.js" />
+    <Content Include="minible\layouts\assets\libs\admin-resources\jquery.vectormap\maps\jquery-jvectormap-uk-mill-en.js" />
+    <Content Include="minible\layouts\assets\libs\admin-resources\jquery.vectormap\maps\jquery-jvectormap-us-il-chicago-mill-en.js" />
+    <Content Include="minible\layouts\assets\libs\admin-resources\jquery.vectormap\maps\jquery-jvectormap-us-merc-en.js" />
+    <Content Include="minible\layouts\assets\libs\admin-resources\jquery.vectormap\maps\jquery-jvectormap-world-mill-en.js" />
+    <Content Include="minible\layouts\assets\libs\admin-resources\rwd-table\rwd-table.min.css" />
+    <Content Include="minible\layouts\assets\libs\admin-resources\rwd-table\rwd-table.min.js" />
+    <Content Include="minible\layouts\assets\libs\apexcharts\apexcharts.min.js" />
+    <Content Include="minible\layouts\assets\libs\bootstrap-datepicker\css\bootstrap-datepicker.min.css" />
+    <Content Include="minible\layouts\assets\libs\bootstrap-datepicker\js\bootstrap-datepicker.min.js" />
+    <Content Include="minible\layouts\assets\libs\bootstrap-editable\css\bootstrap-editable.css" />
+    <Content Include="minible\layouts\assets\libs\bootstrap-editable\img\clear.png" />
+    <Content Include="minible\layouts\assets\libs\bootstrap-editable\img\loading.gif" />
+    <Content Include="minible\layouts\assets\libs\bootstrap-editable\js\index.js" />
+    <Content Include="minible\layouts\assets\libs\bootstrap-maxlength\bootstrap-maxlength.min.js" />
+    <Content Include="minible\layouts\assets\libs\bootstrap-touchspin\jquery.bootstrap-touchspin.min.css" />
+    <Content Include="minible\layouts\assets\libs\bootstrap-touchspin\jquery.bootstrap-touchspin.min.js" />
+    <Content Include="minible\layouts\assets\libs\bootstrap\js\bootstrap.bundle.min.js" />
+    <Content Include="minible\layouts\assets\libs\chart.js\Chart.bundle.min.js" />
+    <Content Include="minible\layouts\assets\libs\clockpicker\1clockpicker.js" />
+    <Content Include="minible\layouts\assets\libs\clockpicker\assets\css\bootstrap-theme.css" />
+    <Content Include="minible\layouts\assets\libs\clockpicker\assets\css\bootstrap-theme.min.css" />
+    <Content Include="minible\layouts\assets\libs\clockpicker\assets\css\bootstrap.css" />
+    <Content Include="minible\layouts\assets\libs\clockpicker\assets\css\bootstrap.min.css" />
+    <Content Include="minible\layouts\assets\libs\clockpicker\assets\css\github.min.css" />
+    <Content Include="minible\layouts\assets\libs\clockpicker\assets\fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="minible\layouts\assets\libs\clockpicker\assets\images\screenshot-1.png" />
+    <Content Include="minible\layouts\assets\libs\clockpicker\assets\js\bootstrap.js" />
+    <Content Include="minible\layouts\assets\libs\clockpicker\assets\js\bootstrap.min.js" />
+    <Content Include="minible\layouts\assets\libs\clockpicker\assets\js\highlight.min.js" />
+    <Content Include="minible\layouts\assets\libs\clockpicker\assets\js\html5shiv.js" />
+    <Content Include="minible\layouts\assets\libs\clockpicker\assets\js\jquery.js" />
+    <Content Include="minible\layouts\assets\libs\clockpicker\assets\js\jquery.min.js" />
+    <Content Include="minible\layouts\assets\libs\clockpicker\assets\js\respond.min.js" />
+    <Content Include="minible\layouts\assets\libs\clockpicker\bootstrap-clockpicker.min.css" />
+    <Content Include="minible\layouts\assets\libs\clockpicker\bootstrap-clockpicker.min.js" />
+    <Content Include="minible\layouts\assets\libs\clockpicker\clockpicker.css" />
+    <Content Include="minible\layouts\assets\libs\clockpicker\clockpicker.js" />
+    <Content Include="minible\layouts\assets\libs\clockpicker\dist\bootstrap-clockpicker.css" />
+    <Content Include="minible\layouts\assets\libs\clockpicker\dist\bootstrap-clockpicker.js" />
+    <Content Include="minible\layouts\assets\libs\clockpicker\dist\bootstrap-clockpicker.min.css" />
+    <Content Include="minible\layouts\assets\libs\clockpicker\dist\bootstrap-clockpicker.min.js" />
+    <Content Include="minible\layouts\assets\libs\clockpicker\dist\jquery-clockpicker.css" />
+    <Content Include="minible\layouts\assets\libs\clockpicker\dist\jquery-clockpicker.js" />
+    <Content Include="minible\layouts\assets\libs\clockpicker\dist\jquery-clockpicker.min.css" />
+    <Content Include="minible\layouts\assets\libs\clockpicker\dist\jquery-clockpicker.min.js" />
+    <Content Include="minible\layouts\assets\libs\clockpicker\jquery.js" />
+    <Content Include="minible\layouts\assets\libs\datatables.net-bs4\css\dataTables.bootstrap4.min.css" />
+    <Content Include="minible\layouts\assets\libs\datatables.net-bs4\js\dataTables.bootstrap4.min.js" />
+    <Content Include="minible\layouts\assets\libs\datatables.net-buttons-bs4\css\buttons.bootstrap4.min.css" />
+    <Content Include="minible\layouts\assets\libs\datatables.net-buttons-bs4\js\buttons.bootstrap4.min.js" />
+    <Content Include="minible\layouts\assets\libs\datatables.net-buttons\js\buttons.colVis.min.js" />
+    <Content Include="minible\layouts\assets\libs\datatables.net-buttons\js\buttons.html5.min.js" />
+    <Content Include="minible\layouts\assets\libs\datatables.net-buttons\js\buttons.print.min.js" />
+    <Content Include="minible\layouts\assets\libs\datatables.net-buttons\js\dataTables.buttons.min.js" />
+    <Content Include="minible\layouts\assets\libs\datatables.net-responsive-bs4\css\responsive.bootstrap4.min.css" />
+    <Content Include="minible\layouts\assets\libs\datatables.net-responsive-bs4\js\responsive.bootstrap4.min.js" />
+    <Content Include="minible\layouts\assets\libs\datatables.net-responsive\js\dataTables.responsive.min.js" />
+    <Content Include="minible\layouts\assets\libs\datatables.net\js\jquery.dataTables.min.js" />
+    <Content Include="minible\layouts\assets\libs\dropzone\min\dropzone.min.css" />
+    <Content Include="minible\layouts\assets\libs\dropzone\min\dropzone.min.js" />
+    <Content Include="minible\layouts\assets\libs\flot-charts\jquery.flot.crosshair.js" />
+    <Content Include="minible\layouts\assets\libs\flot-charts\jquery.flot.js" />
+    <Content Include="minible\layouts\assets\libs\flot-charts\jquery.flot.pie.js" />
+    <Content Include="minible\layouts\assets\libs\flot-charts\jquery.flot.resize.js" />
+    <Content Include="minible\layouts\assets\libs\flot-charts\jquery.flot.selection.js" />
+    <Content Include="minible\layouts\assets\libs\flot-charts\jquery.flot.stack.js" />
+    <Content Include="minible\layouts\assets\libs\flot-charts\jquery.flot.time.js" />
+    <Content Include="minible\layouts\assets\libs\flot.curvedlines\curvedLines.js" />
+    <Content Include="minible\layouts\assets\libs\gmaps\gmaps.min.js" />
+    <Content Include="minible\layouts\assets\libs\inputmask\min\jquery.inputmask.bundle.min.js" />
+    <Content Include="minible\layouts\assets\libs\ion-rangeslider\css\ion.rangeSlider.min.css" />
+    <Content Include="minible\layouts\assets\libs\ion-rangeslider\js\ion.rangeSlider.min.js" />
+    <Content Include="minible\layouts\assets\libs\jquery-bar-rating\jquery.barrating.min.js" />
+    <Content Include="minible\layouts\assets\libs\jquery-bar-rating\themes\bars-1to10.css" />
+    <Content Include="minible\layouts\assets\libs\jquery-bar-rating\themes\bars-horizontal.css" />
+    <Content Include="minible\layouts\assets\libs\jquery-bar-rating\themes\bars-movie.css" />
+    <Content Include="minible\layouts\assets\libs\jquery-bar-rating\themes\bars-pill.css" />
+    <Content Include="minible\layouts\assets\libs\jquery-bar-rating\themes\bars-reversed.css" />
+    <Content Include="minible\layouts\assets\libs\jquery-bar-rating\themes\bars-square.css" />
+    <Content Include="minible\layouts\assets\libs\jquery-bar-rating\themes\css-stars.css" />
+    <Content Include="minible\layouts\assets\libs\jquery-bar-rating\themes\fontawesome-stars-o.css" />
+    <Content Include="minible\layouts\assets\libs\jquery-bar-rating\themes\fontawesome-stars.css" />
+    <Content Include="minible\layouts\assets\libs\jquery-countdown\jquery.countdown.min.js" />
+    <Content Include="minible\layouts\assets\libs\jquery-knob\jquery.knob.min.js" />
+    <Content Include="minible\layouts\assets\libs\jquery-sparkline\jquery.sparkline.min.js" />
+    <Content Include="minible\layouts\assets\libs\jquery-steps\build\jquery.steps.min.js" />
+    <Content Include="minible\layouts\assets\libs\jquery-ui-dist\jquery-ui.min.js" />
+    <Content Include="minible\layouts\assets\libs\jquery.counterup\jquery.counterup.min.js" />
+    <Content Include="minible\layouts\assets\libs\jquery.flot.tooltip\js\jquery.flot.tooltip.min.js" />
+    <Content Include="minible\layouts\assets\libs\jquery.repeater\jquery.repeater.min.js" />
+    <Content Include="minible\layouts\assets\libs\jquery\jquery.min.js" />
+    <Content Include="minible\layouts\assets\libs\jszip\jszip.min.js" />
+    <Content Include="minible\layouts\assets\libs\leaflet\images\layers-2x.png" />
+    <Content Include="minible\layouts\assets\libs\leaflet\images\layers.png" />
+    <Content Include="minible\layouts\assets\libs\leaflet\images\marker-icon.png" />
+    <Content Include="minible\layouts\assets\libs\leaflet\leaflet.css" />
+    <Content Include="minible\layouts\assets\libs\leaflet\leaflet.js" />
+    <Content Include="minible\layouts\assets\libs\magnific-popup\jquery.magnific-popup.min.js" />
+    <Content Include="minible\layouts\assets\libs\magnific-popup\magnific-popup.css" />
+    <Content Include="minible\layouts\assets\libs\masonry-layout\masonry.pkgd.min.js" />
+    <Content Include="minible\layouts\assets\libs\metismenu\metisMenu.min.js" />
+    <Content Include="minible\layouts\assets\libs\moment\min\moment.min.js" />
+    <Content Include="minible\layouts\assets\libs\node-waves\waves.min.js" />
+    <Content Include="minible\layouts\assets\libs\owl.carousel\assets\owl.carousel.min.css" />
+    <Content Include="minible\layouts\assets\libs\owl.carousel\assets\owl.theme.default.min.css" />
+    <Content Include="minible\layouts\assets\libs\owl.carousel\assets\owl.video.play.png" />
+    <Content Include="minible\layouts\assets\libs\owl.carousel\owl.carousel.min.js" />
+    <Content Include="minible\layouts\assets\libs\parsleyjs\css\parsley.css" />
+    <Content Include="minible\layouts\assets\libs\parsleyjs\js\parsley.min.js" />
+    <Content Include="minible\layouts\assets\libs\parsleyjs\parsley.min.js" />
+    <Content Include="minible\layouts\assets\libs\pdfmake\build\pdfmake.min.js" />
+    <Content Include="minible\layouts\assets\libs\pdfmake\build\vfs_fonts.js" />
+    <Content Include="minible\layouts\assets\libs\select2\css\select2-bootstrap.css" />
+    <Content Include="minible\layouts\assets\libs\select2\css\select2-bootstrap.min.css" />
+    <Content Include="minible\layouts\assets\libs\select2\css\select2.min.css" />
+    <Content Include="minible\layouts\assets\libs\select2\js\select2.min.js" />
+    <Content Include="minible\layouts\assets\libs\simplebar\simplebar.min.js" />
+    <Content Include="minible\layouts\assets\libs\spectrum-colorpicker2\spectrum.min.css" />
+    <Content Include="minible\layouts\assets\libs\spectrum-colorpicker2\spectrum.min.js" />
+    <Content Include="minible\layouts\assets\libs\sweetalert2\sweetalert2.min.css" />
+    <Content Include="minible\layouts\assets\libs\sweetalert2\sweetalert2.min.js" />
+    <Content Include="minible\layouts\assets\libs\sweetalert2\SweetAlert2Script.js" />
+    <Content Include="minible\layouts\assets\libs\table-edits\build\table-edits.min.js" />
+    <Content Include="minible\layouts\assets\libs\tinymce\icons\default\icons.min.js" />
+    <Content Include="minible\layouts\assets\libs\tinymce\plugins\advlist\plugin.min.js" />
+    <Content Include="minible\layouts\assets\libs\tinymce\plugins\anchor\plugin.min.js" />
+    <Content Include="minible\layouts\assets\libs\tinymce\plugins\autolink\plugin.min.js" />
+    <Content Include="minible\layouts\assets\libs\tinymce\plugins\charmap\plugin.min.js" />
+    <Content Include="minible\layouts\assets\libs\tinymce\plugins\code\plugin.min.js" />
+    <Content Include="minible\layouts\assets\libs\tinymce\plugins\contextmenu\plugin.min.js" />
+    <Content Include="minible\layouts\assets\libs\tinymce\plugins\directionality\plugin.min.js" />
+    <Content Include="minible\layouts\assets\libs\tinymce\plugins\emoticons\js\emojis.min.js" />
+    <Content Include="minible\layouts\assets\libs\tinymce\plugins\emoticons\plugin.min.js" />
+    <Content Include="minible\layouts\assets\libs\tinymce\plugins\fullscreen\plugin.min.js" />
+    <Content Include="minible\layouts\assets\libs\tinymce\plugins\hr\plugin.min.js" />
+    <Content Include="minible\layouts\assets\libs\tinymce\plugins\image\plugin.min.js" />
+    <Content Include="minible\layouts\assets\libs\tinymce\plugins\insertdatetime\plugin.min.js" />
+    <Content Include="minible\layouts\assets\libs\tinymce\plugins\link\plugin.min.js" />
+    <Content Include="minible\layouts\assets\libs\tinymce\plugins\lists\plugin.min.js" />
+    <Content Include="minible\layouts\assets\libs\tinymce\plugins\media\plugin.min.js" />
+    <Content Include="minible\layouts\assets\libs\tinymce\plugins\nonbreaking\plugin.min.js" />
+    <Content Include="minible\layouts\assets\libs\tinymce\plugins\pagebreak\plugin.min.js" />
+    <Content Include="minible\layouts\assets\libs\tinymce\plugins\paste\plugin.min.js" />
+    <Content Include="minible\layouts\assets\libs\tinymce\plugins\preview\plugin.min.js" />
+    <Content Include="minible\layouts\assets\libs\tinymce\plugins\print\plugin.min.js" />
+    <Content Include="minible\layouts\assets\libs\tinymce\plugins\save\plugin.min.js" />
+    <Content Include="minible\layouts\assets\libs\tinymce\plugins\searchreplace\plugin.min.js" />
+    <Content Include="minible\layouts\assets\libs\tinymce\plugins\spellchecker\plugin.min.js" />
+    <Content Include="minible\layouts\assets\libs\tinymce\plugins\table\plugin.min.js" />
+    <Content Include="minible\layouts\assets\libs\tinymce\plugins\template\plugin.min.js" />
+    <Content Include="minible\layouts\assets\libs\tinymce\plugins\textcolor\plugin.min.js" />
+    <Content Include="minible\layouts\assets\libs\tinymce\plugins\visualblocks\plugin.min.js" />
+    <Content Include="minible\layouts\assets\libs\tinymce\plugins\visualchars\plugin.min.js" />
+    <Content Include="minible\layouts\assets\libs\tinymce\plugins\wordcount\plugin.min.js" />
+    <Content Include="minible\layouts\assets\libs\tinymce\skins\content\default\content.min.css" />
+    <Content Include="minible\layouts\assets\libs\tinymce\skins\ui\oxide\content.min.css" />
+    <Content Include="minible\layouts\assets\libs\tinymce\skins\ui\oxide\skin.min.css" />
+    <Content Include="minible\layouts\assets\libs\tinymce\themes\silver\theme.min.js" />
+    <Content Include="minible\layouts\assets\libs\tinymce\tinymce.min.js" />
+    <Content Include="minible\layouts\assets\libs\toastr\build\toastr.min.css" />
+    <Content Include="minible\layouts\assets\libs\toastr\build\toastr.min.js" />
+    <Content Include="minible\layouts\assets\libs\waypoints\lib\jquery.waypoints.min.js" />
+    <Content Include="minible\layouts\auth-lock-screen.html" />
+    <Content Include="minible\layouts\auth-login.html" />
+    <Content Include="minible\layouts\auth-recoverpw.html" />
+    <Content Include="minible\layouts\auth-register.html" />
+    <Content Include="minible\layouts\calendar.html" />
+    <Content Include="minible\layouts\charts-apex.html" />
+    <Content Include="minible\layouts\charts-chartjs.html" />
+    <Content Include="minible\layouts\charts-flot.html" />
+    <Content Include="minible\layouts\charts-knob.html" />
+    <Content Include="minible\layouts\charts-sparkline.html" />
+    <Content Include="minible\layouts\chat.html" />
+    <Content Include="minible\layouts\contacts-grid.html" />
+    <Content Include="minible\layouts\contacts-list.html" />
+    <Content Include="minible\layouts\contacts-profile.html" />
+    <Content Include="minible\layouts\ecommerce-add-product.html" />
+    <Content Include="minible\layouts\ecommerce-cart.html" />
+    <Content Include="minible\layouts\ecommerce-checkout.html" />
+    <Content Include="minible\layouts\ecommerce-customers.html" />
+    <Content Include="minible\layouts\ecommerce-orders.html" />
+    <Content Include="minible\layouts\ecommerce-product-detail.html" />
+    <Content Include="minible\layouts\ecommerce-products.html" />
+    <Content Include="minible\layouts\ecommerce-shops.html" />
+    <Content Include="minible\layouts\email-inbox.html" />
+    <Content Include="minible\layouts\email-read.html" />
+    <Content Include="minible\layouts\form-advanced.html" />
+    <Content Include="minible\layouts\form-editors.html" />
+    <Content Include="minible\layouts\form-elements.html" />
+    <Content Include="minible\layouts\form-mask.html" />
+    <Content Include="minible\layouts\form-repeater.html" />
+    <Content Include="minible\layouts\form-uploads.html" />
+    <Content Include="minible\layouts\form-validation.html" />
+    <Content Include="minible\layouts\form-wizard.html" />
+    <Content Include="minible\layouts\form-xeditable.html" />
+    <Content Include="minible\layouts\icons-boxicons.html" />
+    <Content Include="minible\layouts\icons-dripicons.html" />
+    <Content Include="minible\layouts\icons-fontawesome.html" />
+    <Content Include="minible\layouts\icons-materialdesign.html" />
+    <Content Include="minible\layouts\icons-unicons.html" />
+    <Content Include="minible\layouts\index-2.html" />
+    <Content Include="minible\layouts\index.html" />
+    <Content Include="minible\layouts\invoices-detail.html" />
+    <Content Include="minible\layouts\invoices-list.html" />
+    <Content Include="minible\layouts\layouts-boxed.html" />
+    <Content Include="minible\layouts\layouts-colored-sidebar.html" />
+    <Content Include="minible\layouts\layouts-compact-sidebar.html" />
+    <Content Include="minible\layouts\layouts-dark-sidebar.html" />
+    <Content Include="minible\layouts\layouts-hori-boxed-width.html" />
+    <Content Include="minible\layouts\layouts-hori-preloader.html" />
+    <Content Include="minible\layouts\layouts-hori-topbar-dark.html" />
+    <Content Include="minible\layouts\layouts-horizontal.html" />
+    <Content Include="minible\layouts\layouts-icon-sidebar.html" />
+    <Content Include="minible\layouts\layouts-preloader.html" />
+    <Content Include="minible\layouts\maps-google.html" />
+    <Content Include="minible\layouts\maps-leaflet.html" />
+    <Content Include="minible\layouts\maps-vector.html" />
+    <Content Include="minible\layouts\pages-404.html" />
+    <Content Include="minible\layouts\pages-500.html" />
+    <Content Include="minible\layouts\pages-comingsoon.html" />
+    <Content Include="minible\layouts\pages-faqs.html" />
+    <Content Include="minible\layouts\pages-maintenance.html" />
+    <Content Include="minible\layouts\pages-pricing.html" />
+    <Content Include="minible\layouts\pages-starter.html" />
+    <Content Include="minible\layouts\pages-timeline.html" />
+    <Content Include="minible\layouts\tables-basic.html" />
+    <Content Include="minible\layouts\tables-datatable.html" />
+    <Content Include="minible\layouts\tables-editable.html" />
+    <Content Include="minible\layouts\tables-responsive.html" />
+    <Content Include="minible\layouts\ui-alerts.html" />
+    <Content Include="minible\layouts\ui-buttons.html" />
+    <Content Include="minible\layouts\ui-cards.html" />
+    <Content Include="minible\layouts\ui-carousel.html" />
+    <Content Include="minible\layouts\ui-colors.html" />
+    <Content Include="minible\layouts\ui-dropdowns.html" />
+    <Content Include="minible\layouts\ui-general.html" />
+    <Content Include="minible\layouts\ui-grid.html" />
+    <Content Include="minible\layouts\ui-images.html" />
+    <Content Include="minible\layouts\ui-lightbox.html" />
+    <Content Include="minible\layouts\ui-modals.html" />
+    <Content Include="minible\layouts\ui-notifications.html" />
+    <Content Include="minible\layouts\ui-progressbars.html" />
+    <Content Include="minible\layouts\ui-rangeslider.html" />
+    <Content Include="minible\layouts\ui-rating.html" />
+    <Content Include="minible\layouts\ui-session-timeout.html" />
+    <Content Include="minible\layouts\ui-sweet-alert.html" />
+    <Content Include="minible\layouts\ui-tabs-accordions.html" />
+    <Content Include="minible\layouts\ui-typography.html" />
+    <Content Include="minible\layouts\ui-video.html" />
+    <Content Include="minible\unicons.iconscout.com\release\v3.0.0\css\line.css" />
+    <Content Include="minible\unicons.iconscout.com\release\v3.0.0\fonts\line\unicons-0.svg" />
+    <Content Include="minible\unicons.iconscout.com\release\v3.0.0\fonts\line\unicons-1.svg" />
+    <Content Include="minible\unicons.iconscout.com\release\v3.0.0\fonts\line\unicons-10.svg" />
+    <Content Include="minible\unicons.iconscout.com\release\v3.0.0\fonts\line\unicons-11.svg" />
+    <Content Include="minible\unicons.iconscout.com\release\v3.0.0\fonts\line\unicons-12.svg" />
+    <Content Include="minible\unicons.iconscout.com\release\v3.0.0\fonts\line\unicons-13.svg" />
+    <Content Include="minible\unicons.iconscout.com\release\v3.0.0\fonts\line\unicons-14.svg" />
+    <Content Include="minible\unicons.iconscout.com\release\v3.0.0\fonts\line\unicons-15.svg" />
+    <Content Include="minible\unicons.iconscout.com\release\v3.0.0\fonts\line\unicons-16.svg" />
+    <Content Include="minible\unicons.iconscout.com\release\v3.0.0\fonts\line\unicons-17.svg" />
+    <Content Include="minible\unicons.iconscout.com\release\v3.0.0\fonts\line\unicons-18.svg" />
+    <Content Include="minible\unicons.iconscout.com\release\v3.0.0\fonts\line\unicons-19.svg" />
+    <Content Include="minible\unicons.iconscout.com\release\v3.0.0\fonts\line\unicons-2.svg" />
+    <Content Include="minible\unicons.iconscout.com\release\v3.0.0\fonts\line\unicons-3.svg" />
+    <Content Include="minible\unicons.iconscout.com\release\v3.0.0\fonts\line\unicons-4.svg" />
+    <Content Include="minible\unicons.iconscout.com\release\v3.0.0\fonts\line\unicons-5.svg" />
+    <Content Include="minible\unicons.iconscout.com\release\v3.0.0\fonts\line\unicons-6.svg" />
+    <Content Include="minible\unicons.iconscout.com\release\v3.0.0\fonts\line\unicons-7.svg" />
+    <Content Include="minible\unicons.iconscout.com\release\v3.0.0\fonts\line\unicons-8.svg" />
+    <Content Include="minible\unicons.iconscout.com\release\v3.0.0\fonts\line\unicons-9.svg" />
+    <Content Include="Research_Fund.aspx" />
+    <Content Include="Research_Innovation.aspx" />
+    <Content Include="Research_Pub.aspx" />
+    <Content Include="strategy-progress.aspx" />
+    <Content Include="test1.aspx" />
+    <Content Include="testRES.aspx" />
+    <Content Include="Up-research.aspx" />
+    <Content Include="Web.config" />
+    <Content Include="packages.config" />
+    <Content Include="MinibleV2.Master" />
+    <Content Include="WebForm1.aspx" />
+    <Content Include="minible\layouts\assets\css\fonts\fontawesome-webfont-v=4.0.3.eot" />
+    <Content Include="minible\layouts\assets\css\fonts\fontawesome-webfont-v=4.0.3.woff" />
+    <Content Include="minible\layouts\assets\css\fonts\fontawesome-webfont.eot" />
+    <Content Include="minible\layouts\assets\css\fonts\fontawesome-webfont.ttf" />
+    <Content Include="minible\layouts\assets\css\fonts\fontawesome-webfont.woff" />
+    <Content Include="minible\layouts\assets\fonts\boxicons.ttf" />
+    <Content Include="minible\layouts\assets\fonts\boxicons.woff" />
+    <Content Include="minible\layouts\assets\fonts\boxicons.woff2" />
+    <Content Include="minible\layouts\assets\fonts\dripicons-v2.eot" />
+    <Content Include="minible\layouts\assets\fonts\dripicons-v2.ttf" />
+    <Content Include="minible\layouts\assets\fonts\dripicons-v2.woff" />
+    <Content Include="minible\layouts\assets\fonts\dripicons-v2d41d.eot" />
+    <Content Include="minible\layouts\assets\fonts\fa-brands-400.eot" />
+    <Content Include="minible\layouts\assets\fonts\fa-brands-400.ttf" />
+    <Content Include="minible\layouts\assets\fonts\fa-brands-400.woff" />
+    <Content Include="minible\layouts\assets\fonts\fa-brands-400.woff2" />
+    <Content Include="minible\layouts\assets\fonts\fa-brands-400d41d.eot" />
+    <Content Include="minible\layouts\assets\fonts\fa-regular-400.eot" />
+    <Content Include="minible\layouts\assets\fonts\fa-regular-400.ttf" />
+    <Content Include="minible\layouts\assets\fonts\fa-regular-400.woff" />
+    <Content Include="minible\layouts\assets\fonts\fa-regular-400.woff2" />
+    <Content Include="minible\layouts\assets\fonts\fa-regular-400d41d.eot" />
+    <Content Include="minible\layouts\assets\fonts\fa-solid-900.eot" />
+    <Content Include="minible\layouts\assets\fonts\fa-solid-900.ttf" />
+    <Content Include="minible\layouts\assets\fonts\fa-solid-900.woff" />
+    <Content Include="minible\layouts\assets\fonts\fa-solid-900.woff2" />
+    <Content Include="minible\layouts\assets\fonts\fa-solid-900d41d.eot" />
+    <Content Include="minible\layouts\assets\fonts\fontawesome-webfont-v=4.0.3.woff" />
+    <Content Include="minible\layouts\assets\fonts\fontawesome-webfont.eot" />
+    <Content Include="minible\layouts\assets\fonts\fontawesome-webfont.ttf" />
+    <Content Include="minible\layouts\assets\fonts\fontawesome-webfont.woff" />
+    <Content Include="minible\layouts\assets\images\logo-dark.psd" />
+    <Content Include="minible\layouts\assets\images\system\CardTemplate.psd" />
+    <Content Include="minible\layouts\assets\libs\clockpicker\assets\css\bootstrap-theme.css.map" />
+    <Content Include="minible\layouts\assets\libs\clockpicker\assets\css\bootstrap.css.map" />
+    <Content Include="minible\layouts\assets\libs\clockpicker\assets\fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="minible\layouts\assets\libs\clockpicker\assets\fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="minible\layouts\assets\libs\clockpicker\assets\fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="minible\unicons.iconscout.com\release\v3.0.0\fonts\line\unicons-0.eot" />
+    <Content Include="minible\unicons.iconscout.com\release\v3.0.0\fonts\line\unicons-0.ttf" />
+    <Content Include="minible\unicons.iconscout.com\release\v3.0.0\fonts\line\unicons-0.woff2" />
+    <Content Include="minible\unicons.iconscout.com\release\v3.0.0\fonts\line\unicons-1.eot" />
+    <Content Include="minible\unicons.iconscout.com\release\v3.0.0\fonts\line\unicons-1.ttf" />
+    <Content Include="minible\unicons.iconscout.com\release\v3.0.0\fonts\line\unicons-1.woff" />
+    <Content Include="minible\unicons.iconscout.com\release\v3.0.0\fonts\line\unicons-1.woff2" />
+    <Content Include="minible\unicons.iconscout.com\release\v3.0.0\fonts\line\unicons-10.eot" />
+    <Content Include="minible\unicons.iconscout.com\release\v3.0.0\fonts\line\unicons-10.ttf" />
+    <Content Include="minible\unicons.iconscout.com\release\v3.0.0\fonts\line\unicons-10.woff" />
+    <Content Include="minible\unicons.iconscout.com\release\v3.0.0\fonts\line\unicons-10.woff2" />
+    <Content Include="minible\unicons.iconscout.com\release\v3.0.0\fonts\line\unicons-11.eot" />
+    <Content Include="minible\unicons.iconscout.com\release\v3.0.0\fonts\line\unicons-11.ttf" />
+    <Content Include="minible\unicons.iconscout.com\release\v3.0.0\fonts\line\unicons-11.woff2" />
+    <Content Include="minible\unicons.iconscout.com\release\v3.0.0\fonts\line\unicons-12.eot" />
+    <Content Include="minible\unicons.iconscout.com\release\v3.0.0\fonts\line\unicons-12.ttf" />
+    <Content Include="minible\unicons.iconscout.com\release\v3.0.0\fonts\line\unicons-12.woff" />
+    <Content Include="minible\unicons.iconscout.com\release\v3.0.0\fonts\line\unicons-12.woff2" />
+    <Content Include="minible\unicons.iconscout.com\release\v3.0.0\fonts\line\unicons-13.eot" />
+    <Content Include="minible\unicons.iconscout.com\release\v3.0.0\fonts\line\unicons-13.ttf" />
+    <Content Include="minible\unicons.iconscout.com\release\v3.0.0\fonts\line\unicons-13.woff" />
+    <Content Include="minible\unicons.iconscout.com\release\v3.0.0\fonts\line\unicons-13.woff2" />
+    <Content Include="minible\unicons.iconscout.com\release\v3.0.0\fonts\line\unicons-14.eot" />
+    <Content Include="minible\unicons.iconscout.com\release\v3.0.0\fonts\line\unicons-14.ttf" />
+    <Content Include="minible\unicons.iconscout.com\release\v3.0.0\fonts\line\unicons-14.woff" />
+    <Content Include="minible\unicons.iconscout.com\release\v3.0.0\fonts\line\unicons-14.woff2" />
+    <Content Include="minible\unicons.iconscout.com\release\v3.0.0\fonts\line\unicons-15.eot" />
+    <Content Include="minible\unicons.iconscout.com\release\v3.0.0\fonts\line\unicons-15.ttf" />
+    <Content Include="minible\unicons.iconscout.com\release\v3.0.0\fonts\line\unicons-15.woff2" />
+    <Content Include="minible\unicons.iconscout.com\release\v3.0.0\fonts\line\unicons-16.eot" />
+    <Content Include="minible\unicons.iconscout.com\release\v3.0.0\fonts\line\unicons-16.ttf" />
+    <Content Include="minible\unicons.iconscout.com\release\v3.0.0\fonts\line\unicons-16.woff" />
+    <Content Include="minible\unicons.iconscout.com\release\v3.0.0\fonts\line\unicons-16.woff2" />
+    <Content Include="minible\unicons.iconscout.com\release\v3.0.0\fonts\line\unicons-17.eot" />
+    <Content Include="minible\unicons.iconscout.com\release\v3.0.0\fonts\line\unicons-17.ttf" />
+    <Content Include="minible\unicons.iconscout.com\release\v3.0.0\fonts\line\unicons-17.woff2" />
+    <Content Include="minible\unicons.iconscout.com\release\v3.0.0\fonts\line\unicons-18.eot" />
+    <Content Include="minible\unicons.iconscout.com\release\v3.0.0\fonts\line\unicons-18.ttf" />
+    <Content Include="minible\unicons.iconscout.com\release\v3.0.0\fonts\line\unicons-18.woff2" />
+    <Content Include="minible\unicons.iconscout.com\release\v3.0.0\fonts\line\unicons-19.eot" />
+    <Content Include="minible\unicons.iconscout.com\release\v3.0.0\fonts\line\unicons-19.ttf" />
+    <Content Include="minible\unicons.iconscout.com\release\v3.0.0\fonts\line\unicons-19.woff2" />
+    <Content Include="minible\unicons.iconscout.com\release\v3.0.0\fonts\line\unicons-2.eot" />
+    <Content Include="minible\unicons.iconscout.com\release\v3.0.0\fonts\line\unicons-2.ttf" />
+    <Content Include="minible\unicons.iconscout.com\release\v3.0.0\fonts\line\unicons-2.woff" />
+    <Content Include="minible\unicons.iconscout.com\release\v3.0.0\fonts\line\unicons-2.woff2" />
+    <Content Include="minible\unicons.iconscout.com\release\v3.0.0\fonts\line\unicons-3.eot" />
+    <Content Include="minible\unicons.iconscout.com\release\v3.0.0\fonts\line\unicons-3.ttf" />
+    <Content Include="minible\unicons.iconscout.com\release\v3.0.0\fonts\line\unicons-3.woff" />
+    <Content Include="minible\unicons.iconscout.com\release\v3.0.0\fonts\line\unicons-3.woff2" />
+    <Content Include="minible\unicons.iconscout.com\release\v3.0.0\fonts\line\unicons-4.eot" />
+    <Content Include="minible\unicons.iconscout.com\release\v3.0.0\fonts\line\unicons-4.ttf" />
+    <Content Include="minible\unicons.iconscout.com\release\v3.0.0\fonts\line\unicons-4.woff" />
+    <Content Include="minible\unicons.iconscout.com\release\v3.0.0\fonts\line\unicons-4.woff2" />
+    <Content Include="minible\unicons.iconscout.com\release\v3.0.0\fonts\line\unicons-5.eot" />
+    <Content Include="minible\unicons.iconscout.com\release\v3.0.0\fonts\line\unicons-5.ttf" />
+    <Content Include="minible\unicons.iconscout.com\release\v3.0.0\fonts\line\unicons-5.woff" />
+    <Content Include="minible\unicons.iconscout.com\release\v3.0.0\fonts\line\unicons-5.woff2" />
+    <Content Include="minible\unicons.iconscout.com\release\v3.0.0\fonts\line\unicons-6.eot" />
+    <Content Include="minible\unicons.iconscout.com\release\v3.0.0\fonts\line\unicons-6.ttf" />
+    <Content Include="minible\unicons.iconscout.com\release\v3.0.0\fonts\line\unicons-6.woff" />
+    <Content Include="minible\unicons.iconscout.com\release\v3.0.0\fonts\line\unicons-6.woff2" />
+    <Content Include="minible\unicons.iconscout.com\release\v3.0.0\fonts\line\unicons-7.eot" />
+    <Content Include="minible\unicons.iconscout.com\release\v3.0.0\fonts\line\unicons-7.ttf" />
+    <Content Include="minible\unicons.iconscout.com\release\v3.0.0\fonts\line\unicons-7.woff" />
+    <Content Include="minible\unicons.iconscout.com\release\v3.0.0\fonts\line\unicons-7.woff2" />
+    <Content Include="minible\unicons.iconscout.com\release\v3.0.0\fonts\line\unicons-8.eot" />
+    <Content Include="minible\unicons.iconscout.com\release\v3.0.0\fonts\line\unicons-8.ttf" />
+    <Content Include="minible\unicons.iconscout.com\release\v3.0.0\fonts\line\unicons-8.woff" />
+    <Content Include="minible\unicons.iconscout.com\release\v3.0.0\fonts\line\unicons-8.woff2" />
+    <Content Include="minible\unicons.iconscout.com\release\v3.0.0\fonts\line\unicons-9.eot" />
+    <Content Include="minible\unicons.iconscout.com\release\v3.0.0\fonts\line\unicons-9.ttf" />
+    <Content Include="minible\unicons.iconscout.com\release\v3.0.0\fonts\line\unicons-9.woff" />
+    <Content Include="minible\unicons.iconscout.com\release\v3.0.0\fonts\line\unicons-9.woff2" />
+    <None Include="My Project\PublishProfiles\Dashboard.pubxml" />
+    <None Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+    <None Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="App_Class\BasePage.vb">
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="App_Class\BindDropdownlist.vb" />
+    <Compile Include="App_Class\ConnectDB.vb" />
+    <Compile Include="App_Class\Encrypt.vb" />
+    <Compile Include="App_Class\GenPwd.vb" />
+    <Compile Include="App_Class\useGmail.vb" />
+    <Compile Include="App_GlobalResources\menu.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>menu.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\menu.th-TH.designer.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>menu.th-TH.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_Start\RouteConfig.vb" />
+    <Compile Include="Default.aspx.designer.vb">
+      <DependentUpon>Default.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Default.aspx.vb">
+      <DependentUpon>Default.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Global.asax.vb">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Login.aspx.designer.vb">
+      <DependentUpon>Login.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Login.aspx.vb">
+      <DependentUpon>Login.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="MinibleV2.Master.designer.vb">
+      <DependentUpon>MinibleV2.Master</DependentUpon>
+    </Compile>
+    <Compile Include="MinibleV2.Master.vb">
+      <DependentUpon>MinibleV2.Master</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="My Project\AssemblyInfo.vb" />
+    <Compile Include="My Project\Application.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Application.myapp</DependentUpon>
+    </Compile>
+    <Compile Include="My Project\MyExtensions\MyWebExtension.vb">
+      <VBMyExtensionTemplateID>Microsoft.VisualBasic.Web.MyExtension</VBMyExtensionTemplateID>
+      <VBMyExtensionTemplateVersion>1.0.0.0</VBMyExtensionTemplateVersion>
+    </Compile>
+    <Compile Include="My Project\Resources.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="My Project\Settings.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <Compile Include="Research_Fund.aspx.designer.vb">
+      <DependentUpon>Research_Fund.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Research_Fund.aspx.vb">
+      <DependentUpon>Research_Fund.aspx</DependentUpon>
+      <SubType>ASPXCodebehind</SubType>
+    </Compile>
+    <Compile Include="Research_Innovation.aspx.designer.vb">
+      <DependentUpon>Research_Innovation.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Research_Innovation.aspx.vb">
+      <DependentUpon>Research_Innovation.aspx</DependentUpon>
+      <SubType>ASPXCodebehind</SubType>
+    </Compile>
+    <Compile Include="Research_Pub.aspx.designer.vb">
+      <DependentUpon>Research_Pub.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Research_Pub.aspx.vb">
+      <DependentUpon>Research_Pub.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="strategy-progress.aspx.designer.vb">
+      <DependentUpon>strategy-progress.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="strategy-progress.aspx.vb">
+      <DependentUpon>strategy-progress.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="test1.aspx.designer.vb">
+      <DependentUpon>test1.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="test1.aspx.vb">
+      <DependentUpon>test1.aspx</DependentUpon>
+      <SubType>ASPXCodebehind</SubType>
+    </Compile>
+    <Compile Include="testRES.aspx.designer.vb">
+      <DependentUpon>testRES.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="testRES.aspx.vb">
+      <DependentUpon>testRES.aspx</DependentUpon>
+      <SubType>ASPXCodebehind</SubType>
+    </Compile>
+    <Compile Include="Up-research.aspx.designer.vb">
+      <DependentUpon>Up-research.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Up-research.aspx.vb">
+      <DependentUpon>Up-research.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="WebForm1.aspx.designer.vb">
+      <DependentUpon>WebForm1.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="WebForm1.aspx.vb">
+      <DependentUpon>WebForm1.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_GlobalResources\menu.th-TH.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>menu.th-TH.designer.vb</LastGenOutput>
+    </Content>
+    <Content Include="App_GlobalResources\menu.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>menu.Designer.vb</LastGenOutput>
+    </Content>
+    <EmbeddedResource Include="My Project\Resources.resx">
+      <Generator>VbMyResourcesResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.vb</LastGenOutput>
+      <CustomToolNamespace>My.Resources</CustomToolNamespace>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="My Project\Application.myapp">
+      <Generator>MyApplicationCodeGenerator</Generator>
+      <LastGenOutput>Application.Designer.vb</LastGenOutput>
+    </None>
+    <None Include="My Project\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <CustomToolNamespace>My</CustomToolNamespace>
+      <LastGenOutput>Settings.Designer.vb</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="App_Data\" />
+    <Folder Include="Quark\" />
+  </ItemGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <PropertyGroup>
+    <OptionExplicit>On</OptionExplicit>
+  </PropertyGroup>
+  <PropertyGroup>
+    <OptionCompare>Binary</OptionCompare>
+  </PropertyGroup>
+  <PropertyGroup>
+    <OptionStrict>Off</OptionStrict>
+  </PropertyGroup>
+  <PropertyGroup>
+    <OptionInfer>On</OptionInfer>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.VisualBasic.targets" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>True</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>24533</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>http://localhost:24533/</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\Microsoft.Net.Compilers.1.0.0\build\Microsoft.Net.Compilers.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.Net.Compilers.1.0.0\build\Microsoft.Net.Compilers.props'))" />
+    <Error Condition="!Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props'))" />
+  </Target>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

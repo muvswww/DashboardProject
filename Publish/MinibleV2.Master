@@ -1,0 +1,623 @@
+﻿<%@ Master Language="VB" AutoEventWireup="false" CodeBehind="MinibleV2.master.vb" Inherits="Dashboard.MinibleV2" %>
+
+<!doctype html>
+<html lang="en">
+<head id="Head1" runat="server">
+    <meta charset="utf-8" />
+    <title>Portal | Veterinary Science - Mahidol University</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <%--<meta name="description" content="" />
+    <meta name="keywords" content="" />--%>
+
+    <link href="minible/layouts/assets/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+    <link href="Quark/quark_fontface.css" rel="stylesheet" type="text/css" />
+
+    <!-- App favicon -->
+    <link rel="shortcut icon" href="minible/layouts/assets/images/favicon.ico">
+    <!-- Bootstrap Css -->
+    <link href="minible/layouts/assets/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <!-- Icons Css -->
+    <link href="minible/layouts/assets/css/icons.min.css" rel="stylesheet" type="text/css" />
+    <!-- App Css-->
+    <%--<link href="minible/layouts/assets/css/app.min.css" id="app-style" rel="stylesheet" type="text/css" />--%>
+    <link href="minible/layouts/assets/css/app.min.css" rel="stylesheet" type="text/css" />
+
+    <!-- JAVASCRIPT -->
+    <%--<script src="minible/layouts/assets/libs/jquery/jquery.min.js"></script>
+        <script src="minible/layouts/assets/libs/bootstrap/js/bootstrap.bundle.min.js"></script>--%>
+    <script src="<%= ResolveUrl("~/minible/layouts/assets/libs/jquery/jquery.min.js") %>" type="text/javascript"></script>
+    <script src="<%= ResolveUrl("~/minible/layouts/assets/libs/bootstrap/js/bootstrap.bundle.min.js") %>" type="text/javascript"></script>
+    <script src="minible/layouts/assets/libs/metismenu/metisMenu.min.js"></script>
+    <script src="minible/layouts/assets/libs/simplebar/simplebar.min.js"></script>
+    <script src="<%= ResolveUrl("~/minible/layouts/assets/libs/node-waves/waves.min.js") %>" type="text/javascript"></script>
+    <%--<script src="minible/layouts/assets/libs/node-waves/waves.min.js"></script>--%>
+    <script src="minible/layouts/assets/libs/waypoints/lib/jquery.waypoints.min.js"></script>
+    <script src="minible/layouts/assets/libs/jquery.counterup/jquery.counterup.min.js"></script>
+
+
+    <%--<script type="text/javascript">        
+        if (typeof jQuery != 'undefined') {
+            alert("jQuery library is loaded!" + jQuery.fn.jquery);
+
+        } else {
+            alert("jQuery library is not found!");
+        }
+    </script>--%>
+
+    <script type="text/javascript" language="javascript">
+
+        function setlang(lng) {
+            //<%Session("lang") = "th-TH" %>
+
+            var request;
+            if (window.XMLHttpRequest) {
+                //New browsers.
+                request = new XMLHttpRequest();
+            }
+            else if (window.ActiveXObject) {
+                //Old IE Browsers.
+                request = new ActiveXObject("Microsoft.XMLHTTP");
+            }
+            if (request != null) {
+                var url = "Default.aspx/SetSession";
+                request.open("POST", url, false);
+                var params = "{lng: '" + lng + "'}";
+                request.setRequestHeader("Content-Type", "application/json");
+                request.onreadystatechange = function () {
+                    if (request.readyState == 4 && request.status == 200) {
+                        //alert(JSON.parse(request.responseText).d); //alert value
+                    }
+                };
+                request.send(params);
+            }
+
+        }
+    </script>
+
+    <asp:ContentPlaceHolder ID="HeadContent" runat="server">
+    </asp:ContentPlaceHolder>
+</head>
+
+<body id="MinibleBody" runat="server" data-layout="horizontal" data-layout-size="boxed">
+
+    <form id="form1" runat="server">
+
+        <asp:ScriptManager ID="ScriptManager1" runat="server">
+        </asp:ScriptManager>
+
+        <!-- Begin page -->
+        <div id="layout-wrapper">
+            <header id="page-topbar">
+                <div class="navbar-header">
+                    <div class="d-flex">
+
+                        <!-- icon minified menu -->
+                        <button type="button" class="btn btn-sm px-3 font-size-16 header-item waves-effect vertical-menu-btn">
+                            <i class="fa fa-fw fa-bars"></i>
+                        </button>
+                        <!-- icon minified menu -->
+
+                        <!-- App Search-->
+                        <%--<div class="app-search d-none d-lg-block">
+                        <div class="position-relative">
+                            <input type="text" class="form-control" placeholder="Search...">
+                            <span class="uil-search"></span>
+                        </div>
+                    </div>--%>
+                    </div>
+                    <%--ใช้แต่่เอาออกก่อน จะได้ไม่ต้องใส่รหัส ขข้อมูลอยู่ใน notepad<div class="d-flex">--%>
+                    
+                </div>
+            </header>
+
+            <!-- ========== Left Sidebar Start ========== -->
+            <div class="vertical-menu">
+
+                <!-- LOGO -->
+                <div class="navbar-brand-box">
+                    <a href="default.aspx" class="logo logo-dark"><span class="logo-sm">
+                        <img src="minible/layouts/assets/images/logo-sm.png" alt=""
+                            height="32">
+                    </span><span class="logo-lg">
+                        <img src="minible/layouts/assets/images/logo-dark.png" alt=""
+                            height="30">
+                    </span></a>
+                    <a href="default.aspx" class="logo logo-light"><span class="logo-sm">
+                        <img src="minible/layouts/assets/images/logo-sm.png" alt=""
+                            height="32">
+                    </span><span class="logo-lg">
+                        <img src="minible/layouts/assets/images/logo-light.png" alt=""
+                            height="30">
+                    </span></a>
+                </div>
+
+                <button type="button" class="btn btn-sm px-3 font-size-16 header-item waves-effect vertical-menu-btn">
+                    <i class="fa fa-fw fa-bars"></i>
+                </button>
+
+                <div data-simplebar class="sidebar-menu-scroll">
+
+                    <!--- Sidemenu -->
+                    <div id="sidebar-menu">
+                        <!-- Left Menu Start -->
+                        <ul class="metismenu list-unstyled" id="side-menu">
+                            <!-- Dashboard -->
+                            <li>
+                                <a href="dashboard.aspx">
+                                    <i class="uil-home-alt"></i><span class="badge rounded-pill bg-primary float-end">01</span>
+                                    <span><%=Resources.menu.Home%></span>
+                                </a>
+                            </li>
+
+                            <!-- 1. Overview -->
+                            <li>
+                                <a href="javascript: void(0);" class="has-arrow waves-effect">
+                                    <i class="uil-chart-pie"></i>
+                                    <span>Overview</span>
+                                </a>
+                                <ul class="sub-menu" aria-expanded="false">
+                                    <li><a href="student-overview.html">Student Summary</a></li>
+                                    <li><a href="graduate-count.html">Graduates</a></li>
+                                    <li><a href="internships.html">Internships</a></li>
+                                    <li><a href="staff-count.html">Staff Summary</a></li>
+                                    <li><a href="hospital-cases.html">Animal Hospital Cases</a></li>
+                                </ul>
+                            </li>
+
+                            <!-- 2. Education -->
+                            <li>
+                                <a href="javascript: void(0);" class="has-arrow waves-effect">
+                                    <i class="uil-graduation-cap"></i>
+                                    <span>Education</span>
+                                </a>
+                                <ul class="sub-menu" aria-expanded="false">
+                                    <li><a href="contacts-grid.html">Undergraduate Program</a></li>
+                                    <li><a href="contacts-list.html">Master's Programs</a></li>
+                                    <li><a href="contacts-profile.html">Doctoral Programs</a></li>
+                                    <li><a href="contacts-profile.html">Graduate Diploma Program</a></li>
+                                </ul>
+                            </li>
+
+                            <!-- 3. Personnel -->
+                            <li>
+                                <a href="javascript: void(0);" class="has-arrow waves-effect">
+                                    <i class="uil-users-alt"></i>
+                                    <span>Personnel</span>
+                                </a>
+                                <ul class="sub-menu" aria-expanded="false">
+                                    <li><a href="staff-types.html">Staff by Role</a></li>
+                                    <li><a href="staff-stats.html">Age & Work Period</a></li>
+                                    <li><a href="staff-absence.html">Leave & Training</a></li>
+                                    <li><a href="promotion-eval.html">Promotion & Evaluation</a></li>
+                                </ul>
+                            </li>
+
+                            <!-- 4. KPIs & Strategy -->
+                            <li>
+                                <a href="javascript: void(0);" class="has-arrow waves-effect">
+                                    <i class="uil-bullseye"></i>
+                                    <span>KPIs & Strategy</span>
+                                </a>
+                                <ul class="sub-menu" aria-expanded="false">
+                                    <li><a href="kpi-plan.html">Faculty KPIs</a></li>
+                                    <li><a href="strategy-progress.aspx">Strategy Progress</a></li>
+                                    <li><a href="quality-eval.html">Quality Assessment</a></li>
+                                </ul>
+                            </li>
+
+                            <!-- 5. Budget -->
+                            <li>
+                                <a href="javascript: void(0);" class="has-arrow waves-effect">
+                                    <i class="uil-wallet"></i>
+                                    <span>Budget</span>
+                                </a>
+                                <ul class="sub-menu" aria-expanded="false">
+                                    <li><a href="funding-sources.html">Funding Sources</a></li>
+                                    <li><a href="monthly-finance.html">Monthly Income/Expenses</a></li>
+                                    <li><a href="procurement.html">Procurement</a></li>
+                                    <li><a href="budget-trend.html">Budget Trends</a></li>
+                                </ul>
+                            </li>
+
+                            <!-- 6. Research -->
+                            <li>
+                                <a href="javascript: void(0);" class="has-arrow waves-effect">
+                                    <i class="uil-flask"></i>
+                                    <span>Research</span>
+                                </a>
+                                <ul class="sub-menu" aria-expanded="false">
+                                    <li><a href="Research_Pub">Research Publications</a></li>
+                                    <li><a href="Research_Fund">Research Funding</a></li>
+                                    <li><a href="Research_Innovation.aspx">Research Patents</a></li>
+                                </ul>
+                            </li>
+
+                            <!-- 7. Income -->
+                            <li>
+                                <a href="javascript: void(0);" class="has-arrow waves-effect">
+                                    <i class="uil-receipt"></i>
+                                    <span>Income</span>
+                                </a>
+                                <ul class="sub-menu" aria-expanded="false">
+                                    <li><a href="contacts-grid.html">Prasuarthon</a></li>
+                                    <li><a href="contacts-list.html">Prasupalun</a></li>
+                                    <li><a href="contacts-profile.html">Mozwe</a></li>
+                                    <li><a href="contacts-profile.html">CVD</a></li>
+                                    <li><a href="contacts-profile.html">AVC</a></li>
+                                </ul>
+                            </li>
+
+                            <!-- 8. ISO 9001:2015 -->
+                            <li>
+                                <a href="javascript: void(0);" class="has-arrow waves-effect">
+                                    <i class="uil-clipboard-notes"></i>
+                                    <span>ISO 9001:2015</span>
+                                </a>
+                                <ul class="sub-menu" aria-expanded="false">
+                                    <li><a href="contacts-grid.html">Green Procurement</a></li>
+                                    <li><a href="contacts-list.html">Paper</a></li>
+                                    <li><a href="contacts-profile.html">Fuel</a></li>
+                                    <li><a href="contacts-profile.html">Water</a></li>
+                                    <li><a href="contacts-profile.html">Electricity</a></li>
+                                    <li><a href="contacts-profile.html">Work Instruction</a></li>
+                                </ul>
+                            </li>
+
+                            <!-- 9. Complain -->
+                            <li>
+                                <a href="https://vs.mahidol.ac.th/th/complain" class="waves-effect">
+                                    <i class="uil-comment-exclamation"></i>
+                                    <span class="badge rounded-pill bg-warning float-end">New</span>
+                                    <span>Complain</span>
+                                </a>
+                            </li>
+
+                            <!-- Dog Shelter -->
+                            <li>
+                                <a href="https://vs.mahidol.ac.th/th/salayadogshelter.html" class="waves-effect">
+                                    <i class="fa fa-paw"></i>
+                                    <!-- ใช้ไอคอนรูปหมา -->
+                                    <span class="badge rounded-pill bg-warning float-end">New</span>
+                                    <span>Dog Shelter</span>
+                                </a>
+                            </li>
+
+                            <!-- Donation -->
+                            <li>
+                                <a href="https://vs.mahidol.ac.th/donation/" class="waves-effect">
+                                    <i class="uil-usd-circle"></i>
+                                    <!-- ใช้ไอคอนเกี่ยวกับเงิน/บริจาค -->
+                                    <span class="badge rounded-pill bg-warning float-end">New</span>
+                                    <span>Donation</span>
+                                </a>
+                            </li>
+
+
+
+
+                            <%-- 
+
+                            <li>
+                                <a href="javascript: void(0);" class="has-arrow waves-effect">
+                                    <i class="uil-window-section"></i>
+                                    <span>Layouts</span>
+                                </a>
+                                <ul class="sub-menu" aria-expanded="true">
+                                    <li>
+                                        <a href="javascript: void(0);" class="has-arrow">Vertical</a>
+                                        <ul class="sub-menu" aria-expanded="true">
+                                            <li><a href="layouts-dark-sidebar.html">Dark Sidebar</a></li>
+                                            <li><a href="layouts-compact-sidebar.html">Compact Sidebar</a></li>
+                                            <li><a href="layouts-icon-sidebar.html">Icon Sidebar</a></li>
+                                            <li><a href="layouts-boxed.html">Boxed Width</a></li>
+                                            <li><a href="layouts-preloader.html">Preloader</a></li>
+                                            <li><a href="layouts-colored-sidebar.html">Colored Sidebar</a></li>
+                                        </ul>
+                                    </li>
+                                    <li>
+                                        <a href="javascript: void(0);" class="has-arrow">Horizontal</a>
+                                        <ul class="sub-menu" aria-expanded="true">
+                                            <li><a href="layouts-horizontal.html">Horizontal</a></li>
+                                            <li><a href="layouts-hori-topbar-dark.html">Topbar Dark</a></li>
+                                            <li><a href="layouts-hori-boxed-width.html">Boxed Width</a></li>
+                                            <li><a href="layouts-hori-preloader.html">Preloader</a></li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </li>
+
+                            <li class="menu-title">Apps</li>
+
+                            <li>
+                                <a href="calendar.html" class="waves-effect">
+                                    <i class="uil-calender"></i>
+                                    <span>Calendar</span>
+                                </a>
+                            </li>
+
+                            <li>
+                                <a href="chat.html" class=" waves-effect">
+                                    <i class="uil-comments-alt"></i>
+                                    <span class="badge rounded-pill bg-warning float-end">New</span>
+                                    <span>Chat</span>
+                                </a>
+                            </li>
+
+                            <li>
+                                <a href="javascript: void(0);" class="has-arrow waves-effect">
+                                    <i class="uil-store"></i>
+                                    <span>Ecommerce</span>
+                                </a>
+                                <ul class="sub-menu" aria-expanded="false">
+                                    <li><a href="ecommerce-products.html">Products</a></li>
+                                    <li><a href="ecommerce-product-detail.html">Product Detail</a></li>
+                                    <li><a href="ecommerce-orders.html">Orders</a></li>
+                                    <li><a href="ecommerce-customers.html">Customers</a></li>
+                                    <li><a href="ecommerce-cart.html">Cart</a></li>
+                                    <li><a href="ecommerce-checkout.html">Checkout</a></li>
+                                    <li><a href="ecommerce-shops.html">Shops</a></li>
+                                    <li><a href="ecommerce-add-product.html">Add Product</a></li>
+                                </ul>
+                            </li>
+
+                            <li>
+                                <a href="javascript: void(0);" class="has-arrow waves-effect">
+                                    <i class="uil-envelope"></i>
+                                    <span>Email</span>
+                                </a>
+                                <ul class="sub-menu" aria-expanded="false">
+                                    <li><a href="email-inbox.html">Inbox</a></li>
+                                    <li><a href="email-read.html">Read Email</a></li>
+                                </ul>
+                            </li>
+
+                            <li>
+                                <a href="javascript: void(0);" class="has-arrow waves-effect">
+                                    <i class="uil-invoice"></i>
+                                    <span>Invoices</span>
+                                </a>
+                                <ul class="sub-menu" aria-expanded="false">
+                                    <li><a href="invoices-list.html">Invoice List</a></li>
+                                    <li><a href="invoices-detail.html">Invoice Detail</a></li>
+                                </ul>
+                            </li>
+
+                            <li>
+                                <a href="javascript: void(0);" class="has-arrow waves-effect">
+                                    <i class="uil-book-alt"></i>
+                                    <span>Contacts</span>
+                                </a>
+                                <ul class="sub-menu" aria-expanded="false">
+                                    <li><a href="contacts-grid.html">User Grid</a></li>
+                                    <li><a href="contacts-list.html">User List</a></li>
+                                    <li><a href="contacts-profile.html">Profile</a></li>
+                                </ul>
+                            </li>
+
+                            <li class="menu-title">Pages</li>
+
+                            <li>
+                                <a href="javascript: void(0);" class="has-arrow waves-effect">
+                                    <i class="uil-user-circle"></i>
+                                    <span>Authentication</span>
+                                </a>
+                                <ul class="sub-menu" aria-expanded="false">
+                                    <li><a href="auth-login.html">Login</a></li>
+                                    <li><a href="auth-register.html">Register</a></li>
+                                    <li><a href="auth-recoverpw.html">Recover Password</a></li>
+                                    <li><a href="auth-lock-screen.html">Lock Screen</a></li>
+                                </ul>
+                            </li>
+
+                            <li>
+                                <a href="javascript: void(0);" class="has-arrow waves-effect">
+                                    <i class="uil-file-alt"></i>
+                                    <span>Utility</span>
+                                </a>
+                                <ul class="sub-menu" aria-expanded="false">
+                                    <li><a href="pages-starter.html">Starter Page</a></li>
+                                    <li><a href="pages-maintenance.html">Maintenance</a></li>
+                                    <li><a href="pages-comingsoon.html">Coming Soon</a></li>
+                                    <li><a href="pages-timeline.html">Timeline</a></li>
+                                    <li><a href="pages-faqs.html">FAQs</a></li>
+                                    <li><a href="pages-pricing.html">Pricing</a></li>
+                                    <li><a href="pages-404.html">Error 404</a></li>
+                                    <li><a href="pages-500.html">Error 500</a></li>
+                                </ul>
+                            </li>
+
+                            <li class="menu-title">Components</li>
+
+                            <li>
+                                <a href="javascript: void(0);" class="has-arrow waves-effect">
+                                    <i class="uil-flask"></i>
+                                    <span>UI Elements</span>
+                                </a>
+                                <ul class="sub-menu" aria-expanded="false">
+                                    <li><a href="ui-alerts.html">Alerts</a></li>
+                                    <li><a href="ui-buttons.html">Buttons</a></li>
+                                    <li><a href="ui-cards.html">Cards</a></li>
+                                    <li><a href="ui-carousel.html">Carousel</a></li>
+                                    <li><a href="ui-dropdowns.html">Dropdowns</a></li>
+                                    <li><a href="ui-grid.html">Grid</a></li>
+                                    <li><a href="ui-images.html">Images</a></li>
+                                    <li><a href="ui-lightbox.html">Lightbox</a></li>
+                                    <li><a href="ui-modals.html">Modals</a></li>
+                                    <li><a href="ui-rangeslider.html">Range Slider</a></li>
+                                    <li><a href="ui-session-timeout.html">Session Timeout</a></li>
+                                    <li><a href="ui-progressbars.html">Progress Bars</a></li>
+                                    <li><a href="ui-sweet-alert.html">Sweet-Alert</a></li>
+                                    <li><a href="ui-tabs-accordions.html">Tabs & Accordions</a></li>
+                                    <li><a href="ui-typography.html">Typography</a></li>
+                                    <li><a href="ui-video.html">Video</a></li>
+                                    <li><a href="ui-general.html">General</a></li>
+                                    <li><a href="ui-colors.html">Colors</a></li>
+                                    <li><a href="ui-rating.html">Rating</a></li>
+                                    <li><a href="ui-notifications.html">Notifications</a></li>
+                                </ul>
+                            </li>
+
+                            <li>
+                                <a href="javascript: void(0);" class="waves-effect">
+                                    <i class="uil-shutter-alt"></i>
+                                    <span class="badge rounded-pill bg-info float-end">6</span>
+                                    <span>Forms</span>
+                                </a>
+                                <ul class="sub-menu" aria-expanded="false">
+                                    <li><a href="form-elements.html">Basic Elements</a></li>
+                                    <li><a href="form-validation.html">Validation</a></li>
+                                    <li><a href="form-advanced.html">Advanced Plugins</a></li>
+                                    <li><a href="form-editors.html">Editors</a></li>
+                                    <li><a href="form-uploads.html">File Upload</a></li>
+                                    <li><a href="form-xeditable.html">Xeditable</a></li>
+                                    <li><a href="form-repeater.html">Repeater</a></li>
+                                    <li><a href="form-wizard.html">Wizard</a></li>
+                                    <li><a href="form-mask.html">Mask</a></li>
+                                </ul>
+                            </li>
+
+                            <li>
+                                <a href="javascript: void(0);" class="has-arrow waves-effect">
+                                    <i class="uil-list-ul"></i>
+                                    <span>Tables</span>
+                                </a>
+                                <ul class="sub-menu" aria-expanded="false">
+                                    <li><a href="tables-basic.html">Bootstrap Basic</a></li>
+                                    <li><a href="tables-datatable.html">Datatables</a></li>
+                                    <li><a href="tables-responsive.html">Responsive</a></li>
+                                    <li><a href="tables-editable.html">Editable</a></li>
+                                </ul>
+                            </li>
+
+                            <li>
+                                <a href="javascript: void(0);" class="has-arrow waves-effect">
+                                    <i class="uil-chart"></i>
+                                    <span>Charts</span>
+                                </a>
+                                <ul class="sub-menu" aria-expanded="false">
+                                    <li><a href="charts-apex.html">Apex</a></li>
+                                    <li><a href="charts-chartjs.html">Chartjs</a></li>
+                                    <li><a href="charts-flot.html">Flot</a></li>
+                                    <li><a href="charts-knob.html">Jquery Knob</a></li>
+                                    <li><a href="charts-sparkline.html">Sparkline</a></li>
+                                </ul>
+                            </li>
+
+                            <li>
+                                <a href="javascript: void(0);" class="has-arrow waves-effect">
+                                    <i class="uil-streering"></i>
+                                    <span>Icons</span>
+                                </a>
+                                <ul class="sub-menu" aria-expanded="false">
+                                    <li><a href="icons-unicons.html">Unicons</a></li>
+                                    <li><a href="icons-boxicons.html">Boxicons</a></li>
+                                    <li><a href="icons-materialdesign.html">Material Design</a></li>
+                                    <li><a href="icons-dripicons.html">Dripicons</a></li>
+                                    <li><a href="icons-fontawesome.html">Font Awesome</a></li>
+                                </ul>
+                            </li>
+
+                            <li>
+                                <a href="javascript: void(0);" class="has-arrow waves-effect">
+                                    <i class="uil-location-point"></i>
+                                    <span>Maps</span>
+                                </a>
+                                <ul class="sub-menu" aria-expanded="false">
+                                    <li><a href="maps-google.html">Google</a></li>
+                                    <li><a href="maps-vector.html">Vector</a></li>
+                                    <li><a href="maps-leaflet.html">Leaflet</a></li>
+                                </ul>
+                            </li>
+
+                            <li>
+                                <a href="javascript: void(0);" class="has-arrow waves-effect">
+                                    <i class="uil-share-alt"></i>
+                                    <span>Multi Level</span>
+                                </a>
+                                <ul class="sub-menu" aria-expanded="true">
+                                    <li><a href="javascript: void(0);">Level 1.1</a></li>
+                                    <li><a href="javascript: void(0);" class="has-arrow">Level 1.2</a>
+                                        <ul class="sub-menu" aria-expanded="true">
+                                            <li><a href="javascript: void(0);">Level 2.1</a></li>
+                                            <li><a href="javascript: void(0);">Level 2.2</a></li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </li>
+
+                            --%>
+                        </ul>
+                    </div>
+                    <!-- Sidebar -->
+                </div>
+            </div>
+            <!-- ========== Left Sidebar End ========== -->
+            <!-- ============================================================== -->
+            <!-- Start right Content here -->
+            <!-- ============================================================== -->
+            <div class="main-content">
+                <div class="page-content">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="page-title-box d-flex align-items-center justify-content-between">
+                                    <h4 class="mb-0">Dashboard</h4>
+
+                                    <%--<div class="page-title-right">
+                                        <ol class="breadcrumb m-0">
+                                            <li class="breadcrumb-item"><a href="javascript: void(0);">UI Elements</a></li>
+                                            <li class="breadcrumb-item active">Home</li>
+                                        </ol>
+                                    </div>--%>
+
+                                </div>
+                            </div>
+                        </div>
+
+                        <asp:ContentPlaceHolder ID="MainContent" runat="server">
+                        </asp:ContentPlaceHolder>
+
+                    </div>
+                    <!-- container-fluid -->
+                </div>
+                <!-- End Page-content -->
+                <footer class="footer">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-sm-3">
+                                Copyright © 2015 -
+                                <script>document.write(new Date().getFullYear())</script>
+                                Veterinary Science.
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="text-sm-end d-none d-sm-block">
+                                    โปรดศึกษาเพิ่มเติมเกี่ยวกับ ประกาศความเป็นส่วนตัวด้านข้อมูลของบุคลากร มหาวิทยาลัยมหิดล 
+                                    <a href="https://vs.mahidol.ac.th/th/cookiespolicy.html" target="_blank" class="btn btn-sm btn-outline-info waves-effect waves-light">ที่นี่</a>
+                                </div>
+                            </div>
+                            <div class="col-sm-3">
+                                <div class="text-sm-end d-none d-sm-block">
+                                    <a href="https://vs.mahidol.ac.th/itservice" target="_blank" class="text-reset">ITSERVICE </a>All Rights Reserved
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </footer>
+            </div>
+            <!-- end main content-->
+        </div>
+        <!-- END layout-wrapper -->
+
+
+
+        
+
+    </form><!-- apexcharts -->
+        <script src="minible/layouts/assets/libs/apexcharts/apexcharts.min.js"></script>
+
+        <script src="minible/layouts/assets/js/pages/dashboard.init.js"></script>
+
+        <script src="minible/layouts/assets/js/app.js"></script>
+</body>
+</html>
+
