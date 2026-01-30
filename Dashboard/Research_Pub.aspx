@@ -1,7 +1,7 @@
 ﻿<%@ Page Title="" Language="vb" AutoEventWireup="false" MasterPageFile="~/MinibleV2.Master" CodeBehind="Research_Pub.aspx.vb" Inherits="Dashboard.Research_Pub" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="HeadContent" runat="server">
-       <link href="Quark/quark_fontface.css" rel="stylesheet" />
+     <link href="Quark/quark_fontface.css" rel="stylesheet" />
     <link href="minible/layouts/assets/css/Style.css" rel="stylesheet" />
 
     <style>
@@ -231,10 +231,21 @@
      aria-labelledby="colDropdown"
      onclick="event.stopPropagation();"
      style="min-width: 260px;">
+      <div class="form-check mb-2">
+    <input type="checkbox"
+           id="chkAllColumns"
+           runat="server"
+           class="form-check-input"
+           onserverchange="chkAllColumns_CheckedChanged" />
+           
+    <label class="form-check-label fw-bold text-primary" for="chkAllColumns">
+        แสดงทั้งหมด
+    </label>
+</div>
 
     <div class="fw-bold text-secondary mb-2">ข้อมูลบทความ</div>
 
-    <div class="form-check">
+    <%--<div class="form-check">
         <asp:CheckBox ID="chkTitle" type="checkbox" runat="server" />
         <label class="form-check-label" for="<%= chkTitle.ClientID %>">ชื่อบทความ</label>
     </div>
@@ -267,31 +278,47 @@
     <div class="form-check mb-2">
         <asp:CheckBox ID="chkDOI" runat="server"  />
         <label class="form-check-label" for="<%= chkDOI.ClientID %>">DOI</label>
-    </div>
+    </div>--%>
+        <div class="form-check">
+    <input type="checkbox" id="chkTitle" runat="server" class="form-check-input" />
+    <label class="form-check-label" for="chkTitle">ชื่อบทความ</label>
+</div>
+
+<div class="form-check">
+    <input type="checkbox" id="chkAuthors" runat="server" class="form-check-input" />
+    <label class="form-check-label" for="chkAuthors">ผู้แต่ง</label>
+</div>
+
+<div class="form-check">
+    <input type="checkbox" id="chkSource" runat="server" class="form-check-input" />
+    <label class="form-check-label" for="chkSource">แหล่งตีพิมพ์</label>
+</div>
+
+<div class="form-check">
+    <input type="checkbox" id="chkVolume" runat="server" class="form-check-input" />
+    <label class="form-check-label" for="chkVolume">Volume</label>
+</div>
+
+<div class="form-check">
+    <input type="checkbox" id="chkIssue" runat="server" class="form-check-input" />
+    <label class="form-check-label" for="chkIssue">Issue</label>
+</div>
+
+<div class="form-check">
+    <input type="checkbox" id="chkPages" runat="server" class="form-check-input" />
+    <label class="form-check-label" for="chkPages">Pages</label>
+</div>
+
+<div class="form-check mb-2">
+    <input type="checkbox" id="chkDOI" runat="server" class="form-check-input" />
+    <label class="form-check-label" for="chkDOI">DOI</label>
+</div>
 
     <hr />
 
     <div class="fw-bold text-secondary mb-2">ตัวชี้วัด</div>
-
-    <div class="form-check">
-        <asp:CheckBox ID="chkC11" runat="server" />
-        <label class="form-check-label" for="<%= chkC11.ClientID %>">[1.1]</label>
-    </div>
-
-    <div class="form-check">
-        <asp:CheckBox ID="chkC12" runat="server"  />
-        <label class="form-check-label" for="<%= chkC12.ClientID %>">[1.2]</label>
-    </div>
-
-    <div class="form-check">
-        <asp:CheckBox ID="chkC13" runat="server"  />
-        <label class="form-check-label" for="<%= chkC13.ClientID %>">[1.3]</label>
-    </div>
-
-    <div class="form-check">
-        <asp:CheckBox ID="chkC19" runat="server" />
-        <label class="form-check-label" for="<%= chkC19.ClientID %>">[1.9]</label>
-    </div>
+       
+    <asp:PlaceHolder ID="phKPI" runat="server"></asp:PlaceHolder>
 
 </div>
 
@@ -327,52 +354,6 @@
 
                         <div data-simplebar style="max-height: 500px;">
                             <div class="table-responsive gridview-scroll">
-                                <%--<asp:GridView ID="data" runat="server"
-                                    AutoGenerateColumns="False"
-                                    CssClass="table table-bordered table-hover fixed-header"
-                                    EmptyDataText="ไม่พบข้อมูล">
-
-                                    <Columns>
-
-                                        <asp:BoundField DataField="title" HeaderText="ชื่อบทความ" />
-                                        <asp:BoundField DataField="authors" HeaderText="ผู้แต่ง" />
-                                        <asp:BoundField DataField="scopus_source" HeaderText="แหล่งตีพิมพ์" />
-                                        <asp:BoundField DataField="Volume" HeaderText="Volume" />
-                                        <asp:BoundField DataField="Issue" HeaderText="Issue" />
-                                        <asp:BoundField DataField="Pages" HeaderText="Pages" />
-                                        <asp:BoundField DataField="DOI" HeaderText="DOI" />
-
-                                        <asp:TemplateField HeaderText="[1.1]">
-                                            <ItemTemplate>
-                                                <%# ShowCheckIcon(Eval("C11")) %>
-                                            </ItemTemplate>
-                                            <ItemStyle HorizontalAlign="Center" />
-                                        </asp:TemplateField>
-
-                                        <asp:TemplateField HeaderText="[1.2]">
-                                            <ItemTemplate>
-                                                <%# ShowCheckIcon(Eval("C12")) %>
-                                            </ItemTemplate>
-                                            <ItemStyle HorizontalAlign="Center" />
-                                        </asp:TemplateField>
-
-                                        <asp:TemplateField HeaderText="[1.3]">
-                                            <ItemTemplate>
-                                                <%# ShowCheckIcon(Eval("C13")) %>
-                                            </ItemTemplate>
-                                            <ItemStyle HorizontalAlign="Center" />
-                                        </asp:TemplateField>
-
-                                        <asp:TemplateField HeaderText="[1.9]">
-                                            <ItemTemplate>
-                                                <%# ShowCheckIcon(Eval("C19")) %>
-                                            </ItemTemplate>
-                                            <ItemStyle HorizontalAlign="Center" />
-                                        </asp:TemplateField>
-
-                                    </Columns>
-
-                                </asp:GridView>--%>
                               
 
 <!-- ===== GridView ===== -->
@@ -381,35 +362,6 @@
     CssClass="table table-bordered table-hover fixed-header"
     EmptyDataText="ไม่พบข้อมูล">
 
-    <Columns>
-        <asp:BoundField DataField="title" HeaderText="ชื่อบทความ" />
-        <asp:BoundField DataField="authors" HeaderText="ผู้แต่ง" />
-        <asp:BoundField DataField="scopus_source" HeaderText="แหล่งตีพิมพ์" />
-        <asp:BoundField DataField="Volume" HeaderText="Volume" />
-        <asp:BoundField DataField="Issue" HeaderText="Issue" />
-        <asp:BoundField DataField="Pages" HeaderText="Pages" />
-        <asp:BoundField DataField="DOI" HeaderText="DOI" />
-
-        <asp:TemplateField HeaderText="[1.1]">
-            <ItemTemplate><%# ShowCheckIcon(Eval("C11")) %></ItemTemplate>
-            <ItemStyle HorizontalAlign="Center" />
-        </asp:TemplateField>
-
-        <asp:TemplateField HeaderText="[1.2]">
-            <ItemTemplate><%# ShowCheckIcon(Eval("C12")) %></ItemTemplate>
-            <ItemStyle HorizontalAlign="Center" />
-        </asp:TemplateField>
-
-        <asp:TemplateField HeaderText="[1.3]">
-            <ItemTemplate><%# ShowCheckIcon(Eval("C13")) %></ItemTemplate>
-            <ItemStyle HorizontalAlign="Center" />
-        </asp:TemplateField>
-
-        <asp:TemplateField HeaderText="[1.9]">
-            <ItemTemplate><%# ShowCheckIcon(Eval("C19")) %></ItemTemplate>
-            <ItemStyle HorizontalAlign="Center" />
-        </asp:TemplateField>
-    </Columns>
 </asp:GridView>
 
 
@@ -424,6 +376,12 @@
         </ContentTemplate>
     </asp:UpdatePanel>
     
+    <script>
+    document.getElementById('<%= chkAllColumns.ClientID %>')
+        .addEventListener('change', function () {
+            __doPostBack('<%= chkAllColumns.UniqueID %>', '');
+        });
+    </script>
 
     <!-- apexcharts -->
     <script src="minible/layouts/assets/libs/apexcharts/apexcharts.min.js"></script>

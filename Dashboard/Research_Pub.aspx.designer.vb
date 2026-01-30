@@ -131,13 +131,22 @@ Partial Public Class Research_Pub
     Protected WithEvents lbl19 As Global.System.Web.UI.WebControls.Label
 
     '''<summary>
+    '''chkAllColumns control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents chkAllColumns As Global.System.Web.UI.HtmlControls.HtmlInputCheckBox
+
+    '''<summary>
     '''chkTitle control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents chkTitle As Global.System.Web.UI.WebControls.CheckBox
+    Protected WithEvents chkTitle As Global.System.Web.UI.HtmlControls.HtmlInputCheckBox
 
     '''<summary>
     '''chkAuthors control.
@@ -146,7 +155,7 @@ Partial Public Class Research_Pub
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents chkAuthors As Global.System.Web.UI.WebControls.CheckBox
+    Protected WithEvents chkAuthors As Global.System.Web.UI.HtmlControls.HtmlInputCheckBox
 
     '''<summary>
     '''chkSource control.
@@ -155,7 +164,7 @@ Partial Public Class Research_Pub
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents chkSource As Global.System.Web.UI.WebControls.CheckBox
+    Protected WithEvents chkSource As Global.System.Web.UI.HtmlControls.HtmlInputCheckBox
 
     '''<summary>
     '''chkVolume control.
@@ -164,7 +173,7 @@ Partial Public Class Research_Pub
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents chkVolume As Global.System.Web.UI.WebControls.CheckBox
+    Protected WithEvents chkVolume As Global.System.Web.UI.HtmlControls.HtmlInputCheckBox
 
     '''<summary>
     '''chkIssue control.
@@ -173,7 +182,7 @@ Partial Public Class Research_Pub
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents chkIssue As Global.System.Web.UI.WebControls.CheckBox
+    Protected WithEvents chkIssue As Global.System.Web.UI.HtmlControls.HtmlInputCheckBox
 
     '''<summary>
     '''chkPages control.
@@ -182,7 +191,7 @@ Partial Public Class Research_Pub
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents chkPages As Global.System.Web.UI.WebControls.CheckBox
+    Protected WithEvents chkPages As Global.System.Web.UI.HtmlControls.HtmlInputCheckBox
 
     '''<summary>
     '''chkDOI control.
@@ -191,43 +200,16 @@ Partial Public Class Research_Pub
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents chkDOI As Global.System.Web.UI.WebControls.CheckBox
+    Protected WithEvents chkDOI As Global.System.Web.UI.HtmlControls.HtmlInputCheckBox
 
     '''<summary>
-    '''chkC11 control.
+    '''phKPI control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents chkC11 As Global.System.Web.UI.WebControls.CheckBox
-
-    '''<summary>
-    '''chkC12 control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents chkC12 As Global.System.Web.UI.WebControls.CheckBox
-
-    '''<summary>
-    '''chkC13 control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents chkC13 As Global.System.Web.UI.WebControls.CheckBox
-
-    '''<summary>
-    '''chkC19 control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents chkC19 As Global.System.Web.UI.WebControls.CheckBox
+    Protected WithEvents phKPI As Global.System.Web.UI.WebControls.PlaceHolder
 
     '''<summary>
     '''btnApply control.
