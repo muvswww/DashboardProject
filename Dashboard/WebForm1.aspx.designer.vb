@@ -68,49 +68,94 @@ Partial Public Class WebForm1
     Protected WithEvents panelUpPub As Global.System.Web.UI.WebControls.Panel
 
     '''<summary>
-    '''txtyear control.
+    '''ddlYear control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents txtyear As Global.System.Web.UI.WebControls.TextBox
+    Protected WithEvents ddlYear As Global.System.Web.UI.WebControls.DropDownList
 
     '''<summary>
-    '''ddlTitle control.
+    '''ddlType control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents ddlTitle As Global.System.Web.UI.WebControls.DropDownList
+    Protected WithEvents ddlType As Global.System.Web.UI.WebControls.DropDownList
 
     '''<summary>
-    '''txtSec control.
+    '''txtTitle control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents txtSec As Global.System.Web.UI.WebControls.TextBox
+    Protected WithEvents txtTitle As Global.System.Web.UI.WebControls.TextBox
 
     '''<summary>
-    '''txtSub control.
+    '''txtAuthors control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents txtSub As Global.System.Web.UI.WebControls.TextBox
+    Protected WithEvents txtAuthors As Global.System.Web.UI.WebControls.TextBox
 
     '''<summary>
-    '''txtLink control.
+    '''txtScopus control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents txtLink As Global.System.Web.UI.WebControls.TextBox
+    Protected WithEvents txtScopus As Global.System.Web.UI.WebControls.TextBox
+
+    '''<summary>
+    '''txtTCI control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents txtTCI As Global.System.Web.UI.WebControls.TextBox
+
+    '''<summary>
+    '''txtVolume control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents txtVolume As Global.System.Web.UI.WebControls.TextBox
+
+    '''<summary>
+    '''txtIssue control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents txtIssue As Global.System.Web.UI.WebControls.TextBox
+
+    '''<summary>
+    '''txtDOI control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents txtDOI As Global.System.Web.UI.WebControls.TextBox
+
+    '''<summary>
+    '''cblProject control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents cblProject As Global.System.Web.UI.WebControls.CheckBoxList
 
     '''<summary>
     '''btnsubmitPub control.
