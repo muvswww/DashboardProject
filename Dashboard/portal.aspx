@@ -82,34 +82,34 @@
                         <h2 class="text-center mb-5">อัพเดทข้อมูลส่วนงานวิจัย</h2>
                        <div class="row mt-2">
                     <div class="col-md-6 col-xl-4">
-        
+        <a href="Up-research.aspx?update=public">
     <div class="card">
         <img class="card-img-top img-fluid" src="minible/layouts/assets/images/Research1.png" >
         <div class="card-body">
-            <p class="card-text font-size-20 text-center"><b>ผลงานวิจัยที่ตีพิมพ์</b></p>
+            <p class="card-text font-size-20 text-center text-dark"><b>ผลงานวิจัยที่ตีพิมพ์</b></p>
         </div>
     </div>
-        
+        </a>
 </div>
                     <div class="col-md-6 col-xl-4">
-        
+        <a href="Up-research.aspx?update=fund">
     <div class="card">
         <img class="card-img-top img-fluid" src="minible/layouts/assets/images/Research2.png" >
         <div class="card-body">
-            <p class="card-text font-size-20 text-center"><b>ทุนวิจัย และบริการวิชาการ</b></p>
+            <p class="card-text font-size-20 text-center text-dark"><b>ทุนวิจัย และบริการวิชาการ</b></p>
         </div>
     </div>
-        
+        </a>
 </div>
                     <div class="col-md-6 col-xl-4">
-        
+        <a href="Up-research.aspx?update=patent">
     <div class="card">
         <img class="card-img-top img-fluid" src="minible/layouts/assets/images/Research3.png" >
         <div class="card-body">
-            <p class="card-text font-size-20 text-center"><b>นวัตกรรม</b></p>
+            <p class="card-text font-size-20 text-center text-dark"><b>นวัตกรรม</b></p>
         </div>
     </div>
-        
+        </a>
 </div>
 </div>
 </asp:Panel>
