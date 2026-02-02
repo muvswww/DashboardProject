@@ -84,7 +84,7 @@
     <form id="form" runat="server">
         <div id="basic-form" method="post" novalidate>
             <div class="container-fluid mt-4">
-                <asp:Label ID="Labelpub" runat="server" Style="display: none" Visible="False"></asp:Label>
+                <asp:Label ID="Labelpub" runat="server" Style="display: none"></asp:Label>
                 <asp:Panel ID="panelPub" runat="server">
                     <div class="row">
                         <div class="col-12">
@@ -217,6 +217,13 @@
 
 
                                     <div class="mb-3 row">
+                                        <label for="example-text-input" class="col-md-3 col-form-label ">Pages</label>
+                                        <div class="col-md-6">
+                                            <asp:TextBox ID="txtPages" CssClass="form-control" runat="server" type="text" autocomplete="off"></asp:TextBox>
+                                        </div>
+                                    </div>
+
+                                    <div class="mb-3 row">
                                         <label for="example-text-input" class="col-md-3 col-form-label ">DOI</label>
                                         <div class="col-md-6">
                                             <asp:TextBox ID="txtDOI" CssClass="form-control" runat="server" type="text" autocomplete="off"></asp:TextBox>
@@ -232,11 +239,6 @@
                                             </asp:CheckBoxList>
                                         </div>
                                     </div>
-
-
-
-
-
                                 </div>
                             </div>
                         </div>

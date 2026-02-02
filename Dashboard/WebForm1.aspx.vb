@@ -14,8 +14,9 @@ Public Class WebForm1
     Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
         If Not Me.IsPostBack Then
             BindgridPub()
-            LoadYear()
+
         End If
+        LoadYear()
     End Sub
     Private Sub LoadYear()
         Dim SQLRN As String = "SELECT DISTINCT Strategy_Year FROM MasterProject ORDER BY Strategy_Year DESC"
@@ -107,104 +108,149 @@ ORDER BY no DESC"
     Protected Sub LinkButton1_Click(ByVal sender As Object, ByVal e As EventArgs)
         Dim btnEdit As LinkButton = TryCast(sender, LinkButton)
         Dim rowIndex As Integer = Convert.ToInt32(btnEdit.CommandArgument)
-        Dim newId As Integer = Convert.ToInt32(GridViewPub.DataKeys(rowIndex).Value)
+        Dim NO As Integer = Convert.ToInt32(GridViewPub.DataKeys(rowIndex).Value)
+        LoadYear()
         'hfNewId.Value = newId.ToString()
-        Labelpub.Text = newId.ToString()
+        'Labelpub.Text = NO.ToString()
 
-        Dim SQLRN As String = "SELECT       year, title, section, SubSec, linkData, ID
-FROM            OIT 
-WHERE (ID = " & newId & ")"
-        Dim dt As DataTable = QueryDataTable2(SQLRN, dbConn, "VSAPP", Nothing)
+        Dim SQLRN As String = "SELECT       no, year, month, type, title, authors, scopus_source, TCI, Volume, Issue, Pages, DOI, KPI, inputDate
+FROM            Research_Pub
+WHERE (no = " & NO & ")"
+        Dim dt As DataTable = QueryDataTable2(SQLRN, dbConn, "Dashboard", Nothing)
 
         If dt.Rows.Count > 0 Then
-            Dim selectedValue As String = dt.Rows(0)("year").ToString()
-            ddlYear.SelectedValue = selectedValue
-            txtSec.Text = dt.Rows(0)("section")
-            If dt.Rows(0)("SubSec") Is DBNull.Value Then
-                txtSub.Text = "" ' กำหนดให้เป็นข้อความว่าง
-            Else
-                txtSub.Text = dt.Rows(0)("SubSec")
+            Dim selectedYear As String = dt.Rows(0)("year").ToString()
+            If ddlYear.Items.FindByValue(selectedYear) IsNot Nothing Then
+                ddlYear.SelectedValue = selectedYear
             End If
-            txtLink.Text = dt.Rows(0)("linkData")
+            Dim selectedValue As String = dt.Rows(0)("type").ToString()
+            ddlType.SelectedValue = selectedValue
+            txtTitle.Text = dt.Rows(0)("title")
+            txtAuthors.Text = dt.Rows(0)("authors")
+            If dt.Rows(0)("scopus_source") Is DBNull.Value Then
+                txtScopus.Text = "" ' กำหนดให้เป็นข้อความว่าง
+            Else
+                txtScopus.Text = dt.Rows(0)("scopus_source")
+            End If
+            If dt.Rows(0)("TCI") Is DBNull.Value Then
+                txtTCI.Text = "" ' กำหนดให้เป็นข้อความว่าง
+            Else
+                txtTCI.Text = dt.Rows(0)("TCI")
+            End If
+            If dt.Rows(0)("Volume") Is DBNull.Value Then
+                txtVolume.Text = "" ' กำหนดให้เป็นข้อความว่าง
+            Else
+                txtVolume.Text = dt.Rows(0)("Volume")
+            End If
+            If dt.Rows(0)("Issue") Is DBNull.Value Then
+                txtIssue.Text = "" ' กำหนดให้เป็นข้อความว่าง
+            Else
+                txtIssue.Text = dt.Rows(0)("Issue")
+            End If
+            If dt.Rows(0)("Pages") Is DBNull.Value Then
+                txtPages.Text = "" ' กำหนดให้เป็นข้อความว่าง
+            Else
+                txtPages.Text = dt.Rows(0)("Pages")
+            End If
+            If dt.Rows(0)("DOI") Is DBNull.Value Then
+                txtDOI.Text = "" ' กำหนดให้เป็นข้อความว่าง
+            Else
+                txtDOI.Text = dt.Rows(0)("DOI")
+            End If
+            LoadProjects()
 
+            SetCheckedKPI(dt.Rows(0)("KPI").ToString())
         End If
 
         panelPub.Visible = False
         panelUpPub.Visible = True
+    End Sub
+    Private Sub SetCheckedKPI(kpiString As String)
+
+        If String.IsNullOrEmpty(kpiString) Then Exit Sub
+
+        Dim selectedKPI As String() = kpiString.Split(","c)
+
+        For Each item As ListItem In cblProject.Items
+            If selectedKPI.Contains(item.Value.Trim()) Then
+                item.Selected = True
+            End If
+        Next
+
     End Sub
 
     Protected Sub BtnCancel_Click(sender As Object, e As EventArgs) Handles btnCancel.Click
         panelPub.Visible = True
         BindgridPub()
     End Sub
-    Protected Sub Btnsubmit_Click(sender As Object, e As EventArgs) Handles btnsubmitPub.Click
-        'Dim year As String = txtyear.Text
-        Dim Sec As String = txtSec.Text
-        Dim SubSec As String = txtSub.Text
-        Dim Link As String = txtLink.Text
-        Dim selectedType As Integer = Convert.ToInt32(ddlYear.SelectedValue)
+    'Protected Sub Btnsubmit_Click(sender As Object, e As EventArgs) Handles btnsubmitPub.Click
+    '    'Dim year As String = txtyear.Text
+    '    'Dim Sec As String = txtSec.Text
+    '    'Dim SubSec As String = txtSub.Text
+    '    'Dim Link As String = txtLink.Text
+    '    'Dim selectedType As Integer = Convert.ToInt32(ddlYear.SelectedValue)
 
-        Dim constr As String = WebConfigurationManager.ConnectionStrings("dbConn_VSAPP").ConnectionString
-        constr = Replace(constr, "password", Decrypt2("2fxKF+rsggSR+BM25c3IJLWBqS1Pu4Y5"))
-        Dim SQLRN As String = "SELECT TOP (1) ID FROM OIT ORDER BY ID DESC"
-        Dim dt As DataTable = QueryDataTable2(SQLRN, dbConn, "VSAPP", Nothing)
-        If dt.Rows.Count > 0 Then
-            Dim maxId As Integer = Convert.ToInt32(dt.Rows(0)("ID")) + 1
-            Dim query As String = "INSERT INTO OIT (year, title, section, SubSec, linkData, ID ) VALUES (@year, @title, @section, @SubSec, @linkData, @ID)"
-            Using con As New SqlConnection(constr)
-                Using cmd As New SqlCommand(query, con)
-                    cmd.Parameters.AddWithValue("@ID", maxId)
-                    'cmd.Parameters.AddWithValue("@year", year)
-                    cmd.Parameters.AddWithValue("@title", selectedType)
-                    cmd.Parameters.AddWithValue("@section", Sec)
-                    cmd.Parameters.AddWithValue("@linkData", Link)
-                    If String.IsNullOrEmpty(SubSec) Then
-                        cmd.Parameters.AddWithValue("@SubSec", DBNull.Value)
-                    Else
-                        cmd.Parameters.AddWithValue("@SubSec", SubSec)
-                    End If
+    '    Dim constr As String = WebConfigurationManager.ConnectionStrings("dbConn_VSAPP").ConnectionString
+    '    constr = Replace(constr, "password", Decrypt2("2fxKF+rsggSR+BM25c3IJLWBqS1Pu4Y5"))
+    '    Dim SQLRN As String = "SELECT TOP (1) ID FROM OIT ORDER BY ID DESC"
+    '    Dim dt As DataTable = QueryDataTable2(SQLRN, dbConn, "VSAPP", Nothing)
+    '    If dt.Rows.Count > 0 Then
+    '        Dim maxId As Integer = Convert.ToInt32(dt.Rows(0)("ID")) + 1
+    '        Dim query As String = "INSERT INTO OIT (year, title, section, SubSec, linkData, ID ) VALUES (@year, @title, @section, @SubSec, @linkData, @ID)"
+    '        Using con As New SqlConnection(constr)
+    '            Using cmd As New SqlCommand(query, con)
+    '                cmd.Parameters.AddWithValue("@ID", maxId)
+    '                'cmd.Parameters.AddWithValue("@year", year)
+    '                cmd.Parameters.AddWithValue("@title", selectedType)
+    '                cmd.Parameters.AddWithValue("@section", Sec)
+    '                cmd.Parameters.AddWithValue("@linkData", Link)
+    '                If String.IsNullOrEmpty(SubSec) Then
+    '                    cmd.Parameters.AddWithValue("@SubSec", DBNull.Value)
+    '                Else
+    '                    cmd.Parameters.AddWithValue("@SubSec", SubSec)
+    '                End If
 
-                    con.Open()
-                    cmd.ExecuteNonQuery()
+    '                con.Open()
+    '                cmd.ExecuteNonQuery()
 
-                End Using
-            End Using
-        End If
-        panelPub.Visible = True
-        BindgridPub()
-    End Sub
-    Protected Sub Btnupdate_Click(sender As Object, e As EventArgs) Handles btnupdatePub.Click
-        'Dim year As String = txtyear.Text
-        Dim Sec As String = txtSec.Text
-        Dim SubSec As String = txtSub.Text
-        Dim Link As String = txtLink.Text
-        Dim selectedType As Integer = Convert.ToInt32(ddlYear.SelectedValue)
-        Dim ID As String = Labelpub.Text
-        Dim constr As String = WebConfigurationManager.ConnectionStrings("dbConn_VSAPP").ConnectionString
-        constr = Replace(constr, "password", Decrypt2("2fxKF+rsggSR+BM25c3IJLWBqS1Pu4Y5"))
-        Dim query As String = "UPDATE OIT SET year=@year, title=@title, section=@section, SubSec=@SubSec, linkData=@linkData WHERE ID=@ID"
-        Using con As New SqlConnection(constr)
-            Using cmd As New SqlCommand(query, con)
-                cmd.Parameters.AddWithValue("@ID", ID)
-                'cmd.Parameters.AddWithValue("@year", year)
-                cmd.Parameters.AddWithValue("@title", selectedType)
-                cmd.Parameters.AddWithValue("@section", Sec)
-                cmd.Parameters.AddWithValue("@linkData", Link)
-                If String.IsNullOrEmpty(SubSec) Then
-                    cmd.Parameters.AddWithValue("@SubSec", DBNull.Value)
-                Else
-                    cmd.Parameters.AddWithValue("@SubSec", SubSec)
-                End If
+    '            End Using
+    '        End Using
+    '    End If
+    '    panelPub.Visible = True
+    '    BindgridPub()
+    'End Sub
+    'Protected Sub Btnupdate_Click(sender As Object, e As EventArgs) Handles btnupdatePub.Click
+    '    'Dim year As String = txtyear.Text
+    '    Dim Sec As String = txtSec.Text
+    '    Dim SubSec As String = txtSub.Text
+    '    Dim Link As String = txtLink.Text
+    '    Dim selectedType As Integer = Convert.ToInt32(ddlYear.SelectedValue)
+    '    Dim ID As String = Labelpub.Text
+    '    Dim constr As String = WebConfigurationManager.ConnectionStrings("dbConn_VSAPP").ConnectionString
+    '    constr = Replace(constr, "password", Decrypt2("2fxKF+rsggSR+BM25c3IJLWBqS1Pu4Y5"))
+    '    Dim query As String = "UPDATE OIT SET year=@year, title=@title, section=@section, SubSec=@SubSec, linkData=@linkData WHERE ID=@ID"
+    '    Using con As New SqlConnection(constr)
+    '        Using cmd As New SqlCommand(query, con)
+    '            cmd.Parameters.AddWithValue("@ID", ID)
+    '            'cmd.Parameters.AddWithValue("@year", year)
+    '            cmd.Parameters.AddWithValue("@title", selectedType)
+    '            cmd.Parameters.AddWithValue("@section", Sec)
+    '            cmd.Parameters.AddWithValue("@linkData", Link)
+    '            If String.IsNullOrEmpty(SubSec) Then
+    '                cmd.Parameters.AddWithValue("@SubSec", DBNull.Value)
+    '            Else
+    '                cmd.Parameters.AddWithValue("@SubSec", SubSec)
+    '            End If
 
-                con.Open()
-                cmd.ExecuteNonQuery()
+    '            con.Open()
+    '            cmd.ExecuteNonQuery()
 
-            End Using
-        End Using
-        panelPub.Visible = True
-        BindgridPub()
+    '        End Using
+    '    End Using
+    '    panelPub.Visible = True
+    '    BindgridPub()
 
 
 
-    End Sub
+    'End Sub
 End Class

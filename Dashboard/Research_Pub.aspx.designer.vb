@@ -59,76 +59,13 @@ Partial Public Class Research_Pub
     Protected WithEvents sumType2 As Global.System.Web.UI.HtmlControls.HtmlGenericControl
 
     '''<summary>
-    '''card11 control.
+    '''rptProject control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents card11 As Global.System.Web.UI.WebControls.LinkButton
-
-    '''<summary>
-    '''lbl11 control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents lbl11 As Global.System.Web.UI.WebControls.Label
-
-    '''<summary>
-    '''card12 control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents card12 As Global.System.Web.UI.WebControls.LinkButton
-
-    '''<summary>
-    '''lbl12 control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents lbl12 As Global.System.Web.UI.WebControls.Label
-
-    '''<summary>
-    '''card13 control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents card13 As Global.System.Web.UI.WebControls.LinkButton
-
-    '''<summary>
-    '''lbl13 control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents lbl13 As Global.System.Web.UI.WebControls.Label
-
-    '''<summary>
-    '''card19 control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents card19 As Global.System.Web.UI.WebControls.LinkButton
-
-    '''<summary>
-    '''lbl19 control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents lbl19 As Global.System.Web.UI.WebControls.Label
+    Protected WithEvents rptProject As Global.System.Web.UI.WebControls.Repeater
 
     '''<summary>
     '''chkAllColumns control.

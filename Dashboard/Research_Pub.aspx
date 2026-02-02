@@ -140,63 +140,26 @@
 
                             <div class="pub-summary luxury mt-5">
 
-                                <asp:LinkButton
-                                    ID="card11"
-                                    runat="server"
-                                    CssClass="pub-item accent-gold text-decoration-none d-block"
-                                    CommandArgument="C11"
-                                    OnClick="Metric_Click">
+                               <asp:Repeater ID="rptProject" runat="server">
+    <ItemTemplate>
+        <div class="pub-item accent-gold text-decoration-none d-block">
+            
+            <div class="pub-code">
+                <%# Eval("Project_no") %>
+            </div>
 
-                                    <div class="pub-code">1.1</div>
-                                    <div class="pub-code">Total International Publications</div>
-                                    <div class="pub-value">
-                                        <asp:Label ID="lbl11" runat="server" />
-                                    </div>
+            <div class="pub-code">
+                <%# Eval("ProjectName") %>
+            </div>
 
-                                </asp:LinkButton>
-                                <asp:LinkButton
-                                    ID="card12"
-                                    runat="server"
-                                    CssClass="pub-item accent-gold text-decoration-none d-block"
-                                    CommandArgument="C12"
-                                    OnClick="Metric_Click">
+            <div class="pub-value">
+                <%# Eval("LatestQuarterValue") %>
+            </div>
 
-                                    <div class="pub-code">1.2</div>
-                                    <div class="pub-code">International Publications in Q1 Journal</div>
-                                    <div class="pub-value">
-                                        <asp:Label ID="lbl12" runat="server" />
-                                    </div>
+        </div>
+    </ItemTemplate>
+</asp:Repeater>
 
-                                </asp:LinkButton>
-                                <asp:LinkButton
-                                    ID="card13"
-                                    runat="server"
-                                    CssClass="pub-item accent-gold text-decoration-none d-block"
-                                    CommandArgument="C13"
-                                    OnClick="Metric_Click">
-
-                                    <div class="pub-code">1.3</div>
-                                    <div class="pub-code">International Publications in Top 10 Journal</div>
-                                    <div class="pub-value">
-                                        <asp:Label ID="lbl13" runat="server" />
-                                    </div>
-
-                                </asp:LinkButton>
-
-                                <asp:LinkButton
-                                    ID="card19"
-                                    runat="server"
-                                    CssClass="pub-item accent-gold text-decoration-none d-block"
-                                    CommandArgument="C19"
-                                    OnClick="Metric_Click">
-
-                                    <div class="pub-code">1.9</div>
-                                    <div class="pub-code">International Publications in Top 1 Journal</div>
-                                    <div class="pub-value">
-                                        <asp:Label ID="lbl19" runat="server" />
-                                    </div>
-
-                                </asp:LinkButton>
 
 
 

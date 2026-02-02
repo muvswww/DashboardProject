@@ -61,40 +61,52 @@ ORDER BY year DESC"
 
     End Sub
     Private Sub SumProject_PA()
-        Dim SQLRN As String
-        Dim dt As DataTable
         Dim selectedYear As String = Request.QueryString("year")
-
+        Dim SQLRN As String = ""
+        Dim parameters As New List(Of SqlParameter)
+        Dim dt As DataTable
+        '🟡 กรณีไม่ได้เลือกปี → ใช้ปีล่าสุดจาก MasterProject
         If String.IsNullOrEmpty(selectedYear) Then
-            Dim dtYear As DataTable
-            Dim sqlYear As String = "
-            SELECT DISTINCT TOP (1) year
-            FROM Research_Pub
-            ORDER BY year DESC"
-            dtYear = QueryDataTable2(sqlYear, dbConn, "Dashboard", Nothing)
-
-            If dtYear.Rows.Count > 0 Then
-                selectedYear = dtYear.Rows(0)("year").ToString()
+            SQLRN = "SELECT DISTINCT TOP (100) PERCENT year
+FROM            dbo.Research_Pub
+ORDER BY year DESC"
+            dt = QueryDataTable2(SQLRN, dbConn, "Dashboard", Nothing)
+            If dt.Rows.Count > 0 Then
+                selectedYear = dt.Rows(0)("year").ToString()
             End If
+
         End If
 
-        SQLRN = "SELECT
-            SUM(CASE WHEN [1.1] = 1 THEN 1 ELSE 0 END) AS C11,
-            SUM(CASE WHEN [1.2] = 1 THEN 1 ELSE 0 END) AS C12,
-            SUM(CASE WHEN [1.3] = 1 THEN 1 ELSE 0 END) AS C13,
-            SUM(CASE WHEN [1.9] = 1 THEN 1 ELSE 0 END) AS C19
-        FROM Research_Pub"
+        '🟢 เริ่มสร้าง SQL หลัก
+        SQLRN = "
+    SELECT  
+        Project_no,
+        ProjectName,
+        ISNULL(
+            NULLIF(Quarter4, ''),
+            ISNULL(
+                NULLIF(Quarter3, ''),
+                ISNULL(
+                    NULLIF(Quarter2, ''),
+                    Quarter1
+                )
+            )
+        ) AS LatestQuarterValue
+    FROM MasterProject
+    WHERE Strategy_id = 1 "
 
+        '🔵 ถ้าไม่ใช่ all ให้กรองปี
         If selectedYear <> "all" Then
-            SQLRN &= " WHERE [year] = '" & selectedYear & "'"
+            SQLRN &= " AND Strategy_Year = @year "
+            parameters.Add(New SqlParameter("@year", selectedYear))
         End If
 
-        dt = QueryDataTable2(SQLRN, dbConn, "Dashboard", Nothing)
+        SQLRN &= " ORDER BY Project_no "
+
+        dt = QueryDataTable2(SQLRN, dbConn, "Dashboard", parameters.ToArray())
         If dt.Rows.Count > 0 Then
-            lbl11.Text = If(IsDBNull(dt.Rows(0)("C11")), "0", dt.Rows(0)("C11").ToString())
-            lbl12.Text = If(IsDBNull(dt.Rows(0)("C12")), "0", dt.Rows(0)("C12").ToString())
-            lbl13.Text = If(IsDBNull(dt.Rows(0)("C13")), "0", dt.Rows(0)("C13").ToString())
-            lbl19.Text = If(IsDBNull(dt.Rows(0)("C19")), "0", dt.Rows(0)("C19").ToString())
+            rptProject.DataSource = dt
+            rptProject.DataBind()
         End If
 
         SQLRN = "SELECT
@@ -110,7 +122,6 @@ FROM Research_Pub
             sumType1.InnerText = If(IsDBNull(dt.Rows(0)("Type1_Count")), "0", dt.Rows(0)("Type1_Count").ToString())
             sumType2.InnerText = If(IsDBNull(dt.Rows(0)("Type2_Count")), "0", dt.Rows(0)("Type2_Count").ToString())
         End If
-
     End Sub
     Protected Sub Filter_Click(sender As Object, e As EventArgs)
         Dim btn As LinkButton = CType(sender, LinkButton)
@@ -260,13 +271,7 @@ FROM Research_Pub
         End If
         Return ""
     End Function
-    Protected Sub Metric_Click(sender As Object, e As EventArgs)
-        Dim btn As LinkButton = CType(sender, LinkButton)
 
-        ViewState("SelectedMetric") = btn.CommandArgument
-
-        BindData()
-    End Sub
     Protected Sub btnApply_Click(sender As Object, e As EventArgs)
 
         '    Dim selected As New List(Of String)
