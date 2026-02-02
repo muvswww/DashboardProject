@@ -607,6 +607,7 @@
     <Content Include="minible\unicons.iconscout.com\release\v3.0.0\fonts\line\unicons-7.svg" />
     <Content Include="minible\unicons.iconscout.com\release\v3.0.0\fonts\line\unicons-8.svg" />
     <Content Include="minible\unicons.iconscout.com\release\v3.0.0\fonts\line\unicons-9.svg" />
+    <Content Include="portal.aspx" />
     <Content Include="Research_Fund.aspx" />
     <Content Include="Research_Innovation.aspx" />
     <Content Include="Research_Pub.aspx" />
@@ -800,6 +801,13 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <Compile Include="portal.aspx.designer.vb">
+      <DependentUpon>portal.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="portal.aspx.vb">
+      <DependentUpon>portal.aspx</DependentUpon>
+      <SubType>ASPXCodebehind</SubType>
     </Compile>
     <Compile Include="Research_Fund.aspx.designer.vb">
       <DependentUpon>Research_Fund.aspx</DependentUpon>

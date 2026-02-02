@@ -1,4 +1,4 @@
-﻿<%@ Page Language="vb" AutoEventWireup="false" CodeBehind="WebForm1.aspx.vb" Inherits="Dashboard.WebForm1" %>
+﻿<%@ Page Language="vb" AutoEventWireup="false" CodeBehind="portal.aspx.vb" Inherits="Dashboard.portal" %>
 
 <!DOCTYPE html>
 
@@ -78,11 +78,41 @@
     <form id="form" runat="server">
             <div id="basic-form" method="post" novalidate>
                 <div class="container-fluid mt-4">
-                    <asp:Panel ID="Panel_Public" runat="server">
-
-                    </asp:Panel>
-
-
+                    <asp:Panel ID="Panel1" runat="server">
+                        <h2 class="text-center mb-5">อัพเดทข้อมูลส่วนงานวิจัย</h2>
+                       <div class="row mt-2">
+                    <div class="col-md-6 col-xl-4">
+        
+    <div class="card">
+        <img class="card-img-top img-fluid" src="minible/layouts/assets/images/Research1.png" >
+        <div class="card-body">
+            <p class="card-text font-size-20 text-center"><b>ผลงานวิจัยที่ตีพิมพ์</b></p>
+        </div>
+    </div>
+        
+</div>
+                    <div class="col-md-6 col-xl-4">
+        
+    <div class="card">
+        <img class="card-img-top img-fluid" src="minible/layouts/assets/images/Research2.png" >
+        <div class="card-body">
+            <p class="card-text font-size-20 text-center"><b>ทุนวิจัย และบริการวิชาการ</b></p>
+        </div>
+    </div>
+        
+</div>
+                    <div class="col-md-6 col-xl-4">
+        
+    <div class="card">
+        <img class="card-img-top img-fluid" src="minible/layouts/assets/images/Research3.png" >
+        <div class="card-body">
+            <p class="card-text font-size-20 text-center"><b>นวัตกรรม</b></p>
+        </div>
+    </div>
+        
+</div>
+</div>
+</asp:Panel>
                 </div>
         </div>
     </form>
@@ -97,21 +127,5 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
     <script src="minible/layouts/assets/libs/dropzone/min/dropzone.min.js"></script>
    
-    <script type="text/javascript">
-        var $j1112 = $.noConflict(true);
-        $j1112(document).ready(function () {
-            $j1112('#' + btnsubmitClientId).on('click', function (e) {
-
-            });
-        });
-    </script>
- 
-
-    <script>
-        function confirmDelete() {
-            var result = confirm("Are you sure you want to delete?");
-            return result;
-        }
-    </script>
 </body>
 </html>
