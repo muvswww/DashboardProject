@@ -27,6 +27,7 @@ Public Class ConnectDB
 
 
     Public Shared dbConn_VSAPP As String = Replace(ConfigurationManager.ConnectionStrings("dbConn_VSAPP").ConnectionString, "password", Decrypt2("2fxKF+rsggSR+BM25c3IJLWBqS1Pu4Y5"))
+    Public Shared dbConn_Dashboard As String = Replace(ConfigurationManager.ConnectionStrings("dbConn_Dashboard").ConnectionString, "password", Decrypt2("2fxKF+rsggSR+BM25c3IJLWBqS1Pu4Y5"))
 
     'Public Shared Function QueryDataReader(ByVal strSQL As String, ByVal strConnString As String, ByVal table As String) As SqlDataReader
     '    Dim dtReader As SqlDataReader

@@ -5,7 +5,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
     <meta charset="utf-8" />
-    <title>อัพเดตOIT</title>
+    <title>อัพเดตข้อมูลของงานวิจัย</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta content="Premium Multipurpose Admin & Dashboard Template" name="description" />
     <meta content="Themesbrand" name="author" />
@@ -35,11 +35,11 @@
 
     <script src="minible/layouts/assets/js/app.js"></script>
 
-     <!-- ckeditor -->
- <script src="minible/layouts/assets/libs/%40ckeditor/ckeditor5-build-classic/build/ckeditor.js"></script>
+    <!-- ckeditor -->
+    <script src="minible/layouts/assets/libs/%40ckeditor/ckeditor5-build-classic/build/ckeditor.js"></script>
 
- <!--tinymce js-->
- <script src="minible/layouts/assets/libs/tinymce/tinymce.min.js"></script>
+    <!--tinymce js-->
+    <script src="minible/layouts/assets/libs/tinymce/tinymce.min.js"></script>
 
     <!-- parsleyjs -->
     <link href="minible/layouts/assets/libs/parsleyjs2/css/parsley.css" rel="stylesheet" />
@@ -73,157 +73,213 @@
             }); //.datepicker("setDate", "0");  //กำหนดเป็นวันปัจุบัน
         });
     </script>
+    <style>
+        input[type="checkbox"] + label {
+            margin-left: 6px;
+        }
+        .table td, .table th {
+    border-left: 1px solid #ccc;
+    border-right: 1px solid #ccc;
+    border-top: none;
+    border-bottom: none;
+}
+
+    </style>
 </head>
 <body data-layout="horizontal" data-topbar="colored" data-layout-size="boxed">
     <form id="form" runat="server">
-            <div id="basic-form" method="post" novalidate>
-                <div class="container-fluid mt-4">
-                    <asp:Panel ID="Panel1" runat="server" Visible="False">
-                        <div class="row">
-                            <div class="col-12">
-                                <div class="card">
-                                    <div class="card-body">
-                                            <div style="height: 200px; width: 100%; background-image: url('minible/layouts/assets/images/bg.png');">
+        <div id="basic-form" method="post" novalidate>
+            <div class="container-fluid mt-4">
+                <asp:Label ID="Labelpub" runat="server" Style="display: none"></asp:Label>
+                <asp:Panel ID="panelPub" runat="server">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="card">
+                                <div class="card-body">
+                                    <div style="height: 200px; width: 100%; background-image: url('minible/layouts/assets/images/ปก/1.png');">
+                                    </div>
+                                    <div class="row align-items-center mb-3 mt-3">
+    <div class="col-6 col-md-6">
+        <asp:Button ID="addPub" runat="server"
+            Text="+ เพิ่มข้อมูล"
+            CssClass="btn btn-primary waves-effect waves-light" />
+    </div>
+
+    <div class="col-6 col-md-6 text-end">
+        <asp:DropDownList ID="ddlYearPub1" runat="server"
+            CssClass="form-select d-inline-block w-auto"
+            AutoPostBack="true"
+            OnSelectedIndexChanged="ddlYearPub1_SelectedIndexChanged">
+        </asp:DropDownList>
+    </div>
+
 </div>
-                                        <div class="md-4 ">
-                                            <div class="mt-3 ">
-                                                <asp:Button ID="Add" runat="server" Text=" + Add Data OIT" CssClass="btn btn-success waves-effect waves-light mb-4" />
-                                            </div>
+
+                                    <asp:GridView ID="GridViewPub" runat="server" AutoGenerateColumns="False"
+                                        DataKeyNames="NO" AllowPaging="True" OnPageIndexChanging="OnPaging"
+                                        EmptyDataText="No records has been added."
+                                        CssClass="table" PageSize="200" CellPadding="4" ForeColor="#333333" GridLines="None">
+                                        <AlternatingRowStyle BackColor="White" />
+                                        <Columns>
+                                            <asp:TemplateField HeaderStyle-CssClass="align-content-center" HeaderText="ปี">
+                                                <ItemTemplate>
+                                                    <asp:Label ID="lblyear" runat="server" CssClass="table-warning" Text='<%# Eval("year") %>'></asp:Label>
+                                                </ItemTemplate>
+                                                <HeaderStyle CssClass="align-content-center" />
+                                            </asp:TemplateField>
+                                            <asp:TemplateField HeaderStyle-CssClass="align-content-center" HeaderText="ประเภท">
+                                                <ItemTemplate>
+                                                    <asp:Label ID="lblSec" runat="server" CssClass="table-warning" Text='<%# Eval("type") %>'></asp:Label>
+                                                </ItemTemplate>
+                                                <HeaderStyle CssClass="align-content-center" />
+                                            </asp:TemplateField>
+                                            <asp:TemplateField HeaderStyle-CssClass="align-content-center" HeaderText="ชื่อเรื่อง">
+                                                <ItemTemplate>
+                                                    <asp:Label ID="lblSub" runat="server" Text='<%# Eval("title") %>'></asp:Label>
+                                                </ItemTemplate>
+                                                <HeaderStyle CssClass="align-content-center" />
+                                            </asp:TemplateField>
+                                            <asp:TemplateField>
+                                                <ItemTemplate>
+                                                    <asp:LinkButton ID="editPub" runat="server" AutoPostBack="True" CommandArgument="<%# Container.DataItemIndex %>" OnClick="LinkButton1_Click"><i class="fas fa-edit"></i></asp:LinkButton>
+                                                </ItemTemplate>
+                                            </asp:TemplateField>
+
+                                        </Columns>
+
+                                        <EditRowStyle BackColor="#7C6F57" />
+                                        <FooterStyle BackColor="#1C5E55" Font-Bold="True" ForeColor="White" />
+                                        <HeaderStyle BackColor="#1C5E55" Font-Bold="True" ForeColor="White" />
+                                        <PagerStyle BackColor="#666666" ForeColor="White" HorizontalAlign="Center" />
+                                        <RowStyle BackColor="#E3EAEB" />
+                                        <SelectedRowStyle BackColor="#C5BBAF" Font-Bold="True" ForeColor="#333333" />
+                                        <SortedAscendingCellStyle BackColor="#F8FAFA" />
+                                        <SortedAscendingHeaderStyle BackColor="#246B61" />
+                                        <SortedDescendingCellStyle BackColor="#D4DFE1" />
+                                        <SortedDescendingHeaderStyle BackColor="#15524A" />
+
+                                    </asp:GridView>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </asp:Panel>
+
+                <asp:Panel ID="panelUpPub" runat="server" Visible="True">
+                    <div class="row">
+                        <div class="col-lg-12">
+
+                            <div class="card">
+                                <div class="card-body">
+                                    <div>
+                                        <h4 class="mb-4" style="font-weight: bolder">อัพเดตข้อมูลผลงานวิจัยที่ตีพิมพ์</h4>
+                                    </div>
+
+                                    <div class="mb-3 row">
+                                        <label class="form-label col-md-3">ปีงบประมาณ</label>
+                                        <div class="col-md-6">
+                                            <asp:DropDownList ID="ddlYearPub2" runat="server" CssClass="form-select"
+                                                AutoPostBack="true" OnSelectedIndexChanged="ddlYearPub2_SelectedIndexChanged">
+                                            </asp:DropDownList>
                                         </div>
+                                    </div>
 
-                                        <asp:GridView ID="GridView1" runat="server" AutoGenerateColumns="False"
-                                            DataKeyNames="ID" AllowPaging="True" OnPageIndexChanging="OnPaging"
-                                            EmptyDataText="No records has been added."
-                                            CssClass="table" CellPadding="5" ForeColor="#333333" GridLines="None" PageSize="200">
-                                            <AlternatingRowStyle BackColor="White" ForeColor="#284775" />
-                                            <Columns>
-                                                <asp:TemplateField HeaderStyle-CssClass="align-content-center" HeaderText="ปี">
-                                                    <ItemTemplate>
-                                                        <asp:Label ID="lblyear" runat="server" CssClass="table-warning" Text='<%# Eval("year") %>'></asp:Label>
-                                                    </ItemTemplate>
-                                                    <HeaderStyle CssClass="align-content-center" />
-                                                </asp:TemplateField>
-                                                <asp:TemplateField HeaderStyle-CssClass="align-content-center" HeaderText="ข้อมูล">
-                                                    <ItemTemplate>
-                                                        <asp:Label ID="lblSec" runat="server" CssClass="table-warning" Text='<%# Eval("section") %>'></asp:Label>
-                                                    </ItemTemplate>
-                                                    <HeaderStyle CssClass="align-content-center" />
-                                                </asp:TemplateField>
-                                                <asp:TemplateField HeaderStyle-CssClass="align-content-center" HeaderText="ข้อมูลย่อย">
-                                                    <ItemTemplate>
-                                                        <asp:Label ID="lblSub" runat="server" Text='<%# Eval("SubSec") %>'></asp:Label>
-                                                    </ItemTemplate>
-                                                    <HeaderStyle CssClass="align-content-center" />
-                                                </asp:TemplateField>
-                                                <asp:TemplateField>
-                                                    <ItemTemplate>
-                                                        <asp:LinkButton ID="Edit" runat="server" AutoPostBack="True" CommandArgument="<%# Container.DataItemIndex %>" OnClick="LinkButton1_Click"><i class="fas fa-edit"></i></asp:LinkButton>
-                                                          </ItemTemplate>
-                                                </asp:TemplateField>
-                                                 <asp:TemplateField>
-     <ItemTemplate>
-         <asp:LinkButton ID="Delete" runat="server" AutoPostBack="True" CommandArgument="<%# Container.DataItemIndex %>" OnClick="lbtDelete_Click" OnClientClick="return confirmDelete();"><i class="fas fa-trash-alt"></i></asp:LinkButton>
-     </ItemTemplate>
- </asp:TemplateField>
-                                            </Columns>
-                                            <EditRowStyle BackColor="#999999" />
-                                            <FooterStyle BackColor="#5D7B9D" ForeColor="White" Font-Bold="True" />
-                                            <HeaderStyle BackColor="#5D7B9D" Font-Bold="True" ForeColor="White" />
-                                            <PagerStyle ForeColor="White" HorizontalAlign="Center" BackColor="#284775" />
-                                            <RowStyle BackColor="#F7F6F3" ForeColor="#333333" />
-                                            <SelectedRowStyle BackColor="#E2DED6" ForeColor="#333333" Font-Bold="True" />
-                                            <SortedAscendingCellStyle BackColor="#E9E7E2" />
-                                            <SortedAscendingHeaderStyle BackColor="#506C8C" />
-                                            <SortedDescendingCellStyle BackColor="#FFFDF8" />
-                                            <SortedDescendingHeaderStyle BackColor="#6F8DAE" />
+                                    <div class="mb-3 row">
+                                        <label class="form-label col-md-3">ปีงบประมาณ</label>
+                                        <div class="col-md-6">
+                                            <asp:DropDownList ID="ddlType" runat="server" CssClass="form-select">
+                                                <asp:ListItem Value="0">--- เลือกประเภทสิ่งตีพิมพ์ ---</asp:ListItem>
+                                                <asp:ListItem Value="1">ผลงานวิจัยระดับชาติ</asp:ListItem>
+                                                <asp:ListItem Value="2">ผลงานวิจัยระดับนานาชาติ</asp:ListItem>
+                                            </asp:DropDownList>
+                                        </div>
+                                    </div>
 
-                                        </asp:GridView>
+                                    <div class="mb-3 row">
+                                        <label for="example-text-input" class="col-md-3 col-form-label ">ชื่อของข้อมูล</label>
+                                        <div class="col-md-6">
+                                            <asp:TextBox ID="txtTitle" CssClass="form-control" runat="server" type="text" autocomplete="off"></asp:TextBox>
+                                        </div>
+                                    </div>
+
+                                    <div class="mb-3 row">
+                                        <label for="example-text-input" class="col-md-3 col-form-label ">ชื่อผู้แต่ง</label>
+                                        <div class="col-md-6">
+                                            <asp:TextBox ID="txtAuthors" CssClass="form-control" runat="server" type="text" autocomplete="off"></asp:TextBox>
+                                        </div>
+                                    </div>
+
+                                    <div class="mb-3 row">
+                                        <label for="example-text-input" class="col-md-3 col-form-label ">Scopus_source</label>
+                                        <div class="col-md-6">
+                                            <asp:TextBox ID="txtScopus" CssClass="form-control" runat="server" type="text" autocomplete="off"></asp:TextBox>
+                                        </div>
+                                    </div>
+
+                                    <div class="mb-3 row">
+                                        <label for="example-text-input" class="col-md-3 col-form-label ">TCI</label>
+                                        <div class="col-md-6">
+                                            <asp:TextBox ID="txtTCI" CssClass="form-control" runat="server" type="text" autocomplete="off"></asp:TextBox>
+                                        </div>
+                                    </div>
+
+                                    <div class="mb-3 row">
+                                        <label for="example-text-input" class="col-md-3 col-form-label ">Volume</label>
+                                        <div class="col-md-3">
+                                            <asp:TextBox ID="txtVolume" CssClass="form-control" runat="server" type="text" autocomplete="off"></asp:TextBox>
+                                        </div>
+                                        <label for="example-text-input" class="col-md-1 col-form-label ">Issue</label>
+                                        <div class="col-md-2">
+                                            <asp:TextBox ID="txtIssue" CssClass="form-control" runat="server" type="text" autocomplete="off"></asp:TextBox>
+                                        </div>
+                                    </div>
+
+
+                                    <div class="mb-3 row">
+                                        <label for="example-text-input" class="col-md-3 col-form-label ">Pages</label>
+                                        <div class="col-md-6">
+                                            <asp:TextBox ID="txtPages" CssClass="form-control" runat="server" type="text" autocomplete="off"></asp:TextBox>
+                                        </div>
+                                    </div>
+
+                                    <div class="mb-3 row">
+                                        <label for="example-text-input" class="col-md-3 col-form-label ">DOI</label>
+                                        <div class="col-md-6">
+                                            <asp:TextBox ID="txtDOI" CssClass="form-control" runat="server" type="text" autocomplete="off"></asp:TextBox>
+                                        </div>
+                                    </div>
+
+
+                                    <div class="mb-3 row">
+                                        <label class="form-label col-md-3">KPI</label>
+                                        <div class="col-md-6">
+
+                                            <asp:CheckBoxList ID="cblProject" runat="server" CssClass="form-check">
+                                            </asp:CheckBoxList>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </asp:Panel>
-                     <asp:Label ID="Label1" runat="server" Text="" Style="display: none"></asp:Label>
-                    <asp:Panel ID="Panel2" runat="server" Visible="True">
-                        <div class="row">
-                            <div class="col-lg-12">
+                    </div>
+                    <asp:HiddenField ID="hfPubNo" runat="server" />
 
-                                <div class="card">
-                                    <div class="card-body">
-                                            <div>
-                                                <h4 class="mb-4" style="font-weight: bolder">อัพเดตข้อมูล OIT</h4>
-                                            </div>
+                    <div class="text-center mt-4">
+                        <asp:Button ID="btnsubmitPub" runat="server" Text="Save" CssClass="btn bg-soft-success waves-effect waves-light" Width="120px" Visible="False" />
+                        <asp:Button ID="btnupdatePub" runat="server" Text="Update" CssClass="btn bg-soft-primary waves-effect waves-light" Width="120px" Visible="False" />
+                        <asp:Button ID="btnCancel" runat="server" Text="Cancel" CssClass="btn bg-soft-danger waves-effect waves-light" Width="120px" OnClientClick="cancelValidation(); return true;" Visible="True" />
 
-                                            <div class="mb-3 row">
-                                                <label for="example-text-input" class="col-md-3 col-form-label ">ประจำปี</label>
-                                                <div class="col-md-6">
-                                                    <asp:TextBox ID="txtyear" CssClass="form-control" runat="server" type="text" required data-parsley-required-message="* กรุณาระบุปี" autocomplete="off"></asp:TextBox>
-                                                </div>
-                                            </div>
-                                            <div class="mb-3 row">
-                                                <label class="col-md-3 col-form-label ">หัวข้อของข้อมูล</label>
-                                                <div class="col-md-6">
-                                                    <asp:DropDownList ID="ddlTitle" runat="server" CssClass="form-select" required data-parsley-min="1" data-parsley-required-message="* กรุณาระบุประเภท">
-                                                        <asp:ListItem Value="0">ระบุหัวข้อ</asp:ListItem>
-                                                        <asp:ListItem Value="1">ข้อมูลพื้นฐาน</asp:ListItem>
-                                                        <asp:ListItem Value="2">การประชาสัมพันธ์</asp:ListItem>
-                                                        <asp:ListItem Value="3">การปฏิสัมพันธ์ข้อมูล</asp:ListItem>
-                                                        <asp:ListItem Value="4">แผนการดำเนินงานและงบประมาณ</asp:ListItem>
-                                                        <asp:ListItem Value="5">การปฏิบัติงาน</asp:ListItem>
-                                                        <asp:ListItem Value="6">การให้บริการและการติดต่อประสานงาน</asp:ListItem>
-                                                        <asp:ListItem Value="7">แผนการใช้จ่ายงบประมาณประจำปี</asp:ListItem>
-                                                        <asp:ListItem Value="8">การจัดซื้อจัดจ้างหรือการจัดหาพัสดุ</asp:ListItem>
-                                                        <asp:ListItem Value="9">การบริหารและพัฒนาทรัพยากรบุคคล</asp:ListItem>
-                                                        <asp:ListItem Value="10">การจัดการเรื่องร้องเรียนการทุจริตและประพฤติมิชอบ</asp:ListItem>
-                                                        <asp:ListItem Value="11">การเปิดโอกาสให้เกิดการมีส่วนร่วม</asp:ListItem>
-                                                        <asp:ListItem Value="12">นโยบาย No Gift Policy</asp:ListItem>
-                                                        <asp:ListItem Value="13">การประเมินความเสี่ยงเพื่อป้องกันการทุจริต</asp:ListItem>
-                                                        <asp:ListItem Value="14">การเสริมสร้างวัฒนธรรมองค์กร</asp:ListItem>
-                                                        <asp:ListItem Value="15">แผนป้องกันการทุจริต</asp:ListItem>
-                                                        <asp:ListItem Value="16">มาตรการส่งเสริมความโปร่งใใสและป้องกันการทุจริตภายในหน่วยงาน</asp:ListItem>
-                                                        <asp:ListItem Value="17">ผลการดำเนินงาน ITA</asp:ListItem>
-                                                    </asp:DropDownList>
-                                                </div>
-                                            </div>
-                                            <div class="mb-3 row">
-                                                <label for="example-text-input" class="col-md-3 col-form-label ">ชื่อของข้อมูล</label>
-                                                <div class="col-md-6">
-                                                    <asp:TextBox ID="txtSec" CssClass="form-control" runat="server" type="text" required data-parsley-required-message="* กรุณาระบุชื่อของข้อมูล" autocomplete="off"></asp:TextBox>
-                                                </div>
-                                            </div>
-
-                                            <div class="mb-3 row">
-                                                <label for="example-text-input" class="col-md-3 col-form-label ">ชื่อย่อยของข้อมูล (*ถ้ามีมากกว่า 2 ไฟล์)</label>
-                                                <div class="col-md-6">
-                                                    <asp:TextBox ID="txtSub" CssClass="form-control" runat="server" type="text" autocomplete="off"></asp:TextBox>
-                                                </div>
-                                            </div>
-                                            <div class="mb-3 row">
-                                                <label for="example-text-input" class="col-md-3 col-form-label ">linkของข้อมูล</label>
-                                                <div class="col-md-6">
-                                                    <asp:TextBox ID="txtLink" CssClass="form-control" runat="server" type="text" required data-parsley-required-message="* กรุณาระบุLinkของข้อมูล" autocomplete="off"></asp:TextBox>
-                                                </div>
-                                            </div>
-                                            </div>
-                                            </div>
-                                    </div>
-                                    </div>
-                    </asp:Panel>
-
-                     <div class="text-center mt-4">
-     <asp:Button ID="btnsubmit" runat="server" Text="Save" CssClass="btn bg-soft-success waves-effect waves-light" Width="120px" Visible="False" />
-     <asp:Button ID="btnupdate" runat="server" Text="Update" CssClass="btn bg-soft-primary waves-effect waves-light" Width="120px" Visible="False" />
-     <asp:Button ID="btnCancel" runat="server" Text="Cancel" CssClass="btn bg-soft-danger waves-effect waves-light" Width="120px" OnClientClick="cancelValidation(); return true;" Visible="False" />
-
- </div>
+                    </div>
+                </asp:Panel>
 
 
 
-                </div>
+
+            </div>
         </div>
     </form>
 
-      <!-- Magnific Popup-->
+    <!-- Magnific Popup-->
     <script src="minible/layouts/assets/libs/magnific-popup/jquery.magnific-popup.min.js"></script>
 
     <!-- lightbox init js-->
@@ -232,16 +288,16 @@
     <script src="minible/layouts/assets/js/app.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
     <script src="minible/layouts/assets/libs/dropzone/min/dropzone.min.js"></script>
-   
+
     <script type="text/javascript">
         var $j1112 = $.noConflict(true);
         $j1112(document).ready(function () {
-           $j1112('#' + btnsubmitClientId).on('click', function (e) {
-              
-           });
-       });
+            $j1112('#' + btnsubmitClientId).on('click', function (e) {
+
+            });
+        });
     </script>
- 
+
 
     <script>
         function confirmDelete() {
@@ -251,4 +307,3 @@
     </script>
 </body>
 </html>
-

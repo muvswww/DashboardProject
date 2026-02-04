@@ -23,112 +23,184 @@ Partial Public Class Up_research
     Protected WithEvents form As Global.System.Web.UI.HtmlControls.HtmlForm
 
     '''<summary>
-    '''Panel1 control.
+    '''Labelpub control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents Panel1 As Global.System.Web.UI.WebControls.Panel
+    Protected WithEvents Labelpub As Global.System.Web.UI.WebControls.Label
 
     '''<summary>
-    '''Add control.
+    '''panelPub control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents Add As Global.System.Web.UI.WebControls.Button
+    Protected WithEvents panelPub As Global.System.Web.UI.WebControls.Panel
 
     '''<summary>
-    '''GridView1 control.
+    '''addPub control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents GridView1 As Global.System.Web.UI.WebControls.GridView
+    Protected WithEvents addPub As Global.System.Web.UI.WebControls.Button
 
     '''<summary>
-    '''Label1 control.
+    '''ddlYearPub1 control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents Label1 As Global.System.Web.UI.WebControls.Label
+    Protected WithEvents ddlYearPub1 As Global.System.Web.UI.WebControls.DropDownList
 
     '''<summary>
-    '''Panel2 control.
+    '''GridViewPub control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents Panel2 As Global.System.Web.UI.WebControls.Panel
+    Protected WithEvents GridViewPub As Global.System.Web.UI.WebControls.GridView
 
     '''<summary>
-    '''txtyear control.
+    '''panelUpPub control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents txtyear As Global.System.Web.UI.WebControls.TextBox
+    Protected WithEvents panelUpPub As Global.System.Web.UI.WebControls.Panel
 
     '''<summary>
-    '''ddlTitle control.
+    '''ddlYearPub2 control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents ddlTitle As Global.System.Web.UI.WebControls.DropDownList
+    Protected WithEvents ddlYearPub2 As Global.System.Web.UI.WebControls.DropDownList
 
     '''<summary>
-    '''txtSec control.
+    '''ddlType control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents txtSec As Global.System.Web.UI.WebControls.TextBox
+    Protected WithEvents ddlType As Global.System.Web.UI.WebControls.DropDownList
 
     '''<summary>
-    '''txtSub control.
+    '''txtTitle control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents txtSub As Global.System.Web.UI.WebControls.TextBox
+    Protected WithEvents txtTitle As Global.System.Web.UI.WebControls.TextBox
 
     '''<summary>
-    '''txtLink control.
+    '''txtAuthors control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents txtLink As Global.System.Web.UI.WebControls.TextBox
+    Protected WithEvents txtAuthors As Global.System.Web.UI.WebControls.TextBox
 
     '''<summary>
-    '''btnsubmit control.
+    '''txtScopus control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents btnsubmit As Global.System.Web.UI.WebControls.Button
+    Protected WithEvents txtScopus As Global.System.Web.UI.WebControls.TextBox
 
     '''<summary>
-    '''btnupdate control.
+    '''txtTCI control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents btnupdate As Global.System.Web.UI.WebControls.Button
+    Protected WithEvents txtTCI As Global.System.Web.UI.WebControls.TextBox
+
+    '''<summary>
+    '''txtVolume control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents txtVolume As Global.System.Web.UI.WebControls.TextBox
+
+    '''<summary>
+    '''txtIssue control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents txtIssue As Global.System.Web.UI.WebControls.TextBox
+
+    '''<summary>
+    '''txtPages control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents txtPages As Global.System.Web.UI.WebControls.TextBox
+
+    '''<summary>
+    '''txtDOI control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents txtDOI As Global.System.Web.UI.WebControls.TextBox
+
+    '''<summary>
+    '''cblProject control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents cblProject As Global.System.Web.UI.WebControls.CheckBoxList
+
+    '''<summary>
+    '''hfPubNo control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents hfPubNo As Global.System.Web.UI.WebControls.HiddenField
+
+    '''<summary>
+    '''btnsubmitPub control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents btnsubmitPub As Global.System.Web.UI.WebControls.Button
+
+    '''<summary>
+    '''btnupdatePub control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents btnupdatePub As Global.System.Web.UI.WebControls.Button
 
     '''<summary>
     '''btnCancel control.

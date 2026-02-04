@@ -281,6 +281,9 @@
     <Content Include="minible\layouts\assets\images\users\avatar-6.jpg" />
     <Content Include="minible\layouts\assets\images\users\avatar-7.jpg" />
     <Content Include="minible\layouts\assets\images\users\avatar-8.jpg" />
+    <Content Include="minible\layouts\assets\images\ปก\1.png" />
+    <Content Include="minible\layouts\assets\images\ปก\2.png" />
+    <Content Include="minible\layouts\assets\images\ปก\3.png" />
     <Content Include="minible\layouts\assets\js\app.js" />
     <Content Include="minible\layouts\assets\js\pages\apexcharts.init.js" />
     <Content Include="minible\layouts\assets\js\pages\auth-carousel.init.js" />
@@ -731,6 +734,7 @@
     <Content Include="minible\unicons.iconscout.com\release\v3.0.0\fonts\line\unicons-9.ttf" />
     <Content Include="minible\unicons.iconscout.com\release\v3.0.0\fonts\line\unicons-9.woff" />
     <Content Include="minible\unicons.iconscout.com\release\v3.0.0\fonts\line\unicons-9.woff2" />
+    <Content Include="WebForm2.aspx" />
     <None Include="My Project\PublishProfiles\Dashboard.pubxml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -864,6 +868,13 @@
     <Compile Include="WebForm1.aspx.vb">
       <DependentUpon>WebForm1.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="WebForm2.aspx.designer.vb">
+      <DependentUpon>WebForm2.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="WebForm2.aspx.vb">
+      <DependentUpon>WebForm2.aspx</DependentUpon>
+      <SubType>ASPXCodebehind</SubType>
     </Compile>
   </ItemGroup>
   <ItemGroup>
