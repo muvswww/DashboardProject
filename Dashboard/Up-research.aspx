@@ -77,13 +77,30 @@
         input[type="checkbox"] + label {
             margin-left: 6px;
         }
-        .table td, .table th {
-    border-left: 1px solid #ccc;
-    border-right: 1px solid #ccc;
-    border-top: none;
-    border-bottom: none;
-}
 
+        .table td, .table th {
+            border:1px solid #ccc;
+            /*border-left: 1px solid #ccc;
+            border-right: 1px solid #ccc;
+            border-top: none;
+            border-bottom: none;*/
+        }
+
+        .banner-box {
+            width: 100%;
+            height: 200px; /* ความสูงแบนเนอร์ */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            background-color: #fff; /* เผื่อภาพไม่เต็ม */
+        }
+
+            .banner-box img {
+                width: 100%;
+                height: 100%;
+                object-fit: contain; /* เห็นภาพครบ */
+            }
     </style>
 </head>
 <body data-layout="horizontal" data-topbar="colored" data-layout-size="boxed">
@@ -96,24 +113,26 @@
                         <div class="col-12">
                             <div class="card">
                                 <div class="card-body">
-                                    <div style="height: 200px; width: 100%; background-image: url('minible/layouts/assets/images/ปก/1.png');">
+                                    <div class="banner-box">
+                                        <img src="minible/layouts/assets/images/ปก/1.png" alt="banner">
                                     </div>
+
                                     <div class="row align-items-center mb-3 mt-3">
-    <div class="col-6 col-md-6">
-        <asp:Button ID="addPub" runat="server"
-            Text="+ เพิ่มข้อมูล"
-            CssClass="btn btn-primary waves-effect waves-light" />
-    </div>
+                                        <div class="col-6 col-md-6">
+                                            <asp:Button ID="addPub" runat="server"
+                                                Text="+ เพิ่มข้อมูล"
+                                                CssClass="btn btn-primary waves-effect waves-light" />
+                                        </div>
 
-    <div class="col-6 col-md-6 text-end">
-        <asp:DropDownList ID="ddlYearPub1" runat="server"
-            CssClass="form-select d-inline-block w-auto"
-            AutoPostBack="true"
-            OnSelectedIndexChanged="ddlYearPub1_SelectedIndexChanged">
-        </asp:DropDownList>
-    </div>
+                                        <div class="col-6 col-md-6 text-end">
+                                            <asp:DropDownList ID="ddlYearPub1" runat="server"
+                                                CssClass="form-select d-inline-block w-auto"
+                                                AutoPostBack="true"
+                                                OnSelectedIndexChanged="ddlYearPub1_SelectedIndexChanged">
+                                            </asp:DropDownList>
+                                        </div>
 
-</div>
+                                    </div>
 
                                     <asp:GridView ID="GridViewPub" runat="server" AutoGenerateColumns="False"
                                         DataKeyNames="NO" AllowPaging="True" OnPageIndexChanging="OnPaging"

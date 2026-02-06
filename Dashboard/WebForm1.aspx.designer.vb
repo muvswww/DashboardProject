@@ -131,6 +131,33 @@ Partial Public Class WebForm1
     Protected WithEvents ddlSource As Global.System.Web.UI.WebControls.DropDownList
 
     '''<summary>
+    '''txtStartDate control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents txtStartDate As Global.System.Web.UI.HtmlControls.HtmlInputText
+
+    '''<summary>
+    '''txtEndDate control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents txtEndDate As Global.System.Web.UI.HtmlControls.HtmlInputText
+
+    '''<summary>
+    '''txtExtendDate control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents txtExtendDate As Global.System.Web.UI.HtmlControls.HtmlInputText
+
+    '''<summary>
     '''txtamount control.
     '''</summary>
     '''<remarks>

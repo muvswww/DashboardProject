@@ -17,6 +17,7 @@ Public Class WebForm1
             BindgridFund()
             'LoadYearFund()
             LoadYearFilterFund()
+            ddlNameuserFund()
         End If
 
     End Sub
@@ -60,30 +61,40 @@ ORDER BY Fund_ID"
             LoadDeptFund(ddlUserFund.SelectedValue)
         Else
             ddlDept.Items.Clear()
-            ddlDept.Items.Insert(0, New ListItem("-- เลือกหน่วยงาน --", "0"))
+            ddlDept.Items.Add(New ListItem("-- เลือกหน่วยงาน --", "0"))
+            ddlDept.Enabled = False
         End If
     End Sub
+
     Private Sub LoadDeptFund(userId As String)
+
         Dim SQLRN As String = "SELECT d.dept_id, d.dept_name
-                         FROM dbo.[user] u
-                         INNER JOIN dbo.department d ON u.dept_id = d.dept_id
-                         WHERE u.user_id = @userId"
+                           FROM dbo.[user] u
+                           INNER JOIN dbo.department d ON u.dept_id = d.dept_id
+                           WHERE u.user_id = @userId"
 
         Dim parameters As SqlParameter() = {
-                    New SqlParameter("@userId", userId)
-                                                   }
+        New SqlParameter("@userId", userId)
+    }
+
         Dim dt As DataTable = QueryDataTable2(SQLRN, dbConn, "itjobs", parameters)
+
         ddlDept.Items.Clear()
 
         If dt.Rows.Count > 0 Then
-            ddlDept.DataSource = dt
-            ddlDept.DataValueField = "dept_id"
-            ddlDept.DataTextField = "dept_name"
-            ddlDept.DataBind()
+            ' เพิ่มรายการเดียว แล้วเลือกให้เลย
+            Dim deptId As String = dt.Rows(0)("dept_id").ToString()
+            Dim deptName As String = dt.Rows(0)("dept_name").ToString()
+
+            ddlDept.Items.Add(New ListItem(deptName, deptId))
+            ddlDept.SelectedValue = deptId   ' เลือกค่าให้อัตโนมัติ
+        Else
+            ddlDept.Items.Add(New ListItem("ไม่พบหน่วยงาน", "0"))
         End If
 
-        ddlDept.Items.Insert(0, New ListItem("-- เลือกหน่วยงาน --", "0"))
+        ddlDept.Enabled = False   ' 🔒 ล็อกไม่ให้ผู้ใช้เปลี่ยน
     End Sub
+
 
 
     'Private Sub LoadYearFund()
@@ -146,13 +157,13 @@ ORDER BY Fund_ID"
         BindgridFund()
     End Sub
     Private Sub BindgridFund()
-        Dim SQLRN As String = "SELECT        Research_Fund.no, Research_Fund.year, Research_Fund.user_id, Research_Fund.title, Research_Fund.type, CASE WHEN itjobs.dbo.title_technical.title_technicalName IS NULL 
-                         THEN itjobs.dbo.title.title_name + itjobs.dbo.[user].fname + SPACE(2) + itjobs.dbo.[user].lname ELSE itjobs.dbo.title_technical.title_technicalName + itjobs.dbo.[user].fname + SPACE(2) 
-                         + itjobs.dbo.[user].lname END AS fullname
-FROM            Research_Fund INNER JOIN
-                         itjobs.dbo.[user] ON Research_Fund.user_id = itjobs.dbo.[user].user_id INNER JOIN
+        Dim SQLRN As String = "SELECT        dbo.Research_Fund.no, dbo.Research_Fund.year, dbo.Research_Fund.user_id, dbo.Research_Fund.title, dbo.Research_Fund.type, CASE WHEN itjobs.dbo.title_technical.title_technicalName IS NULL 
+                         THEN itjobs.dbo.title.title_name + itjobs.dbo.[user].fname + SPACE(2) + itjobs.dbo.[user].lname ELSE itjobs.dbo.title_technical.title_technicalName + itjobs.dbo.[user].fname + SPACE(2) + itjobs.dbo.[user].lname END AS fullname, 
+                         CASE WHEN dbo.Research_Fund.type = 1 THEN 'ทุนวิจัย' WHEN dbo.Research_Fund.type = 2 THEN 'บริการวิชาการ' ELSE '-' END AS type_name
+FROM            dbo.Research_Fund INNER JOIN
+                         itjobs.dbo.[user] ON dbo.Research_Fund.user_id = itjobs.dbo.[user].user_id INNER JOIN
                          itjobs.dbo.title_technical ON itjobs.dbo.[user].title_technicalID = itjobs.dbo.title_technical.title_technicalID INNER JOIN
-                         itjobs.dbo.title ON itjobs.dbo.[user].title_id = itjobs.dbo.title.title_id "
+                         itjobs.dbo.title ON itjobs.dbo.[user].title_id = itjobs.dbo.title.title_id"
 
 
         If Not String.IsNullOrEmpty(ddlYearFund1.SelectedValue) Then
@@ -210,87 +221,82 @@ FROM            Research_Fund INNER JOIN
         btnsubmitFund.Visible = True
         btnupdateFund.Visible = False
     End Sub
-    'Protected Sub LinkButton1_Click(ByVal sender As Object, ByVal e As EventArgs)
-    '    Dim btnEdit As LinkButton = TryCast(sender, LinkButton)
-    '    Dim rowIndex As Integer = Convert.ToInt32(btnEdit.CommandArgument)
-    '    Dim NO As Integer = Convert.ToInt32(GridViewFund.DataKeys(rowIndex).Value)
-    '    hfFundNo.Value = NO.ToString()
-    '    LoadYearFund()
-    '    'hfNewId.Value = newId.ToString()
-    '    'LabelFund.Text = NO.ToString()
+    Protected Sub LinkButton1_Click(ByVal sender As Object, ByVal e As EventArgs)
+        Dim btnEdit As LinkButton = TryCast(sender, LinkButton)
+        Dim rowIndex As Integer = Convert.ToInt32(btnEdit.CommandArgument)
+        Dim NO As Integer = Convert.ToInt32(GridViewFund.DataKeys(rowIndex).Value)
+        hfFundNo.Value = NO.ToString()
+        LabelFund.Text = NO.ToString()
+        'LoadYearFund()
 
-    '    Dim SQLRN As String = "SELECT       no, year, month, type, title, authors, scopus_source, TCI, Volume, Issue, Pages, DOI, KPI, inputDate
-    'FROM            Research_Fund
-    'WHERE (no = " & NO & ")"
-    '    Dim dt As DataTable = QueryDataTable2(SQLRN, dbConn, "Dashboard", Nothing)
+        Dim SQLRN As String = "SELECT        no, year, user_id, title, Fund_ID, type, dept_id, stDate, fnDate, GrantExtDate, amount
+    FROM            Research_Fund
+    WHERE (no = " & NO & ")"
+        Dim dt As DataTable = QueryDataTable2(SQLRN, dbConn, "Dashboard", Nothing)
 
-    '    If dt.Rows.Count > 0 Then
-    '        Dim selectedYear As String = dt.Rows(0)("year").ToString()
-    '        If ddlYearFund2.Items.FindByValue(selectedYear) IsNot Nothing Then
-    '            ddlYearFund2.SelectedValue = selectedYear
-    '        End If
-    '        Dim selectedValue As String = dt.Rows(0)("type").ToString()
-    '        ddlType.SelectedValue = selectedValue
-    '        txtTitle.Text = dt.Rows(0)("title")
-    '        txtAuthors.Text = dt.Rows(0)("authors")
-    '        If dt.Rows(0)("scopus_source") Is DBNull.Value Then
-    '            txtScopus.Text = "" ' กำหนดให้เป็นข้อความว่าง
-    '        Else
-    '            txtScopus.Text = dt.Rows(0)("scopus_source")
-    '        End If
-    '        If dt.Rows(0)("TCI") Is DBNull.Value Then
-    '            txtTCI.Text = "" ' กำหนดให้เป็นข้อความว่าง
-    '        Else
-    '            txtTCI.Text = dt.Rows(0)("TCI")
-    '        End If
-    '        If dt.Rows(0)("Volume") Is DBNull.Value Then
-    '            txtVolume.Text = "" ' กำหนดให้เป็นข้อความว่าง
-    '        Else
-    '            txtVolume.Text = dt.Rows(0)("Volume")
-    '        End If
-    '        If dt.Rows(0)("Issue") Is DBNull.Value Then
-    '            txtIssue.Text = "" ' กำหนดให้เป็นข้อความว่าง
-    '        Else
-    '            txtIssue.Text = dt.Rows(0)("Issue")
-    '        End If
-    '        If dt.Rows(0)("Pages") Is DBNull.Value Then
-    '            txtPages.Text = "" ' กำหนดให้เป็นข้อความว่าง
-    '        Else
-    '            txtPages.Text = dt.Rows(0)("Pages")
-    '        End If
-    '        If dt.Rows(0)("DOI") Is DBNull.Value Then
-    '            txtDOI.Text = "" ' กำหนดให้เป็นข้อความว่าง
-    '        Else
-    '            txtDOI.Text = dt.Rows(0)("DOI")
-    '        End If
-    '        LoadProjectsFund()
+        If dt.Rows.Count > 0 Then
 
-    '        SetCheckedKPI(dt.Rows(0)("KPI").ToString())
-    '    End If
+            txtyear.Text = dt.Rows(0)("year")
+            Dim selectedtype As String = dt.Rows(0)("type").ToString()
+            If ddlType.Items.FindByValue(selectedtype) IsNot Nothing Then
+                ddlType.SelectedValue = selectedtype
+            End If
+            Dim selectedUser As String = dt.Rows(0)("user_id").ToString()
+            If ddlUserFund.Items.FindByValue(selectedUser) IsNot Nothing Then
+                ddlUserFund.SelectedValue = selectedUser
+                LoadDeptFund(selectedUser)
+            End If
+            'Dim selectedDept As String = dt.Rows(0)("dept_id").ToString()
+            'If ddlDept.Items.FindByValue(selectedDept) IsNot Nothing Then
+            '    ddlDept.SelectedValue = selectedDept
+            'End If
+            Dim selectedddlSource As String = dt.Rows(0)("Fund_ID").ToString()
+            If ddlSource.Items.FindByValue(selectedddlSource) IsNot Nothing Then
+                ddlSource.SelectedValue = selectedddlSource
+            End If
+            txtTitle.Text = dt.Rows(0)("title")
+            If Not IsDBNull(dt.Rows(0)("stDate")) Then
+                txtStartDate.Value = Convert.ToDateTime(dt.Rows(0)("stDate")).ToString("dd MMM, yyyy")
+            End If
 
-    '    panelFund.Visible = False
-    '    panelUpFund.Visible = True
-    '    btnupdateFund.Visible = True
-    '    btnsubmitFund.Visible = False
+            If Not IsDBNull(dt.Rows(0)("fnDate")) Then
+                txtEndDate.Value = Convert.ToDateTime(dt.Rows(0)("fnDate")).ToString("dd MMM, yyyy")
+            End If
+
+            If Not IsDBNull(dt.Rows(0)("GrantExtDate")) Then
+                txtExtendDate.Value = Convert.ToDateTime(dt.Rows(0)("GrantExtDate")).ToString("dd MMM, yyyy")
+            End If
+            If Not IsDBNull(dt.Rows(0)("amount")) Then
+                Dim amt As Decimal = Convert.ToDecimal(dt.Rows(0)("amount"))
+                txtamount.Text = amt.ToString("#,##0.00")
+            End If
+
+
+        End If
+
+        panelFund.Visible = False
+        panelUpFund.Visible = True
+        btnupdateFund.Visible = True
+        btnsubmitFund.Visible = False
+    End Sub
+    'Private Sub SetCheckedKPI(kpiString As String)
+
+    '    If String.IsNullOrEmpty(kpiString) Then Exit Sub
+
+    '    Dim selectedKPI As String() = kpiString.Split(","c)
+
+    '    For Each item As ListItem In cblProject.Items
+    '        If selectedKPI.Contains(item.Value.Trim()) Then
+    '            item.Selected = True
+    '        End If
+    '    Next
+
     'End Sub
-    '    Private Sub SetCheckedKPI(kpiString As String)
 
-    '        If String.IsNullOrEmpty(kpiString) Then Exit Sub
-
-    '        Dim selectedKPI As String() = kpiString.Split(","c)
-
-    '        For Each item As ListItem In cblProject.Items
-    '            If selectedKPI.Contains(item.Value.Trim()) Then
-    '                item.Selected = True
-    '            End If
-    '        Next
-
-    '    End Sub
-
-    '    Protected Sub BtnCancel_Click(sender As Object, e As EventArgs) Handles btnCancel.Click
-    '        panelFund.Visible = True
-    '        BindgridFund()
-    '    End Sub
+    Protected Sub BtnCancel_Click(sender As Object, e As EventArgs) Handles btnCancel.Click
+        panelFund.Visible = True
+        BindgridFund()
+    End Sub
     'Protected Sub btnsubmitFund_Click(sender As Object, e As EventArgs) Handles btnsubmitFund.Click
 
     '    Dim year As Integer = Convert.ToInt32(ddlYearFund2.SelectedValue)
