@@ -1,0 +1,114 @@
+﻿/****** Gridview HeaderStyle Style ******/
+ .GridHeader > th {
+    text-align:center !important;
+}
+/****** Gridview HeaderStyle Style ******/
+ .hideGridColumn {
+    display: none;
+}
+/****** Gridview Checkbox Style ******/
+
+/**** GridViewFund ******/
+/* จัด RadioButtonList ให้เหมือน Bootstrap */
+.fund-radio table {
+    border-collapse: collapse;
+}
+
+.fund-radio td {
+    padding-right: 25px;
+}
+
+/* จัด radio กับข้อความให้อยู่กึ่งกลางแนวเดียวกัน */
+.fund-radio input[type="radio"] {
+    vertical-align: middle;
+    margin-right: 6px;
+}
+
+.fund-radio label {
+    display: inline-block;
+    vertical-align: middle;
+    margin-bottom: 0;
+    font-weight: 500;
+    cursor: pointer;
+}
+/*.template-checkbox {
+    text-align:center;
+}
+.fund-radio table {
+    display: flex;
+    align-items: center;*/ /* จัดแนวตั้งให้อยู่กึ่งกลาง */
+    /*gap: 30px;*/ /* ระยะห่างแต่ละตัวเลือก */
+/*}
+
+.fund-radio td {
+    display: flex;
+    align-items: center;*/ /* ให้ปุ่มกับตัวหนังสืออยู่ระดับเดียวกัน */
+/*}
+
+.fund-radio input[type="radio"] {
+    margin-right: 6px;
+}*/
+/*.fund-radio {
+    margin-bottom: 15px;
+}
+
+.fund-radio label {
+    margin-right: 25px;
+    font-weight: 500;
+    cursor: pointer;
+}*/
+.table td, .table th {
+    vertical-align: middle !important;
+
+}
+
+/* ====== PAGER STYLE ====== */
+.table tr td table {
+    margin: auto;
+}
+
+    .table tr td table a,
+    .table tr td table span {
+        display: inline-block;
+        padding: 6px 12px;
+        margin: 0 3px;
+        border-radius: 6px;
+        border: 1px solid #d6a354;
+        text-decoration: none;
+        font-weight: 500;
+    }
+
+    .table tr td table a {
+        background-color: white;
+        color: #a55129;
+        transition: 0.2s;
+    }
+
+        .table tr td table a:hover {
+            background-color: #f3d19c;
+            color: #000;
+        }
+
+    .table tr td table span {
+        background-color: #a55129;
+        color: white;
+        border-color: #a55129;
+    }
+
+.table tbody tr:hover {
+    background-color: #fff3cd !important;
+    transition: 0.2s;
+}
+/**** GridViewFund ******/
+
+
+.table > tbody > tr > td > table {
+    border: none !important;
+    background: transparent !important;
+}
+
+    .table > tbody > tr > td > table td {
+        border: none !important;
+        background: transparent !important;
+    }
+

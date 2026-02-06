@@ -1,14 +1,9 @@
-﻿Imports System.Data.SqlClient
-Imports System.Drawing
-Imports System.Drawing.Imaging
-Imports System.IO
-Imports System.Web.Configuration
+﻿Imports System.Web.Configuration
 Imports Dashboard.ConnectDB
 Imports Dashboard.Encrypt
-Imports iTextSharp.text.pdf
-Imports Org.BouncyCastle.Crypto
+Imports System.Data.SqlClient
 
-Public Class WebForm1
+Public Class Up_researchFund
     Inherits System.Web.UI.Page
 
     Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load

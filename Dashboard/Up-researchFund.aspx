@@ -1,4 +1,4 @@
-﻿<%@ Page Language="vb" AutoEventWireup="false" CodeBehind="WebForm1.aspx.vb" Inherits="Dashboard.WebForm1" %>
+﻿<%@ Page Language="vb" AutoEventWireup="false" CodeBehind="Up-researchFund.aspx.vb" Inherits="Dashboard.Up_researchFund" %>
 
 <!DOCTYPE html>
 
@@ -93,13 +93,13 @@
                                         <img src="minible/layouts/assets/images/ปก/2.png" alt="banner">
                                     </div>
                                     <div class="row align-items-center mb-3 mt-3">
-                                        <div class="col-6 col-md-1">
+                                        <div class="col-6 col-md-2">
                                             <asp:Button ID="addFund" runat="server"
-                                                Text="+ เพิ่มข้อมูล"
+                                                Text="+ เพิ่มโครงการงานวิจัย"
                                                 CssClass="btn btn-primary waves-effect waves-light" />
                                         </div>
 
-                                        <div class="col-6 col-md-5">
+                                        <div class="col-6 col-md-4">
                                             <asp:Button ID="addFundsource" runat="server"
                                                 Text="+ เพิ่มแหล่งทุน"
                                                 CssClass="btn btn-warning waves-effect waves-light" />

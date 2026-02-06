@@ -21,7 +21,8 @@
     <link href="minible/layouts/assets/css/icons.min.css" rel="stylesheet" />
     <!-- App Css-->
     <link href="minible/layouts/assets/css/app.min.css" rel="stylesheet" />
-    <link href="minible/GridviewStyle.css" rel="stylesheet" />
+    
+    <link href="minible/layouts/assets/css/GridviewStyle.css" rel="stylesheet" />
     <!-- Lightbox css -->
     <link href="minible/layouts/assets/libs/magnific-popup/magnific-popup.css" rel="stylesheet" type="text/css" />
     <!-- JAVASCRIPT -->

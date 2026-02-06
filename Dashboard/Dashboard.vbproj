@@ -199,8 +199,10 @@
     <Content Include="minible\layouts\assets\css\font-awesome.min.css" />
     <Content Include="minible\layouts\assets\css\fonts\fontawesome-webfont-v=4.0.3.svg" />
     <Content Include="minible\layouts\assets\css\fonts\fontawesome-webfont.svg" />
+    <Content Include="minible\layouts\assets\css\GridviewStyle.css" />
     <Content Include="minible\layouts\assets\css\icons.min.css" />
     <Content Include="minible\layouts\assets\css\Style.css" />
+    <Content Include="minible\layouts\assets\fonts\DB X v3.2\style.css" />
     <Content Include="minible\layouts\assets\fonts\dripicons-v2.svg" />
     <Content Include="minible\layouts\assets\fonts\fa-brands-400.html" />
     <Content Include="minible\layouts\assets\fonts\fa-brands-400.svg" />
@@ -618,6 +620,8 @@
     <Content Include="test1.aspx" />
     <Content Include="testRES.aspx" />
     <Content Include="Up-research.aspx" />
+    <Content Include="Up-researchFund.aspx" />
+    <Content Include="Up-researchInnov.aspx" />
     <Content Include="Web.config" />
     <Content Include="packages.config" />
     <Content Include="MinibleV2.Master" />
@@ -735,6 +739,7 @@
     <Content Include="minible\unicons.iconscout.com\release\v3.0.0\fonts\line\unicons-9.woff" />
     <Content Include="minible\unicons.iconscout.com\release\v3.0.0\fonts\line\unicons-9.woff2" />
     <Content Include="WebForm2.aspx" />
+    <Content Include="minible\layouts\assets\fonts\DB X v3.2\font.ttf" />
     <None Include="My Project\PublishProfiles\Dashboard.pubxml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -860,6 +865,20 @@
     </Compile>
     <Compile Include="Up-research.aspx.vb">
       <DependentUpon>Up-research.aspx</DependentUpon>
+      <SubType>ASPXCodebehind</SubType>
+    </Compile>
+    <Compile Include="Up-researchFund.aspx.designer.vb">
+      <DependentUpon>Up-researchFund.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Up-researchFund.aspx.vb">
+      <DependentUpon>Up-researchFund.aspx</DependentUpon>
+      <SubType>ASPXCodebehind</SubType>
+    </Compile>
+    <Compile Include="Up-researchInnov.aspx.designer.vb">
+      <DependentUpon>Up-researchInnov.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Up-researchInnov.aspx.vb">
+      <DependentUpon>Up-researchInnov.aspx</DependentUpon>
       <SubType>ASPXCodebehind</SubType>
     </Compile>
     <Compile Include="WebForm1.aspx.designer.vb">

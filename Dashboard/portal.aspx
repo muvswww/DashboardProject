@@ -82,7 +82,7 @@
                         <h2 class="text-center mb-5">อัพเดทข้อมูลส่วนงานวิจัย</h2>
                        <div class="row mt-2">
                     <div class="col-md-6 col-xl-4">
-        <a href="Up-research.aspx?update=public">
+        <a href="Up-research.aspx">
     <div class="card">
         <img class="card-img-top img-fluid" src="minible/layouts/assets/images/Research1.png" >
         <div class="card-body">
@@ -92,7 +92,7 @@
         </a>
 </div>
                     <div class="col-md-6 col-xl-4">
-        <a href="Up-research.aspx?update=fund">
+        <a href="Up-researchFund.aspx">
     <div class="card">
         <img class="card-img-top img-fluid" src="minible/layouts/assets/images/Research2.png" >
         <div class="card-body">
@@ -102,7 +102,7 @@
         </a>
 </div>
                     <div class="col-md-6 col-xl-4">
-        <a href="Up-research.aspx?update=patent">
+        <a href="Up-researchInnov.aspx">
     <div class="card">
         <img class="card-img-top img-fluid" src="minible/layouts/assets/images/Research3.png" >
         <div class="card-body">
