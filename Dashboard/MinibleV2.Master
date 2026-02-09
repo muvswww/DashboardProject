@@ -292,6 +292,16 @@
                                 </a>
                             </li>
 
+                            <!-- Admin -->
+                            <li>
+                                <a href="portal.aspx" class="waves-effect">
+                                    <i class="uil-user-circle"></i>
+                                    <!-- ใช้ไอคอนเกี่ยวกับเงิน/บริจาค -->
+                                    <span class="badge rounded-pill bg-warning float-end">New</span>
+                                    <span>Admin</span>
+                                </a>
+                            </li>
+
 
 
 

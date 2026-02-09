@@ -85,10 +85,16 @@
             <div class="container-fluid mt-4">
                 <asp:Label ID="LabelFund" runat="server" Style="display: none"></asp:Label>
                 <asp:Panel ID="panelFund" runat="server">
+                   <%-- <div class="col-12 text-end">
+                                        <a href="portal.aspx" class="font-size-20">
+                                            <div class="uil-times">ปิด</div> 
+                                        </a>
+                                    </div>--%>
                     <div class="row">
                         <div class="col-12">
                             <div class="card">
                                 <div class="card-body">
+                                    
                                     <div class="banner-box">
                                         <img src="minible/layouts/assets/images/ปก/2.png" alt="banner">
                                     </div>

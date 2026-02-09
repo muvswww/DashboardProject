@@ -424,10 +424,6 @@ FROM            dbo.Research_Fund INNER JOIN
             GridViewsource.DataBind()
         End If
 
-
-
-
-
     End Sub
     Protected Sub GridViewsource_RowCommand(sender As Object, e As GridViewCommandEventArgs)
 

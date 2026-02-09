@@ -80,6 +80,7 @@
 
     .table tr td table a {
         background-color: white;
+        /*color: #a55129;*/
         color: #a55129;
         transition: 0.2s;
     }
