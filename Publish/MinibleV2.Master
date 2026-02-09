@@ -292,6 +292,16 @@
                                 </a>
                             </li>
 
+                            <!-- Admin -->
+                            <li>
+                                <a href="portal.aspx" class="waves-effect">
+                                    <i class="uil-user-circle"></i>
+                                    <!-- ใช้ไอคอนเกี่ยวกับเงิน/บริจาค -->
+                                    <span class="badge rounded-pill bg-warning float-end">New</span>
+                                    <span>Admin</span>
+                                </a>
+                            </li>
+
 
 
 
@@ -561,7 +571,7 @@
                         <div class="row">
                             <div class="col-12">
                                 <div class="page-title-box d-flex align-items-center justify-content-between">
-                                    <h4 class="mb-0">Dashboard</h4>
+                                    <%--<h4 class="mb-0">Dashboard</h4>--%>
 
                                     <%--<div class="page-title-right">
                                         <ol class="breadcrumb m-0">

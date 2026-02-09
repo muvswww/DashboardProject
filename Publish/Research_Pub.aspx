@@ -1,7 +1,7 @@
 ﻿<%@ Page Title="" Language="vb" AutoEventWireup="false" MasterPageFile="~/MinibleV2.Master" CodeBehind="Research_Pub.aspx.vb" Inherits="Dashboard.Research_Pub" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="HeadContent" runat="server">
-       <link href="Quark/quark_fontface.css" rel="stylesheet" />
+     <link href="Quark/quark_fontface.css" rel="stylesheet" />
     <link href="minible/layouts/assets/css/Style.css" rel="stylesheet" />
 
     <style>
@@ -103,7 +103,7 @@
                     <div class="dropdown m-3">
                         <a class="dropdown-toggle text-reset" href="#" id="dropdownMenuButton1"
                             data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <span class="fw-semibold font-size-18">ปี ค.ศ.</span>
+                            <span class="fw-semibold font-size-18">ปี พ.ศ.</span>
                             <span id="lblSelectedYear" runat="server" class="text-muted">ทั้งหมด</span>
                             <i class="mdi mdi-chevron-down ms-1"></i>
                         </a>
@@ -140,63 +140,26 @@
 
                             <div class="pub-summary luxury mt-5">
 
-                                <asp:LinkButton
-                                    ID="card11"
-                                    runat="server"
-                                    CssClass="pub-item accent-gold text-decoration-none d-block"
-                                    CommandArgument="C11"
-                                    OnClick="Metric_Click">
+                               <asp:Repeater ID="rptProject" runat="server">
+    <ItemTemplate>
+        <div class="pub-item accent-gold text-decoration-none d-block">
+            
+            <div class="pub-code">
+                <%# Eval("Project_no") %>
+            </div>
 
-                                    <div class="pub-code">1.1</div>
-                                    <div class="pub-code">Total International Publications</div>
-                                    <div class="pub-value">
-                                        <asp:Label ID="lbl11" runat="server" />
-                                    </div>
+            <div class="pub-code">
+                <%# Eval("ProjectName") %>
+            </div>
 
-                                </asp:LinkButton>
-                                <asp:LinkButton
-                                    ID="card12"
-                                    runat="server"
-                                    CssClass="pub-item accent-gold text-decoration-none d-block"
-                                    CommandArgument="C12"
-                                    OnClick="Metric_Click">
+            <div class="pub-value">
+                <%# Eval("LatestQuarterValue") %>
+            </div>
 
-                                    <div class="pub-code">1.2</div>
-                                    <div class="pub-code">International Publications in Q1 Journal</div>
-                                    <div class="pub-value">
-                                        <asp:Label ID="lbl12" runat="server" />
-                                    </div>
+        </div>
+    </ItemTemplate>
+</asp:Repeater>
 
-                                </asp:LinkButton>
-                                <asp:LinkButton
-                                    ID="card13"
-                                    runat="server"
-                                    CssClass="pub-item accent-gold text-decoration-none d-block"
-                                    CommandArgument="C13"
-                                    OnClick="Metric_Click">
-
-                                    <div class="pub-code">1.3</div>
-                                    <div class="pub-code">International Publications in Top 10 Journal</div>
-                                    <div class="pub-value">
-                                        <asp:Label ID="lbl13" runat="server" />
-                                    </div>
-
-                                </asp:LinkButton>
-
-                                <asp:LinkButton
-                                    ID="card19"
-                                    runat="server"
-                                    CssClass="pub-item accent-gold text-decoration-none d-block"
-                                    CommandArgument="C19"
-                                    OnClick="Metric_Click">
-
-                                    <div class="pub-code">1.9</div>
-                                    <div class="pub-code">International Publications in Top 1 Journal</div>
-                                    <div class="pub-value">
-                                        <asp:Label ID="lbl19" runat="server" />
-                                    </div>
-
-                                </asp:LinkButton>
 
 
 
@@ -215,6 +178,121 @@
                     <div class="container-fluid mt-3">
                         <div class="row mb-3">
                             <div class="col-md-12">
+                                
+                                                              <!-- ===== Dropdown เลือกคอลัมน์ ===== -->
+                                <div class="d-flex justify-content-end align-items-start gap-2 mb-3">
+<div class="dropdown mb-3">
+    <button class="btn btn-outline-secondary dropdown-toggle"
+        type="button"
+        id="colDropdown"
+        data-bs-toggle="dropdown"
+        aria-expanded="false">
+        เลือกคอลัมน์ที่แสดง
+    </button>
+
+    <div class="dropdown-menu p-3"
+     aria-labelledby="colDropdown"
+     onclick="event.stopPropagation();"
+     style="min-width: 260px;">
+      <div class="form-check mb-2">
+    <input type="checkbox"
+           id="chkAllColumns"
+           runat="server"
+           class="form-check-input"
+           onserverchange="chkAllColumns_CheckedChanged" />
+           
+    <label class="form-check-label fw-bold text-primary" for="chkAllColumns">
+        แสดงทั้งหมด
+    </label>
+</div>
+
+    <div class="fw-bold text-secondary mb-2">ข้อมูลบทความ</div>
+
+    <%--<div class="form-check">
+        <asp:CheckBox ID="chkTitle" type="checkbox" runat="server" />
+        <label class="form-check-label" for="<%= chkTitle.ClientID %>">ชื่อบทความ</label>
+    </div>
+
+    <div class="form-check">
+        <asp:CheckBox ID="chkAuthors" runat="server"  />
+        <label class="form-check-label" for="<%= chkAuthors.ClientID %>">ผู้แต่ง</label>
+    </div>
+
+    <div class="form-check">
+        <asp:CheckBox ID="chkSource" runat="server"/>
+        <label class="form-check-label" for="<%= chkSource.ClientID %>">แหล่งตีพิมพ์</label>
+    </div>
+
+    <div class="form-check">
+        <asp:CheckBox ID="chkVolume" runat="server" />
+        <label class="form-check-label" for="<%= chkVolume.ClientID %>">Volume</label>
+    </div>
+
+    <div class="form-check">
+        <asp:CheckBox ID="chkIssue" runat="server" />
+        <label class="form-check-label" for="<%= chkIssue.ClientID %>">Issue</label>
+    </div>
+
+    <div class="form-check">
+        <asp:CheckBox ID="chkPages" runat="server" />
+        <label class="form-check-label" for="<%= chkPages.ClientID %>">Pages</label>
+    </div>
+
+    <div class="form-check mb-2">
+        <asp:CheckBox ID="chkDOI" runat="server"  />
+        <label class="form-check-label" for="<%= chkDOI.ClientID %>">DOI</label>
+    </div>--%>
+        <div class="form-check">
+    <input type="checkbox" id="chkTitle" runat="server" class="form-check-input" />
+    <label class="form-check-label" for="chkTitle">ชื่อบทความ</label>
+</div>
+
+<div class="form-check">
+    <input type="checkbox" id="chkAuthors" runat="server" class="form-check-input" />
+    <label class="form-check-label" for="chkAuthors">ผู้แต่ง</label>
+</div>
+
+<div class="form-check">
+    <input type="checkbox" id="chkSource" runat="server" class="form-check-input" />
+    <label class="form-check-label" for="chkSource">แหล่งตีพิมพ์</label>
+</div>
+
+<div class="form-check">
+    <input type="checkbox" id="chkVolume" runat="server" class="form-check-input" />
+    <label class="form-check-label" for="chkVolume">Volume</label>
+</div>
+
+<div class="form-check">
+    <input type="checkbox" id="chkIssue" runat="server" class="form-check-input" />
+    <label class="form-check-label" for="chkIssue">Issue</label>
+</div>
+
+<div class="form-check">
+    <input type="checkbox" id="chkPages" runat="server" class="form-check-input" />
+    <label class="form-check-label" for="chkPages">Pages</label>
+</div>
+
+<div class="form-check mb-2">
+    <input type="checkbox" id="chkDOI" runat="server" class="form-check-input" />
+    <label class="form-check-label" for="chkDOI">DOI</label>
+</div>
+
+    <hr />
+
+    <div class="fw-bold text-secondary mb-2">ตัวชี้วัด</div>
+       
+    <asp:PlaceHolder ID="phKPI" runat="server"></asp:PlaceHolder>
+
+</div>
+
+</div>
+
+<!-- ===== ปุ่มแสดงผล ===== -->
+<asp:Button ID="btnApply" runat="server"
+    Text="แสดงผล"
+    CssClass="btn btn-primary mb-3"
+    OnClick="btnApply_Click" />
+                                    </div>
                                 <label class="form-label">รายละเอียด :</label>
                                 <div class="btn-group w-100" role="group">
 
@@ -239,52 +317,15 @@
 
                         <div data-simplebar style="max-height: 500px;">
                             <div class="table-responsive gridview-scroll">
-                                <asp:GridView ID="data" runat="server"
-                                    AutoGenerateColumns="False"
-                                    CssClass="table table-bordered table-hover fixed-header"
-                                    EmptyDataText="ไม่พบข้อมูล">
+                              
 
-                                    <Columns>
+<!-- ===== GridView ===== -->
+<asp:GridView ID="data" runat="server"
+    AutoGenerateColumns="False"
+    CssClass="table table-bordered table-hover fixed-header"
+    EmptyDataText="ไม่พบข้อมูล">
 
-                                        <asp:BoundField DataField="title" HeaderText="ชื่อบทความ" />
-                                        <asp:BoundField DataField="authors" HeaderText="ผู้แต่ง" />
-                                        <asp:BoundField DataField="scopus_source" HeaderText="แหล่งตีพิมพ์" />
-                                        <asp:BoundField DataField="Volume" HeaderText="Volume" />
-                                        <asp:BoundField DataField="Issue" HeaderText="Issue" />
-                                        <asp:BoundField DataField="Pages" HeaderText="Pages" />
-                                        <asp:BoundField DataField="DOI" HeaderText="DOI" />
-
-                                        <asp:TemplateField HeaderText="[1.1]">
-                                            <ItemTemplate>
-                                                <%# ShowCheckIcon(Eval("C11")) %>
-                                            </ItemTemplate>
-                                            <ItemStyle HorizontalAlign="Center" />
-                                        </asp:TemplateField>
-
-                                        <asp:TemplateField HeaderText="[1.2]">
-                                            <ItemTemplate>
-                                                <%# ShowCheckIcon(Eval("C12")) %>
-                                            </ItemTemplate>
-                                            <ItemStyle HorizontalAlign="Center" />
-                                        </asp:TemplateField>
-
-                                        <asp:TemplateField HeaderText="[1.3]">
-                                            <ItemTemplate>
-                                                <%# ShowCheckIcon(Eval("C13")) %>
-                                            </ItemTemplate>
-                                            <ItemStyle HorizontalAlign="Center" />
-                                        </asp:TemplateField>
-
-                                        <asp:TemplateField HeaderText="[1.9]">
-                                            <ItemTemplate>
-                                                <%# ShowCheckIcon(Eval("C19")) %>
-                                            </ItemTemplate>
-                                            <ItemStyle HorizontalAlign="Center" />
-                                        </asp:TemplateField>
-
-                                    </Columns>
-
-                                </asp:GridView>
+</asp:GridView>
 
 
                             </div>
@@ -297,7 +338,13 @@
             </div>
         </ContentTemplate>
     </asp:UpdatePanel>
-
+    
+    <script>
+    document.getElementById('<%= chkAllColumns.ClientID %>')
+        .addEventListener('change', function () {
+            __doPostBack('<%= chkAllColumns.UniqueID %>', '');
+        });
+    </script>
 
     <!-- apexcharts -->
     <script src="minible/layouts/assets/libs/apexcharts/apexcharts.min.js"></script>

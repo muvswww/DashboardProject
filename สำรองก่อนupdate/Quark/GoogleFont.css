@@ -1,0 +1,19 @@
+@import url('https://fonts.googleapis.com/css2?family=Athiti:wght@300&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Itim&display=swap');
+
+Body {
+	font-family: 'Athiti', sans-serif;
+	font-size: 55px;
+}
+h1 {
+	font-family: 'Itim', sans-serif;
+	font-size: 55px;
+}
+
+h3 {
+	font-family: 'Itim', sans-serif;
+}
+
+span {
+	font-family: 'Itim', sans-serif;
+}

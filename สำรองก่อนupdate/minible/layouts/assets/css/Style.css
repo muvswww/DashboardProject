@@ -1,0 +1,15 @@
+﻿.custom-divider {
+    border-left: 3px solid #949597; /* สีฟ้า Bootstrap (เปลี่ยนได้) */
+    /* มุมโค้งเล็กน้อย */
+    padding: 20px; /* เว้นระยะด้านใน */
+}
+.mt-8 {
+    margin-bottom: 8rem !important;
+}
+.mb-8 {
+    margin-top: 8rem !important;
+}
+
+.H-img{
+    height: 80px;
+}
