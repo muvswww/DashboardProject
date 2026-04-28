@@ -21,10 +21,11 @@
     <link href="minible/layouts/assets/css/icons.min.css" rel="stylesheet" />
     <!-- App Css-->
     <link href="minible/layouts/assets/css/app.min.css" rel="stylesheet" />
-    
+
     <link href="minible/layouts/assets/css/GridviewStyle.css" rel="stylesheet" />
     <!-- Lightbox css -->
     <link href="minible/layouts/assets/libs/magnific-popup/magnific-popup.css" rel="stylesheet" type="text/css" />
+    <link href="minible/layouts/assets/libs/select2/css/select2.min.css" rel="stylesheet" />
     <!-- JAVASCRIPT -->
     <script src="minible/layouts/assets/libs/jquery/jquery.min.js"></script>
     <script src="minible/layouts/assets/libs/bootstrap/js/bootstrap.bundle.min.js"></script>
@@ -54,7 +55,7 @@
             $('#form').parsley().destroy();
         }
     </script>
-    <script src="minible/datetimepicker/jquery-2.1.3.min.js"></script>
+    <%--<script src="minible/datetimepicker/jquery-2.1.3.min.js"></script>--%>
     <link href="minible/datetimepicker/dist/css/bootstrap-datepicker.css" rel="stylesheet" type="text/css" />
     <script src="minible/datetimepicker/dist/js/bootstrap-datepicker-custom.js" type="text/javascript"></script>
     <script src="minible/datetimepicker/js/bootstrap-datepicker-thai.js" type="text/javascript"></script>
@@ -80,7 +81,7 @@
         }
 
         .table td, .table th {
-            border:1px solid #ccc;
+            border: 1px solid #ccc;
             /*border-left: 1px solid #ccc;
             border-right: 1px solid #ccc;
             border-top: none;
@@ -102,6 +103,9 @@
                 height: 100%;
                 object-fit: contain; /* เห็นภาพครบ */
             }
+             .indent {
+    margin-left: 25px;
+}
     </style>
 </head>
 <body data-layout="horizontal" data-topbar="colored" data-layout-size="boxed">
@@ -203,9 +207,15 @@
                                             </asp:DropDownList>
                                         </div>
                                     </div>
-
+                                    <div class="mb-3 row align-items-center">
+                                        <label class="form-label col-md-3">เดือน</label>
+                                        <div class="col-md-6">
+                                            <asp:DropDownList ID="ddlMonth" runat="server" CssClass="form-select">
+                                            </asp:DropDownList>
+                                        </div>
+                                    </div>
                                     <div class="mb-3 row">
-                                        <label class="form-label col-md-3">ปีงบประมาณ</label>
+                                        <label class="form-label col-md-3">ประเภทสิ่งตีพิมพ์</label>
                                         <div class="col-md-6">
                                             <asp:DropDownList ID="ddlType" runat="server" CssClass="form-select">
                                                 <asp:ListItem Value="0">--- เลือกประเภทสิ่งตีพิมพ์ ---</asp:ListItem>
@@ -235,14 +245,6 @@
                                             <asp:TextBox ID="txtScopus" CssClass="form-control" runat="server" type="text" autocomplete="off"></asp:TextBox>
                                         </div>
                                     </div>
-
-                                    <div class="mb-3 row">
-                                        <label for="example-text-input" class="col-md-3 col-form-label ">TCI</label>
-                                        <div class="col-md-6">
-                                            <asp:TextBox ID="txtTCI" CssClass="form-control" runat="server" type="text" autocomplete="off"></asp:TextBox>
-                                        </div>
-                                    </div>
-
                                     <div class="mb-3 row">
                                         <label for="example-text-input" class="col-md-3 col-form-label ">Volume</label>
                                         <div class="col-md-3">
@@ -269,22 +271,165 @@
                                         </div>
                                     </div>
 
-
+                                    <!-- International -->
                                     <div class="mb-3 row">
+                                        <div class="col-md-3">
+                                            <asp:CheckBox ID="chkInter" runat="server" Text="International Collaboration"
+                                                AutoPostBack="true" OnCheckedChanged="chkInter_CheckedChanged" />
+                                        </div>
+
+
+                                    </div>
+
+                                    <asp:Panel ID="pnlInter" runat="server" Visible="false">
+
+                                        <div class="row mb-2">
+
+                                            <div class="col-md-2">
+                                            </div>
+
+                                            <div class="col-md-4">
+                                                <asp:TextBox ID="txtInterCollab" runat="server" CssClass="form-control" placeholder="University"></asp:TextBox>
+                                            </div>
+
+                                            <div class="col-md-4">
+                                                <asp:DropDownList ID="ddlCountryInter"
+                                                    runat="server"
+                                                    CssClass="form-control select2"
+                                                    Style="width: 100%;">
+                                                </asp:DropDownList>
+                                                <%-- <asp:DropDownList ID="ddlCountryInter" runat="server" CssClass="form-control select2">
+</asp:DropDownList>--%>
+                                            </div>
+
+                                            <div class="col-md-2">
+                                                <asp:Button ID="btnAddInter" runat="server" Text="เพิ่ม" CssClass="btn btn-primary" OnClick="btnAddInter_Click" />
+                                            </div>
+                                        </div>
+                                        <div class="row mb-2">
+                                            <div class="col-md-2">
+                                            </div>
+                                            <div class="col-md-8">
+                                                <asp:Label ID="lblInter" runat="server" CssClass="form-control" Text="กรณีที่มี ระบุ International Collaboration"></asp:Label>
+                                            </div>
+                                        </div>
+                                    </asp:Panel>
+
+
+                                    <!-- Academic -->
+                                    <div class="mb-3 row mt-3">
+                                        <div class="col-md-3">
+                                            <asp:CheckBox ID="chkAcademic" runat="server" Text="Academic-Corporate Collaboration"
+                                                AutoPostBack="true" OnCheckedChanged="chkAcademic_CheckedChanged" />
+                                        </div>
+                                    </div>
+
+                                    <asp:Panel ID="pnlAcademic" runat="server" Visible="false">
+
+                                        <div class="row mb-2">
+                                            <div class="col-md-2">
+                                            </div>
+
+                                            <div class="col-md-4">
+                                                <asp:TextBox ID="txtacademicCollab" runat="server" CssClass="form-control" placeholder="University"></asp:TextBox>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <asp:DropDownList ID="ddlCountryAcademic"
+                                                    runat="server"
+                                                    CssClass="form-control select2"
+                                                    Style="width: 100%;">
+                                                </asp:DropDownList>
+                                            </div>
+
+                                            <div class="col-md-2">
+                                                <asp:Button ID="btnAddAcademic" runat="server" Text="เพิ่ม" CssClass="btn btn-primary" OnClick="btnAddAcademic_Click" />
+                                            </div>
+
+                                        </div>
+                                        <div class="row mb-2">
+
+                                            <div class="col-md-2">
+                                            </div>
+                                            <div class="col-md-8">
+                                                <asp:Label ID="lblAcademic" runat="server" CssClass="form-control" Text="กรณีที่มี ระบุ Academic-Corporate Collaboration"></asp:Label>
+                                            </div>
+                                        </div>
+                                    </asp:Panel>
+
+                                    <%--                                    <div class="mb-3 row">
                                         <label class="form-label col-md-3">KPI</label>
                                         <div class="col-md-6">
 
                                             <asp:CheckBoxList ID="cblProject" runat="server" CssClass="form-check">
                                             </asp:CheckBoxList>
                                         </div>
+                                    </div>--%>
+                                    <!-- ====== Q & Ranking ====== -->
+                                    <div class="mb-3 row">
+                                        <label class="col-md-3 col-form-label">Quartile / Ranking</label>
+
+                                        <div class="col-md-6">
+                                            <asp:CheckBoxList ID="cblQ" runat="server"
+    RepeatDirection="Vertical">
+
+    <asp:ListItem Value="Q1">Q1</asp:ListItem>
+
+    <asp:ListItem Value="Top1" Attributes-CssClass="indent">Top1</asp:ListItem>
+    <asp:ListItem Value="Top10" Attributes-CssClass="indent">Top10</asp:ListItem>
+
+    <asp:ListItem Value="Q2">Q2</asp:ListItem>
+    <asp:ListItem Value="Q3">Q3</asp:ListItem>
+    <asp:ListItem Value="Q4">Q4</asp:ListItem>
+
+</asp:CheckBoxList>
+                                        </div>
                                     </div>
+
+                                    <!-- ====== TCI ====== -->
+                                    <div class="mb-3 row">
+                                        <label class="col-md-3 col-form-label">TCI</label>
+                                        <div class="col-md-6">
+                                            <asp:CheckBoxList ID="cblTCI" runat="server" RepeatDirection="Vertical">
+                                                <asp:ListItem Value="TCI_G1">กลุ่ม1</asp:ListItem>
+                                                <asp:ListItem Value="TCI_G2">กลุ่ม2</asp:ListItem>
+                                                <asp:ListItem Value="TCI_G3">กลุ่ม3</asp:ListItem>
+                                            </asp:CheckBoxList>
+                                        </div>
+                                    </div>
+
+                                    <!-- ====== SDG ====== -->
+                                    <div class="mb-3 row">
+                                        <label class="col-md-3 col-form-label">SDG</label>
+                                        <div class="col-md-9">
+                                            <asp:CheckBoxList ID="cblSDG" runat="server" RepeatDirection="Vertical">
+                                                <asp:ListItem Value="1">SDG 1: ขจัดความยากจน (No Poverty)</asp:ListItem>
+                                                <asp:ListItem Value="2">SDG 2: ขจัดความหิวโหย (Zero Hunger)</asp:ListItem>
+                                                <asp:ListItem Value="3">SDG 3: สุขภาพและความเป็นอยู่ที่ดี (Good Health and Well-being)</asp:ListItem>
+                                                <asp:ListItem Value="4">SDG 4: การศึกษาที่มีคุณภาพ (Quality Education)</asp:ListItem>
+                                                <asp:ListItem Value="5">SDG 5: ความเท่าเทียมทางเพศ (Gender Equality)</asp:ListItem>
+                                                <asp:ListItem Value="6">SDG 6: น้ำสะอาดและสุขาภิบาล (Clean Water and Sanitation)</asp:ListItem>
+                                                <asp:ListItem Value="7">SDG 7: พลังงานสะอาดที่ทุกคนเข้าถึงได้ (Affordable and Clean Energy)</asp:ListItem>
+                                                <asp:ListItem Value="8">SDG 8: งานที่มีคุณค่าและการเติบโตทางเศรษฐกิจ (Decent Work and Economic Growth)</asp:ListItem>
+                                                <asp:ListItem Value="9">SDG 9: อุตสาหกรรม นวัตกรรม และโครงสร้างพื้นฐาน (Industry, Innovation and Infrastructure)</asp:ListItem>
+                                                <asp:ListItem Value="10">SDG 10: ลดความเหลื่อมล้ำ (Reduced Inequalities)</asp:ListItem>
+                                                <asp:ListItem Value="11">SDG 11: เมืองและชุมชนที่ยั่งยืน (Sustainable Cities and Communities)</asp:ListItem>
+                                                <asp:ListItem Value="12">SDG 12: การบริโภคและการผลิตที่ยั่งยืน (Responsible Consumption and Production)</asp:ListItem>
+                                                <asp:ListItem Value="13">SDG 13: การรับมือการเปลี่ยนแปลงสภาพภูมิอากาศ (Climate Action)</asp:ListItem>
+                                                <asp:ListItem Value="14">SDG 14: ทรัพยากรทางทะเล (Life Below Water)</asp:ListItem>
+                                                <asp:ListItem Value="15">SDG 15: ระบบนิเวศบนบก (Life on Land)</asp:ListItem>
+                                                <asp:ListItem Value="16">SDG 16: สันติภาพ ความยุติธรรม และสถาบันที่เข้มแข็ง (Peace, Justice and Strong Institutions)</asp:ListItem>
+                                                <asp:ListItem Value="17">SDG 17: ความร่วมมือเพื่อการพัฒนาที่ยั่งยืน (Partnerships for the Goals)</asp:ListItem>
+                                            </asp:CheckBoxList>
+                                        </div>
+                                    </div>
+
                                 </div>
                             </div>
                         </div>
                     </div>
                     <asp:HiddenField ID="hfPubNo" runat="server" />
 
-                    <div class="text-center mt-4">
+                    <div class="text-center mt-3 mb-4">
                         <asp:Button ID="btnsubmitPub" runat="server" Text="Save" CssClass="btn bg-soft-success waves-effect waves-light" Width="120px" Visible="False" />
                         <asp:Button ID="btnupdatePub" runat="server" Text="Update" CssClass="btn bg-soft-primary waves-effect waves-light" Width="120px" Visible="False" />
                         <asp:Button ID="btnCancel" runat="server" Text="Cancel" CssClass="btn bg-soft-danger waves-effect waves-light" Width="120px" OnClientClick="cancelValidation(); return true;" Visible="True" />
@@ -306,7 +451,7 @@
     <%--ต้องไว้ข้างล่างเท่านั้น ไว้ข้างบนไม่ทำงาน--%>
     <script src="minible/layouts/assets/js/pages/lightbox.init.js"></script>
     <script src="minible/layouts/assets/js/app.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+    <%--<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>--%>
     <script src="minible/layouts/assets/libs/dropzone/min/dropzone.min.js"></script>
 
     <script type="text/javascript">
@@ -324,6 +469,42 @@
             var result = confirm("Are you sure you want to delete?");
             return result;
         }
+    </script>
+    <script src="minible/layouts/assets/libs/select2/js/select2.min.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+
+            const cbl = document.getElementById("<%= cblQ.ClientID %>");
+        const checkboxes = cbl.querySelectorAll("input[type=checkbox]");
+
+        function getCheckbox(value) {
+            for (let cb of checkboxes) {
+                if (cb.value === value) return cb;
+            }
+            return null;
+        }
+
+        checkboxes.forEach(cb => {
+            cb.addEventListener("change", function () {
+
+                const q1 = getCheckbox("Q1");
+                const top1 = getCheckbox("Top1");
+                const top10 = getCheckbox("Top10");
+
+                if (this.value === "Top10" && this.checked) {
+                    if (top1) top1.checked = true;
+                    if (q1) q1.checked = true;
+                }
+
+                if (this.value === "Top1" && this.checked) {
+                    if (q1) q1.checked = true;
+                }
+
+                // ❗ ไม่ต้อง reverse ตามที่คุณต้องการ
+            });
+        });
+
+    });
     </script>
 </body>
 </html>

@@ -56,6 +56,9 @@
     <Reference Include="EPPlus.Interfaces, Version=8.4.0.0, Culture=neutral, PublicKeyToken=a694d7f3b0907a61, processorArchitecture=MSIL">
       <HintPath>..\packages\EPPlus.Interfaces.8.4.0\lib\net462\EPPlus.Interfaces.dll</HintPath>
     </Reference>
+    <Reference Include="EPPlus.System.Drawing, Version=8.4.0.0, Culture=neutral, PublicKeyToken=2308d35469c9bac0, processorArchitecture=MSIL">
+      <HintPath>..\packages\EPPlus.System.Drawing.8.4.0\lib\net462\EPPlus.System.Drawing.dll</HintPath>
+    </Reference>
     <Reference Include="itextsharp, Version=5.5.13.4, Culture=neutral, PublicKeyToken=8354ae6d2174ddca, processorArchitecture=MSIL">
       <HintPath>..\packages\iTextSharp.5.5.13.4\lib\net461\itextsharp.dll</HintPath>
       <Private>True</Private>
@@ -142,6 +145,7 @@
     <Reference Include="Microsoft.AspNet.FriendlyUrls">
       <HintPath>..\packages\Microsoft.AspNet.FriendlyUrls.Core.1.0.2\lib\net45\Microsoft.AspNet.FriendlyUrls.dll</HintPath>
     </Reference>
+    <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="EntityFramework">
@@ -643,6 +647,7 @@
     <Content Include="minible\unicons.iconscout.com\release\v3.0.0\fonts\line\unicons-8.svg" />
     <Content Include="minible\unicons.iconscout.com\release\v3.0.0\fonts\line\unicons-9.svg" />
     <Content Include="portal.aspx" />
+    <Content Include="Research_EdPEx.aspx" />
     <Content Include="Research_Fund.aspx" />
     <Content Include="Research_Innovation.aspx" />
     <Content Include="Research_Pub.aspx" />
@@ -771,8 +776,6 @@
     <Content Include="WebForm2.aspx" />
     <Content Include="minible\layouts\assets\fonts\DB X v3.2\font.ttf" />
     <None Include="My Project\PublishProfiles\Dashboard.pubxml" />
-    <Content Include="Template\MasterProject.xlsx" />
-    <Content Include="Template\MasterProject2569.xlsx" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -843,12 +846,18 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <Compile Include="OfficeOpenXml\License.vb" />
     <Compile Include="portal.aspx.designer.vb">
       <DependentUpon>portal.aspx</DependentUpon>
     </Compile>
     <Compile Include="portal.aspx.vb">
       <DependentUpon>portal.aspx</DependentUpon>
+      <SubType>ASPXCodebehind</SubType>
+    </Compile>
+    <Compile Include="Research_EdPEx.aspx.designer.vb">
+      <DependentUpon>Research_EdPEx.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Research_EdPEx.aspx.vb">
+      <DependentUpon>Research_EdPEx.aspx</DependentUpon>
       <SubType>ASPXCodebehind</SubType>
     </Compile>
     <Compile Include="Research_Fund.aspx.designer.vb">

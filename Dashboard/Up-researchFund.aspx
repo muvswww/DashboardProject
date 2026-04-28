@@ -121,7 +121,7 @@
 
                                     </div>
                                     <asp:GridView ID="GridViewFund" runat="server" AutoGenerateColumns="False"
-                                        DataKeyNames="NO" AllowPaging="True" OnPageIndexChanging="OnPaging"
+                                        DataKeyNames="ID" AllowPaging="True" OnPageIndexChanging="OnPaging"
                                         EmptyDataText="No records has been added."
                                         CssClass="table" PageSize="200" CellPadding="4" BackColor="White" BorderColor="#CC9966" BorderStyle="None" BorderWidth="1px">
                                         <Columns>
@@ -311,7 +311,7 @@
 
                                     <asp:GridView ID="GridViewsource" runat="server"
                                         AutoGenerateColumns="False"
-                                        DataKeyNames="no"
+                                        DataKeyNames="NO"
                                         AllowPaging="True"
                                         OnPageIndexChanging="OnPaging"
                                         OnRowEditing="GridViewsource_RowEditing"
@@ -332,6 +332,17 @@
                                                 </EditItemTemplate>
                                                 <FooterTemplate>
                                                     <asp:TextBox ID="txtNewSource" runat="server" CssClass="form-control" Placeholder="ชื่อแหล่งทุนใหม่" />
+                                                </FooterTemplate>
+                                            </asp:TemplateField>
+                                            <asp:TemplateField HeaderText="ชื่อทุน (ถ้ามี)">
+                                                <ItemTemplate>
+                                                    <%# Eval("grant_name") %>
+                                                </ItemTemplate>
+                                                <EditItemTemplate>
+                                                    <asp:TextBox ID="txtEditgrant_name" runat="server" CssClass="form-control" Text='<%# Bind("grant_name") %>' />
+                                                </EditItemTemplate>
+                                                <FooterTemplate>
+                                                    <asp:TextBox ID="txtNewgrant_name" runat="server" CssClass="form-control" Placeholder="ชื่อทุนใหม่" />
                                                 </FooterTemplate>
                                             </asp:TemplateField>
                                             <asp:TemplateField HeaderText="ภายใน / ภายนอก">

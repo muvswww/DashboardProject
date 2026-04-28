@@ -68,6 +68,15 @@ Partial Public Class Research_Fund
     Protected WithEvents Project2 As Global.System.Web.UI.HtmlControls.HtmlGenericControl
 
     '''<summary>
+    '''PanelUser control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents PanelUser As Global.System.Web.UI.WebControls.Panel
+
+    '''<summary>
     '''UpdatePanel1 control.
     '''</summary>
     '''<remarks>
@@ -111,4 +120,67 @@ Partial Public Class Research_Fund
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents data As Global.System.Web.UI.WebControls.GridView
+
+    '''<summary>
+    '''PanelAdmin control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents PanelAdmin As Global.System.Web.UI.WebControls.Panel
+
+    '''<summary>
+    '''UpdatePanel2 control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents UpdatePanel2 As Global.System.Web.UI.UpdatePanel
+
+    '''<summary>
+    '''lbtExcel control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents lbtExcel As Global.System.Web.UI.WebControls.LinkButton
+
+    '''<summary>
+    '''btnAllAdmin control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents btnAllAdmin As Global.System.Web.UI.WebControls.LinkButton
+
+    '''<summary>
+    '''btnType11 control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents btnType11 As Global.System.Web.UI.WebControls.LinkButton
+
+    '''<summary>
+    '''btnType22 control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents btnType22 As Global.System.Web.UI.WebControls.LinkButton
+
+    '''<summary>
+    '''dataForadmin control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents dataForadmin As Global.System.Web.UI.WebControls.GridView
 End Class

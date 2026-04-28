@@ -1,8 +1,13 @@
-﻿Imports System.Web.Script.Serialization
-Imports System.Data.SqlClient
+﻿Imports System.Data.SqlClient
+Imports System.IO
+Imports System.Reflection.Emit
+Imports System.Web.Script.Serialization
 Imports Dashboard.ConnectDB
 Imports Dashboard.Encrypt
-Imports System.Reflection.Emit
+Imports OfficeOpenXml
+Imports OfficeOpenXml.Style
+Imports System.Web
+
 Public Class Research_Fund
     Inherits BasePage
 
@@ -17,6 +22,7 @@ Public Class Research_Fund
             pie_chart_per()
             chart_Fund()
             BindData()
+            BindDynamicFundGrid()
         End If
     End Sub
     Private Sub LoadYearDropdown()
@@ -28,27 +34,18 @@ FROM            dbo.Research_Fund
 ORDER BY year DESC"
         dt = QueryDataTable2(SQLRN, dbConn, "Dashboard", Nothing)
 
-        ' เคลียร์ dropdown ก่อนเพิ่มใหม่
+
         yearDropdown.InnerHtml = ""
-        ' เพิ่มตัวเลือก "ทั้งหมด"
         yearDropdown.InnerHtml &= "<a class='dropdown-item' href='?year=all'>ทั้งหมด</a>"
 
-        ' เพิ่มปีจากฐานข้อมูล
+
         For Each row As DataRow In dt.Rows
             Dim y As String = row("year").ToString()
             yearDropdown.InnerHtml &= $"<a class='dropdown-item' href='?year={y}'>{y}</a>"
         Next
 
-        '' ตรวจสอบว่ามีการเลือกปีไหม (ผ่าน querystring)
-        'Dim selectedYear As String = Request.QueryString("year")
-        'If String.IsNullOrEmpty(selectedYear) OrElse selectedYear = "all" Then
-        '    lblSelectedYear.InnerText = "ทั้งหมด"
-        'Else
-        '    lblSelectedYear.InnerText = selectedYear
-        'End If
         Dim selectedYear As String = Request.QueryString("year")
         If String.IsNullOrEmpty(selectedYear) Then
-            ' ❗ ไม่มี querystring → ใช้ปีล่าสุดจาก SQL
             lblSelectedYear.InnerText = dt.Rows(0)("year").ToString()
 
         ElseIf selectedYear = "all" Then
@@ -75,12 +72,10 @@ ORDER BY year DESC"
 
         SQLRN = "SELECT        SUM(CASE WHEN type = 1 THEN amount ELSE 0 END) AS amount1, COUNT(CASE WHEN type = 1 THEN 1 END) AS Project1, SUM(CASE WHEN type = 2 THEN amount ELSE 0 END) AS amount2, 
                          COUNT(CASE WHEN type = 2 THEN 1 END) AS Project2
-FROM            dbo.Research_Fund
-"
-
+FROM            dbo.Research_Fund "
         'If Not String.IsNullOrEmpty(selectedYear) AndAlso selectedYear <> "all" Then
         If selectedYear <> "all" Then
-            SQLRN &= $"WHERE        (year = " & selectedYear & ")"
+            SQLRN &= "WHERE        (year = " & selectedYear & ")"
         End If
 
         Dim dt As DataTable = QueryDataTable2(SQLRN, dbConn, "Dashboard", Nothing)
@@ -113,6 +108,7 @@ FROM            dbo.Research_Fund
 
         ' โหลดข้อมูลใหม่
         BindData()
+        BindDynamicFundGrid()
     End Sub
     Private Sub UpdateButtonStyles(val As String)
         ' รีเซ็ตปุ่มทั้งหมดเป็นแบบโปร่ง (outline)
@@ -137,26 +133,40 @@ FROM            dbo.Research_Fund
                 btnAll.CssClass = "btn btn-soft-primary"
                 btnAll.Text = "<i class='mdi mdi-check-circle-outline me-1'></i>ทั้งหมด"
         End Select
+        btnAllAdmin.CssClass = "btn btn-outline-primary"
+        btnAllAdmin.Text = "<i class='mdi mdi-circle-outline me-1'></i>ทั้งหมด"
+
+        btnType11.CssClass = "btn btn-outline-primary"
+        btnType11.Text = "<i class='mdi mdi-circle-outline me-1'></i>ทุนวิจัย"
+
+        btnType22.CssClass = "btn btn-outline-primary"
+        btnType22.Text = "<i class='mdi mdi-circle-outline me-1'></i>บริการวิชาการ"
+
+        ' เช็คว่าอันไหนถูกเลือก ให้เปลี่ยนเป็นสีทึบ และเปลี่ยนไอคอน
+        Select Case val
+            Case "1"
+                btnType11.CssClass = "btn btn-soft-primary"
+                btnType11.Text = "<i class='mdi mdi-check-circle-outline me-1'></i>ทุนวิจัย"
+            Case "2"
+                btnType22.CssClass = "btn btn-soft-primary"
+                btnType22.Text = "<i class='mdi mdi-check-circle-outline me-1'></i>บริการวิชาการ"
+            Case Else ' ทั้งหมด
+                btnAllAdmin.CssClass = "btn btn-soft-primary"
+                btnAllAdmin.Text = "<i class='mdi mdi-check-circle-outline me-1'></i>ทั้งหมด"
+        End Select
     End Sub
     Private Sub BindData()
         Dim selectedType As String = If(ViewState("SelectedType") Is Nothing, "", ViewState("SelectedType").ToString())
-        Dim SQLRN As String = "SELECT TOP (100) PERCENT dbo.FundType.Fund_source, " &
-                        "CASE WHEN itjobs.dbo.title_technical.title_technicalName IS NULL " &
-                        "THEN itjobs.dbo.title.title_name + itjobs.dbo.[user].fname + SPACE(2) + itjobs.dbo.[user].lname " &
-                        "ELSE itjobs.dbo.title_technical.title_technicalName + itjobs.dbo.[user].fname + SPACE(2) + itjobs.dbo.[user].lname " &
-                        "END AS fullname, " &
-                        "dbo.Research_Fund.year, dbo.Research_Fund.title, " &
-                        "CASE WHEN dbo.Research_Fund.type = 1 THEN 'ทุนวิจัย' " &
-              "     WHEN dbo.Research_Fund.type = 2 THEN 'บริการวิชาการ' " &
-              "     ELSE '-' END AS type_name, " &
-        "dbo.Research_Fund.stDate, " &
-                        "dbo.Research_Fund.fnDate, dbo.Research_Fund.GrantExtDate, dbo.Research_Fund.amount " &
-                        "FROM dbo.Research_Fund " &
-                        "INNER JOIN itjobs.dbo.[user] On dbo.Research_Fund.user_id = itjobs.dbo.[user].user_id " &
-                        "INNER JOIN dbo.FundType On dbo.Research_Fund.Fund_ID = dbo.FundType.Fund_ID " &
-                        "INNER JOIN itjobs.dbo.title_technical On itjobs.dbo.[user].title_technicalID = itjobs.dbo.title_technical.title_technicalID " &
-                        "INNER JOIN itjobs.dbo.title On itjobs.dbo.[user].title_id = itjobs.dbo.title.title_id " &
-                        "WHERE 1=1"
+        Dim SQLRN As String = "SELECT        TOP (100) PERCENT CASE WHEN itjobs.dbo.title_technical.title_technicalName IS NULL THEN itjobs.dbo.title.title_name + itjobs.dbo.[user].fname + SPACE(2) 
+                         + itjobs.dbo.[user].lname ELSE itjobs.dbo.title_technical.title_technicalName + itjobs.dbo.[user].fname + SPACE(2) + itjobs.dbo.[user].lname END AS fullname, dbo.Research_Fund.year, 
+                         CASE WHEN dbo.Research_Fund.type = 1 THEN 'ทุนวิจัย' WHEN dbo.Research_Fund.type = 2 THEN 'บริการวิชาการ' ELSE '-' END AS type_name,dbo.Research_Fund.stDate,dbo.Research_Fund.fnDate, dbo.Research_Fund.GrantExtDate, dbo.Research_Fund.amount, 
+                         CASE WHEN dbo.FundType.Fund_type = 1 THEN 'ภายใน' WHEN dbo.FundType.Fund_type = 2 THEN 'ภายนอก' ELSE '-' END AS Fund_type, dbo.Research_Fund.period
+FROM            dbo.Research_Fund INNER JOIN
+                         itjobs.dbo.[user] ON dbo.Research_Fund.user_id = itjobs.dbo.[user].user_id INNER JOIN
+                         dbo.FundType ON dbo.Research_Fund.Fund_ID = dbo.FundType.Fund_ID INNER JOIN
+                         itjobs.dbo.title_technical ON itjobs.dbo.[user].title_technicalID = itjobs.dbo.title_technical.title_technicalID INNER JOIN
+                         itjobs.dbo.title ON itjobs.dbo.[user].title_id = itjobs.dbo.title.title_id
+WHERE        (1 = 1)"
 
         If Not String.IsNullOrEmpty(selectedType) Then
             SQLRN &= " AND dbo.Research_Fund.type = " & selectedType & " "
@@ -177,7 +187,7 @@ FROM            dbo.Research_Fund
             SQLRN &= " AND dbo.Research_Fund.year = " & selectedYear & " "
         End If
 
-        SQLRN &= " ORDER BY dbo.Research_Fund.fnDate DESC"
+        SQLRN &= " ORDER BY dbo.Research_Fund.year DESC, dbo.Research_Fund.fnDate DESC"
 
         Dim dt As DataTable = QueryDataTable2(SQLRN, dbConn, "Dashboard", Nothing)
         If dt.Rows.Count > 0 Then
@@ -189,6 +199,292 @@ FROM            dbo.Research_Fund
             pie_chart_per()
             chart_Fund()
         End If
+
+        'SQLRN = "SELECT TOP (100) PERCENT dbo.FundType.Fund_source, " &
+        '                "CASE WHEN itjobs.dbo.title_technical.title_technicalName IS NULL " &
+        '                "THEN itjobs.dbo.title.title_name + itjobs.dbo.[user].fname + SPACE(2) + itjobs.dbo.[user].lname " &
+        '                "ELSE itjobs.dbo.title_technical.title_technicalName + itjobs.dbo.[user].fname + SPACE(2) + itjobs.dbo.[user].lname " &
+        '                "END AS fullname, " &
+        '                "dbo.Research_Fund.year, dbo.Research_Fund.title, " &
+        '                "CASE WHEN dbo.Research_Fund.type = 1 THEN 'ทุนวิจัย' " &
+        '      "     WHEN dbo.Research_Fund.type = 2 THEN 'บริการวิชาการ' " &
+        '      "     ELSE '-' END AS type_name, " &
+        '"dbo.Research_Fund.stDate, " &
+        '                "dbo.Research_Fund.fnDate, dbo.Research_Fund.GrantExtDate, dbo.Research_Fund.amount " &
+        '                "FROM dbo.Research_Fund " &
+        '                "INNER JOIN itjobs.dbo.[user] On dbo.Research_Fund.user_id = itjobs.dbo.[user].user_id " &
+        '                "INNER JOIN dbo.FundType On dbo.Research_Fund.Fund_ID = dbo.FundType.Fund_ID " &
+        '                "INNER JOIN itjobs.dbo.title_technical On itjobs.dbo.[user].title_technicalID = itjobs.dbo.title_technical.title_technicalID " &
+        '                "INNER JOIN itjobs.dbo.title On itjobs.dbo.[user].title_id = itjobs.dbo.title.title_id " &
+        '                "WHERE 1=1"
+
+        'If Not String.IsNullOrEmpty(selectedType) Then
+        '    SQLRN &= " AND dbo.Research_Fund.type = " & selectedType & " "
+        'End If
+
+        'selectedYear = Request.QueryString("year")
+        'If String.IsNullOrEmpty(selectedYear) Then
+        '    Dim dtYear As DataTable
+        '    Dim sqlYear As String = "
+        '    SELECT DISTINCT TOP (1) year FROM Research_Fund ORDER BY year DESC"
+        '    dtYear = QueryDataTable2(sqlYear, dbConn, "Dashboard", Nothing)
+
+        '    If dtYear.Rows.Count > 0 Then
+        '        selectedYear = dtYear.Rows(0)("year").ToString()
+        '    End If
+        'End If
+        'If selectedYear <> "all" Then
+        '    SQLRN &= " AND dbo.Research_Fund.year = " & selectedYear & " "
+        'End If
+
+        'SQLRN &= " ORDER BY dbo.Research_Fund.fnDate DESC"
+
+        'dt = QueryDataTable2(SQLRN, dbConn, "Dashboard", Nothing)
+        'If dt.Rows.Count > 0 Then
+        '    dataForadmin.DataSource = dt
+        '    dataForadmin.DataBind()
+
+        '    LoadYearDropdown()
+        '    LoadTotalCount()
+        '    pie_chart_per()
+        '    chart_Fund()
+        'End If
+
+    End Sub
+    Private Sub BindDynamicFundGrid()
+
+        Dim selectedType As String =
+        If(ViewState("SelectedType") Is Nothing, "", ViewState("SelectedType").ToString())
+
+        '====================================
+        ' 1) โหลดข้อมูลโครงการ
+        '====================================
+
+        Dim SQLRN As String =
+"SELECT dbo.FundType.Fund_source,
+ CASE WHEN itjobs.dbo.title_technical.title_technicalName IS NULL
+      THEN itjobs.dbo.title.title_name + itjobs.dbo.[user].fname + SPACE(2) + itjobs.dbo.[user].lname
+      ELSE itjobs.dbo.title_technical.title_technicalName + itjobs.dbo.[user].fname + SPACE(2) + itjobs.dbo.[user].lname
+ END AS fullname,
+ dbo.Research_Fund.year,
+ dbo.Research_Fund.title,
+ dbo.Research_Fund.stDate,
+ dbo.Research_Fund.fnDate,
+ dbo.Research_Fund.amount,
+ dbo.FundType.grant_name,
+ dbo.Research_Fund.IO,
+ dbo.Research_Fund.period,
+ dbo.Research_Fund.student_name,
+ dbo.Research_Fund.installment,
+ dbo.Research_Fund.type
+FROM dbo.Research_Fund
+INNER JOIN itjobs.dbo.[user]
+    ON dbo.Research_Fund.user_id = itjobs.dbo.[user].user_id
+INNER JOIN dbo.FundType
+    ON dbo.Research_Fund.Fund_ID = dbo.FundType.Fund_ID
+INNER JOIN itjobs.dbo.title_technical
+    ON itjobs.dbo.[user].title_technicalID = itjobs.dbo.title_technical.title_technicalID
+INNER JOIN itjobs.dbo.title
+    ON itjobs.dbo.[user].title_id = itjobs.dbo.title.title_id
+WHERE 1=1 "
+
+        If selectedType <> "" Then
+            SQLRN &= " AND dbo.Research_Fund.type = " & selectedType
+        End If
+
+        Dim selectedYear As String = Request.QueryString("year")
+        If String.IsNullOrEmpty(selectedYear) Then
+            Dim dtYear As DataTable
+            Dim sqlYear As String = "
+            SELECT DISTINCT TOP (1) year FROM Research_Fund ORDER BY year DESC"
+            dtYear = QueryDataTable2(sqlYear, dbConn, "Dashboard", Nothing)
+
+            If dtYear.Rows.Count > 0 Then
+                selectedYear = dtYear.Rows(0)("year").ToString()
+            End If
+        End If
+        If selectedYear <> "all" Then
+            SQLRN &= " AND dbo.Research_Fund.year = " & selectedYear & " "
+        End If
+
+        SQLRN &= " ORDER BY dbo.Research_Fund.year DESC, dbo.Research_Fund.fnDate DESC"
+
+        Dim dtFund As DataTable =
+        QueryDataTable2(SQLRN, dbConn, "Dashboard", Nothing)
+
+        If dtFund.Rows.Count = 0 Then Exit Sub
+
+        '====================================
+        ' 2) โหลดงวดเงิน
+        '====================================
+
+        Dim dtPay As DataTable = QueryDataTable2(
+"SELECT        dbo.FundPayments.IO, dbo.FundPayments.installment_no, dbo.FundPayments.amount, dbo.FundPayments.remaining_budget, dbo.FundPayments.transfer_date, dbo.Research_Fund.installment, dbo.Research_Fund.year
+FROM            dbo.FundPayments RIGHT OUTER JOIN
+                         dbo.Research_Fund ON dbo.FundPayments.IO = dbo.Research_Fund.IO
+WHERE        (dbo.Research_Fund.year = " & selectedYear & ")",
+    dbConn, "Dashboard", Nothing)
+
+        '====================================
+        ' 3) หา งวดสูงสุด
+        '====================================
+
+        Dim maxInstallment As Integer = 0
+
+        For Each r As DataRow In dtPay.Rows
+            Dim n As Integer = Convert.ToInt32(r("installment"))
+            If n > maxInstallment Then maxInstallment = n
+        Next
+
+        '====================================
+        ' 4) สร้าง DataTable ใหม่
+        '====================================
+
+        Dim dt As New DataTable()
+
+        dt.Columns.Add("ปีงบประมาณ")
+        dt.Columns.Add("แหล่งเงิน")
+        dt.Columns.Add("ชื่อโครงการ")
+        dt.Columns.Add("รหัสโครงการ(IO)")
+        dt.Columns.Add("ชื่อทุน")
+        dt.Columns.Add("หัวหน้าโครงการ")
+        dt.Columns.Add("นักศึกษา")
+        dt.Columns.Add("ระยะเวลา")
+        dt.Columns.Add("วันที่เริ่ม", GetType(Date))
+        dt.Columns.Add("วันที่หมดสัญญา", GetType(Date))
+        dt.Columns.Add("งบประมาณที่ได้รับ", GetType(Decimal))
+        dt.Columns.Add("จำนวนงวด")
+
+        '===== Dynamic Columns =====
+
+        For i As Integer = 1 To maxInstallment
+
+            dt.Columns.Add("งวด" & i & "_จำนวนเงิน", GetType(Decimal))
+            dt.Columns.Add("งวด" & i & "_วันที่โอน")
+            dt.Columns.Add("งวด" & i & "_คงเหลือ", GetType(Decimal))
+
+        Next
+
+        '====================================
+        ' 5) เติมข้อมูล
+        '====================================
+
+        For Each f As DataRow In dtFund.Rows
+
+            Dim row As DataRow = dt.NewRow()
+
+            row("ปีงบประมาณ") = f("year")
+            row("แหล่งเงิน") = f("Fund_source")
+            row("ชื่อโครงการ") = f("title")
+            row("รหัสโครงการ(IO)") = f("IO")
+            row("ชื่อทุน") = f("grant_name")
+            row("หัวหน้าโครงการ") = f("fullname")
+            row("นักศึกษา") = f("student_name")
+            row("ระยะเวลา") = f("period")
+
+            If Not IsDBNull(f("stDate")) Then
+                row("วันที่เริ่ม") = Convert.ToDateTime(f("stDate")).Date
+            End If
+
+            If Not IsDBNull(f("fnDate")) Then
+                row("วันที่หมดสัญญา") = Convert.ToDateTime(f("fnDate")).Date
+            End If
+
+            row("งบประมาณที่ได้รับ") = f("amount")
+            row("จำนวนงวด") = f("installment")
+
+            Dim IO As String = f("IO").ToString()
+            Dim payRows = dtPay.Select("IO = '" & IO & "'")
+
+            For Each p As DataRow In payRows
+
+                Dim no As Integer = Convert.ToInt32(p("installment_no"))
+
+                row("งวด" & no & "_จำนวนเงิน") = p("amount")
+
+                If Not IsDBNull(p("transfer_date")) Then
+                    row("งวด" & no & "_วันที่โอน") =
+                    Convert.ToDateTime(p("transfer_date")).ToString("dd/MM/yyyy")
+                End If
+
+                row("งวด" & no & "_คงเหลือ") = p("remaining_budget")
+
+            Next
+
+            dt.Rows.Add(row)
+
+        Next
+
+        '====================================
+        ' ⭐ 6) สร้าง Columns ใน GridView
+        '====================================
+
+        dataForadmin.Columns.Clear()
+        dataForadmin.AutoGenerateColumns = False
+
+        '----- Static Columns -----
+
+        For Each col As DataColumn In dt.Columns
+
+            If col.ColumnName.Contains("_") Then Exit For
+
+            Dim bf As New BoundField()
+            bf.DataField = col.ColumnName
+            bf.HeaderText = col.ColumnName
+
+            ' ⭐ Format Decimal
+            If col.DataType Is GetType(Decimal) Then
+                bf.DataFormatString = "{0:N2}"
+                bf.ItemStyle.HorizontalAlign = HorizontalAlign.Right
+            End If
+
+            ' ⭐ Format Date
+            If col.ColumnName = "วันที่เริ่ม" Or col.ColumnName = "วันที่หมดสัญญา" Then
+                bf.DataFormatString = "{0:dd/MM/yyyy}"
+            End If
+
+            dataForadmin.Columns.Add(bf)
+
+        Next
+
+        '----- Dynamic Installment Columns -----
+
+        For i As Integer = 1 To maxInstallment
+
+            ' จำนวนเงิน
+            Dim bf1 As New BoundField()
+            bf1.DataField = "งวด" & i & "_จำนวนเงิน"
+            bf1.HeaderText = "งวด " & i & "<br/>จำนวนเงิน"
+            bf1.HtmlEncode = False
+            bf1.DataFormatString = "{0:N2}"
+            bf1.ItemStyle.HorizontalAlign = HorizontalAlign.Right
+            dataForadmin.Columns.Add(bf1)
+
+            ' วันที่โอน
+            Dim bf2 As New BoundField()
+            bf2.DataField = "งวด" & i & "_วันที่โอน"
+            bf2.HeaderText = "งวด " & i & "<br/>วันที่โอน"
+            bf2.HtmlEncode = False
+            dataForadmin.Columns.Add(bf2)
+
+            ' คงเหลือ
+            Dim bf3 As New BoundField()
+            bf3.DataField = "งวด" & i & "_คงเหลือ"
+            bf3.HeaderText = "งวด " & i & "<br/>คงเหลือ"
+            bf3.HtmlEncode = False
+            bf3.DataFormatString = "{0:N2}"
+            bf3.ItemStyle.HorizontalAlign = HorizontalAlign.Right
+            dataForadmin.Columns.Add(bf3)
+
+        Next
+
+        '====================================
+        ' 7) Bind
+        '====================================
+
+        dataForadmin.DataSource = dt
+        dataForadmin.DataBind()
+        ViewState("FundGridData") = dt
     End Sub
     Protected Function DisplayDuration(ByVal stDate As Object, ByVal fnDate As Object, ByVal extDate As Object) As String
         ' 1. แปลง Object เป็น DateTime (รองรับค่า NULL)
@@ -564,4 +860,64 @@ document.addEventListener('DOMContentLoaded', function () {
         ScriptManager.RegisterStartupScript(Me, Me.GetType(), "ChartFundMixed", script, False)
 
     End Sub
+
+
+    Protected Sub lbtExcel_Click(sender As Object, e As EventArgs)
+        ExportGridToExcel()
+    End Sub
+
+    Protected Sub ExportGridToExcel()
+
+        ExcelPackage.License.SetNonCommercialPersonal("Benz")
+
+        Using package As New ExcelPackage()
+
+            Dim ws = package.Workbook.Worksheets.Add("Report")
+
+            Dim colIndex As Integer = 1
+            Dim rowIndex As Integer = 1
+
+            ' ===== Header =====
+            For Each cell As TableCell In dataForadmin.HeaderRow.Cells
+                Dim headerText As String = HttpUtility.HtmlDecode(cell.Text).Trim()
+                ws.Cells(rowIndex, colIndex).Value = headerText
+                ws.Cells(rowIndex, colIndex).Style.Font.Bold = True
+                colIndex += 1
+            Next
+
+            rowIndex += 1
+
+            ' ===== Data =====
+            For Each row As GridViewRow In dataForadmin.Rows
+
+                colIndex = 1
+
+                For Each cell As TableCell In row.Cells
+
+                    Dim text As String = HttpUtility.HtmlDecode(cell.Text).Trim()
+
+                    If text = "&nbsp;" Then text = ""
+
+                    ws.Cells(rowIndex, colIndex).Value = text
+
+                    colIndex += 1
+
+                Next
+
+                rowIndex += 1
+
+            Next
+
+            ws.Cells(ws.Dimension.Address).AutoFitColumns()
+
+            Response.Clear()
+            Response.ContentType = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+            Response.AddHeader("content-disposition", "attachment; filename=Report.xlsx")
+            Response.BinaryWrite(package.GetAsByteArray())
+            Response.End()
+
+        End Using
+
+    End Sub
+
 End Class

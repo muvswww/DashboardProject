@@ -14,20 +14,164 @@ Option Explicit On
 Partial Public Class WebForm2
 
     '''<summary>
-    '''ddlYear control.
+    '''form control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents ddlYear As Global.System.Web.UI.WebControls.DropDownList
+    Protected WithEvents form As Global.System.Web.UI.HtmlControls.HtmlForm
 
     '''<summary>
-    '''btnExport control.
+    '''LabelFund control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents btnExport As Global.System.Web.UI.WebControls.Button
+    Protected WithEvents LabelFund As Global.System.Web.UI.WebControls.Label
+
+    '''<summary>
+    '''panelFund control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents panelFund As Global.System.Web.UI.WebControls.Panel
+
+    '''<summary>
+    '''addFund control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents addFund As Global.System.Web.UI.WebControls.Button
+
+    '''<summary>
+    '''ddlYearFund1 control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents ddlYearFund1 As Global.System.Web.UI.WebControls.DropDownList
+
+    '''<summary>
+    '''GridViewFund control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents GridViewFund As Global.System.Web.UI.WebControls.GridView
+
+    '''<summary>
+    '''panelUpFund control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents panelUpFund As Global.System.Web.UI.WebControls.Panel
+
+    '''<summary>
+    '''txtyear control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents txtyear As Global.System.Web.UI.WebControls.TextBox
+
+    '''<summary>
+    '''ddlType control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents ddlType As Global.System.Web.UI.WebControls.DropDownList
+
+    '''<summary>
+    '''ddlUserFund control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents ddlUserFund As Global.System.Web.UI.WebControls.DropDownList
+
+    '''<summary>
+    '''ddlDept control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents ddlDept As Global.System.Web.UI.WebControls.DropDownList
+
+    '''<summary>
+    '''txtTitle control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents txtTitle As Global.System.Web.UI.WebControls.TextBox
+
+    '''<summary>
+    '''ddlSource control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents ddlSource As Global.System.Web.UI.WebControls.DropDownList
+
+    '''<summary>
+    '''txtamount control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents txtamount As Global.System.Web.UI.WebControls.TextBox
+
+    '''<summary>
+    '''hfFundNo control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents hfFundNo As Global.System.Web.UI.WebControls.HiddenField
+
+    '''<summary>
+    '''btnsubmitFund control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents btnsubmitFund As Global.System.Web.UI.WebControls.Button
+
+    '''<summary>
+    '''btnupdateFund control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents btnupdateFund As Global.System.Web.UI.WebControls.Button
+
+    '''<summary>
+    '''btnCancel control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents btnCancel As Global.System.Web.UI.WebControls.Button
 End Class

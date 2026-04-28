@@ -26,7 +26,7 @@ Public Class Up_researchInnov
                          dbo.Research_Innovation.inputDate, dbo.Research_Innovation.editDate, CASE WHEN itjobs.dbo.title_technical.title_technicalName IS NULL THEN itjobs.dbo.title.title_name + itjobs.dbo.[user].fname + SPACE(2) 
                          + itjobs.dbo.[user].lname ELSE itjobs.dbo.title_technical.title_technicalName + itjobs.dbo.[user].fname + SPACE(2) + itjobs.dbo.[user].lname END AS fullname, 
                          CASE WHEN Research_Innovation.type = 1 THEN 'สิทธิบัตร' WHEN Research_Innovation.type = 2 THEN 'อนุสิทธิบัตร' WHEN Research_Innovation.type = 3 THEN 'ลิขสิทธิ์' WHEN Research_Innovation.type = 4 THEN 'ขอสิทธิบัตร' WHEN
-                          Research_Innovation.type = 5 THEN 'ขออนุสิทธิบัตร' ELSE '-' END AS type_name
+                          Research_Innovation.type = 5 THEN 'ขออนุสิทธิบัตร' ELSE '-' END AS type_name, dbo.Research_Innovation.number
 FROM            dbo.Research_Innovation INNER JOIN
                          itjobs.dbo.[user] ON dbo.Research_Innovation.user_id = itjobs.dbo.[user].user_id LEFT OUTER JOIN
                          itjobs.dbo.title ON itjobs.dbo.[user].title_id = itjobs.dbo.title.title_id LEFT OUTER JOIN
@@ -96,33 +96,35 @@ ORDER BY dbo.Research_Innovation.type"
             Dim ddlUser As DropDownList = CType(footer.FindControl("ddlNewUser"), DropDownList)
             Dim txtTitle As TextBox = CType(footer.FindControl("txttitle"), TextBox)
             Dim txtNumber As TextBox = CType(footer.FindControl("txtNumber"), TextBox)
+            Dim txtReNumber As TextBox = CType(footer.FindControl("txtReNumber"), TextBox)
             Dim txtDate As TextBox = CType(footer.FindControl("txtNewDate"), TextBox)
             Dim reqDate As Object = DBNull.Value
             If Not String.IsNullOrWhiteSpace(txtDate.Text) Then
                 reqDate = DateTime.Parse(txtDate.Text)
             End If
             Dim constr As String = WebConfigurationManager.ConnectionStrings("dbConn_Dashboard").ConnectionString
-            constr = Replace(constr, "password", Decrypt2("2fxKF+rsggSR+BM25c3IJLWBqS1Pu4Y5"))
+            constr = Replace(constr, "password", Decrypt2("2fxKF+rsggR/rV4zqRqEFgaWM7ITZryKK1haDXSOUV4="))
 
             Dim SQLRN As String = "SELECT  ISNULL(MAX(no), 0) AS newNo FROM Research_Innovation"
             Dim dt As DataTable = QueryDataTable2(SQLRN, dbConn, "Dashboard", Nothing)
 
             Dim newNo As Integer = Convert.ToInt32(dt.Rows(0)("newNo")) + 1
                 Using conn As New SqlConnection(constr)
-                    Using cmd As New SqlCommand("INSERT INTO Research_Innovation (no,title,user_id,type,request_date,request_number,inputDate)
-                                         VALUES (@no,@title,@user,@type,@date,@number,GETDATE())", conn)
+                Using cmd As New SqlCommand("INSERT INTO Research_Innovation (no,title,user_id,type,request_date,request_number,number,inputDate)
+                                         VALUES (@no,@title,@user,@type,@date,@Renumber,@number,GETDATE())", conn)
 
-                        cmd.Parameters.AddWithValue("@no", newNo)
-                        cmd.Parameters.AddWithValue("@title", txtTitle.Text.Trim())
-                        cmd.Parameters.AddWithValue("@user", If(ddlUser.SelectedValue = "0", DBNull.Value, ddlUser.SelectedValue))
-                        cmd.Parameters.AddWithValue("@type", ddlType.SelectedValue)
-                        cmd.Parameters.AddWithValue("@number", txtNumber.Text.Trim())
-                        cmd.Parameters.AddWithValue("@date", reqDate)
+                    cmd.Parameters.AddWithValue("@no", newNo)
+                    cmd.Parameters.AddWithValue("@title", txtTitle.Text.Trim())
+                    cmd.Parameters.AddWithValue("@user", If(ddlUser.SelectedValue = "0", DBNull.Value, ddlUser.SelectedValue))
+                    cmd.Parameters.AddWithValue("@type", ddlType.SelectedValue)
+                    cmd.Parameters.AddWithValue("@Renumber", txtReNumber.Text.Trim())
+                    cmd.Parameters.AddWithValue("@number", txtNumber.Text.Trim())
+                    cmd.Parameters.AddWithValue("@date", reqDate)
 
-                        conn.Open()
-                        cmd.ExecuteNonQuery()
-                    End Using
+                    conn.Open()
+                    cmd.ExecuteNonQuery()
                 End Using
+            End Using
                 BindInnov()
 
         End If
@@ -146,22 +148,24 @@ ORDER BY dbo.Research_Innovation.type"
         Dim ddlUser As DropDownList = CType(row.FindControl("ddlEditUser"), DropDownList)
         Dim txtTitle As TextBox = CType(row.FindControl("txttitle"), TextBox)
         Dim txtNumber As TextBox = CType(row.FindControl("txtNumber"), TextBox)
+        Dim txtReNumber As TextBox = CType(row.FindControl("txtRenumber"), TextBox)
         Dim txtDate As TextBox = CType(row.FindControl("txtEditDate"), TextBox)
         Dim reqDate As Object = DBNull.Value
         If Not String.IsNullOrWhiteSpace(txtDate.Text) Then
             reqDate = DateTime.Parse(txtDate.Text)
         End If
         Dim constr As String = WebConfigurationManager.ConnectionStrings("dbConn_Dashboard").ConnectionString
-        constr = Replace(constr, "password", Decrypt2("2fxKF+rsggSR+BM25c3IJLWBqS1Pu4Y5"))
+        constr = Replace(constr, "password", Decrypt2("2fxKF+rsggR/rV4zqRqEFgaWM7ITZryKK1haDXSOUV4="))
 
         Using conn As New SqlConnection(constr)
             Using cmd As New SqlCommand("UPDATE Research_Innovation
-                                     SET title=@title,user_id=@user,type=@type,request_date=@date,request_number=@number,editDate=GETDATE()
+                                     SET title=@title,user_id=@user,type=@type,request_date=@date,request_number=@Renumber,number=@number,editDate=GETDATE()
                                      WHERE no=@no", conn)
 
                 cmd.Parameters.AddWithValue("@title", txtTitle.Text.Trim())
                 cmd.Parameters.AddWithValue("@user", If(ddlUser.SelectedValue = "0", DBNull.Value, ddlUser.SelectedValue))
                 cmd.Parameters.AddWithValue("@type", ddlType.SelectedValue)
+                cmd.Parameters.AddWithValue("@Renumber", txtReNumber.Text.Trim())
                 cmd.Parameters.AddWithValue("@number", txtNumber.Text.Trim())
                 cmd.Parameters.AddWithValue("@date", reqDate)
                 cmd.Parameters.AddWithValue("@no", no)

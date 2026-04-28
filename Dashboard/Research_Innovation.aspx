@@ -96,15 +96,21 @@
                                                    </ItemTemplate>
                                                    <HeaderStyle CssClass="align-content-center" />
                                                </asp:TemplateField>
-                                               <asp:TemplateField HeaderStyle-CssClass="align-content-center" HeaderText="วันที่ยื่นคำขอ">
+                                               <asp:TemplateField HeaderStyle-CssClass="align-content-center" HeaderText="วันที่ยื่น">
                                                    <ItemTemplate>
                                                        <asp:Label ID="lblDate" runat="server" Text='<%# Eval("request_date") %>'></asp:Label>
                                                    </ItemTemplate>
                                                    <HeaderStyle CssClass="align-content-center" />
                                                </asp:TemplateField>
-                                               <asp:TemplateField HeaderStyle-CssClass="align-content-center" HeaderText="เลขที่คำขอ">
+                                               <asp:TemplateField HeaderStyle-CssClass="align-content-center" HeaderText="เลขที่ยื่น">
                                                    <ItemTemplate>
                                                        <asp:Label ID="lblnumber" runat="server" Text='<%# Eval("request_number") %>'></asp:Label>
+                                                   </ItemTemplate>
+                                                   <HeaderStyle CssClass="align-content-center" />
+                                               </asp:TemplateField>
+                                               <asp:TemplateField HeaderStyle-CssClass="align-content-center" HeaderText="เลขที่">
+                                                   <ItemTemplate>
+                                                       <asp:Label ID="lblnumber" runat="server" Text='<%# Eval("number") %>'></asp:Label>
                                                    </ItemTemplate>
                                                    <HeaderStyle CssClass="align-content-center" />
                                                </asp:TemplateField>

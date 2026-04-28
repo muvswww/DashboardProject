@@ -139,12 +139,23 @@
                                                 </asp:DropDownList>
                                             </FooterTemplate>
                                         </asp:TemplateField>
-                                        <asp:TemplateField HeaderText="เลขที่ / เลขที่คำขอ">
+                                        <asp:TemplateField HeaderText="เลขที่ยื่น">
                                             <ItemTemplate>
                                                 <%# Eval("request_number") %>
                                             </ItemTemplate>
                                             <EditItemTemplate>
-                                                <asp:TextBox ID="txtNumber" runat="server" CssClass="form-control" Text='<%# Bind("request_number") %>' />
+                                                <asp:TextBox ID="txtRenumber" runat="server" CssClass="form-control" Text='<%# Bind("request_number") %>' />
+                                            </EditItemTemplate>
+                                            <FooterTemplate>
+                                                <asp:TextBox ID="txtRenumber" runat="server" CssClass="form-control" Placeholder="ระบุเลขที่" />
+                                            </FooterTemplate>
+                                        </asp:TemplateField>
+                                        <asp:TemplateField HeaderText="เลขที่">
+                                            <ItemTemplate>
+                                                <%# Eval("number") %>
+                                            </ItemTemplate>
+                                            <EditItemTemplate>
+                                                <asp:TextBox ID="txtNumber" runat="server" CssClass="form-control" Text='<%# Bind("number") %>' />
                                             </EditItemTemplate>
                                             <FooterTemplate>
                                                 <asp:TextBox ID="txtNumber" runat="server" CssClass="form-control" Placeholder="ระบุเลขที่" />

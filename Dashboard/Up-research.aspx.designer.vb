@@ -86,6 +86,15 @@ Partial Public Class Up_research
     Protected WithEvents ddlYearPub2 As Global.System.Web.UI.WebControls.DropDownList
 
     '''<summary>
+    '''ddlMonth control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents ddlMonth As Global.System.Web.UI.WebControls.DropDownList
+
+    '''<summary>
     '''ddlType control.
     '''</summary>
     '''<remarks>
@@ -120,15 +129,6 @@ Partial Public Class Up_research
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents txtScopus As Global.System.Web.UI.WebControls.TextBox
-
-    '''<summary>
-    '''txtTCI control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents txtTCI As Global.System.Web.UI.WebControls.TextBox
 
     '''<summary>
     '''txtVolume control.
@@ -167,13 +167,139 @@ Partial Public Class Up_research
     Protected WithEvents txtDOI As Global.System.Web.UI.WebControls.TextBox
 
     '''<summary>
-    '''cblProject control.
+    '''chkInter control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents cblProject As Global.System.Web.UI.WebControls.CheckBoxList
+    Protected WithEvents chkInter As Global.System.Web.UI.WebControls.CheckBox
+
+    '''<summary>
+    '''pnlInter control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents pnlInter As Global.System.Web.UI.WebControls.Panel
+
+    '''<summary>
+    '''txtInterCollab control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents txtInterCollab As Global.System.Web.UI.WebControls.TextBox
+
+    '''<summary>
+    '''ddlCountryInter control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents ddlCountryInter As Global.System.Web.UI.WebControls.DropDownList
+
+    '''<summary>
+    '''btnAddInter control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents btnAddInter As Global.System.Web.UI.WebControls.Button
+
+    '''<summary>
+    '''lblInter control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents lblInter As Global.System.Web.UI.WebControls.Label
+
+    '''<summary>
+    '''chkAcademic control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents chkAcademic As Global.System.Web.UI.WebControls.CheckBox
+
+    '''<summary>
+    '''pnlAcademic control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents pnlAcademic As Global.System.Web.UI.WebControls.Panel
+
+    '''<summary>
+    '''txtacademicCollab control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents txtacademicCollab As Global.System.Web.UI.WebControls.TextBox
+
+    '''<summary>
+    '''ddlCountryAcademic control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents ddlCountryAcademic As Global.System.Web.UI.WebControls.DropDownList
+
+    '''<summary>
+    '''btnAddAcademic control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents btnAddAcademic As Global.System.Web.UI.WebControls.Button
+
+    '''<summary>
+    '''lblAcademic control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents lblAcademic As Global.System.Web.UI.WebControls.Label
+
+    '''<summary>
+    '''cblQ control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents cblQ As Global.System.Web.UI.WebControls.CheckBoxList
+
+    '''<summary>
+    '''cblTCI control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents cblTCI As Global.System.Web.UI.WebControls.CheckBoxList
+
+    '''<summary>
+    '''cblSDG control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents cblSDG As Global.System.Web.UI.WebControls.CheckBoxList
 
     '''<summary>
     '''hfPubNo control.

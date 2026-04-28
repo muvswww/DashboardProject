@@ -79,7 +79,7 @@ Public Class Research_Innovation
         Dim SQL As String = "SELECT        dbo.Research_Innovation.no, dbo.Research_Innovation.title, dbo.Research_Innovation.user_id, dbo.Research_Innovation.type, 
                          CASE WHEN dbo.Research_Innovation.type = 1 THEN N'สิทธิบัตร' WHEN dbo.Research_Innovation.type = 2 THEN N'อนุสิทธิบัตร' WHEN dbo.Research_Innovation.type = 4 THEN N'ขอสิทธิบัตร' WHEN dbo.Research_Innovation.type = 5 THEN N'ขออนุสิทธิบัตร'   ELSE N'-' END AS type_name,FORMAT(dbo.Research_Innovation.request_date, 'dd/MM/yyyy', 'th-TH') AS request_date, 
                          dbo.Research_Innovation.request_number, CASE WHEN itjobs.dbo.title_technical.title_technicalName IS NULL THEN itjobs.dbo.title.title_name + itjobs.dbo.[user].fname + SPACE(2) 
-                         + itjobs.dbo.[user].lname ELSE itjobs.dbo.title_technical.title_technicalName + + itjobs.dbo.[user].fname + SPACE(2) + itjobs.dbo.[user].lname END AS fullname
+                         + itjobs.dbo.[user].lname ELSE itjobs.dbo.title_technical.title_technicalName + + itjobs.dbo.[user].fname + SPACE(2) + itjobs.dbo.[user].lname END AS fullname, dbo.Research_Innovation.number
 FROM            dbo.Research_Innovation INNER JOIN
                          itjobs.dbo.[user] ON dbo.Research_Innovation.user_id = itjobs.dbo.[user].user_id INNER JOIN
                          itjobs.dbo.title ON itjobs.dbo.[user].title_id = itjobs.dbo.title.title_id INNER JOIN

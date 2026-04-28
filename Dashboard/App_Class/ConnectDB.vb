@@ -10,24 +10,24 @@ Public Class ConnectDB
     Private Shared objCmd As SqlCommand
     Private Shared Trans As SqlTransaction
 
-    Public Shared dbConn_leave As String = Replace(ConfigurationManager.ConnectionStrings("dbConn_leave").ConnectionString, "password", Decrypt2("2fxKF+rsggSR+BM25c3IJLWBqS1Pu4Y5"))
-    Public Shared dbConn_itjobs As String = Replace(ConfigurationManager.ConnectionStrings("dbConn_itjobs").ConnectionString, "password", Decrypt2("2fxKF+rsggSR+BM25c3IJLWBqS1Pu4Y5"))
+    Public Shared dbConn_leave As String = Replace(ConfigurationManager.ConnectionStrings("dbConn_leave").ConnectionString, "password", Decrypt2("2fxKF+rsggR/rV4zqRqEFgaWM7ITZryKK1haDXSOUV4="))
+    Public Shared dbConn_itjobs As String = Replace(ConfigurationManager.ConnectionStrings("dbConn_itjobs").ConnectionString, "password", Decrypt2("2fxKF+rsggR/rV4zqRqEFgaWM7ITZryKK1haDXSOUV4="))
 
     '******* Connection แบบแยกเป็น 3 ส่วน *******
-    Public Shared dbConn As String = ConfigurationManager.ConnectionStrings("PreFixConn").ConnectionString & _
-            Decrypt2(ConfigurationManager.ConnectionStrings("PwdConn").ConnectionString) & _
+    Public Shared dbConn As String = ConfigurationManager.ConnectionStrings("PreFixConn").ConnectionString &
+            Decrypt2(ConfigurationManager.ConnectionStrings("PwdConn").ConnectionString) &
             ConfigurationManager.ConnectionStrings("PostFixConn").ConnectionString
     '******* Connection แบบแยกเป็น 3 ส่วน *******
 
-    Public Shared dbConn_Surveys As String = Replace(ConfigurationManager.ConnectionStrings("dbConn_Surveys").ConnectionString, "password", Decrypt2("2fxKF+rsggSR+BM25c3IJLWBqS1Pu4Y5"))
+    Public Shared dbConn_Surveys As String = Replace(ConfigurationManager.ConnectionStrings("dbConn_Surveys").ConnectionString, "password", Decrypt2("2fxKF+rsggR/rV4zqRqEFgaWM7ITZryKK1haDXSOUV4="))
 
-    Public Shared dbConnVSAPP As String = ConfigurationManager.ConnectionStrings("PreFixConn").ConnectionString & _
-            Decrypt2(ConfigurationManager.ConnectionStrings("PwdConn").ConnectionString) & _
+    Public Shared dbConnVSAPP As String = ConfigurationManager.ConnectionStrings("PreFixConn").ConnectionString &
+            Decrypt2(ConfigurationManager.ConnectionStrings("PwdConn").ConnectionString) &
             ConfigurationManager.ConnectionStrings("PostFixConn").ConnectionString
 
 
-    Public Shared dbConn_VSAPP As String = Replace(ConfigurationManager.ConnectionStrings("dbConn_VSAPP").ConnectionString, "password", Decrypt2("2fxKF+rsggSR+BM25c3IJLWBqS1Pu4Y5"))
-    Public Shared dbConn_Dashboard As String = Replace(ConfigurationManager.ConnectionStrings("dbConn_Dashboard").ConnectionString, "password", Decrypt2("2fxKF+rsggSR+BM25c3IJLWBqS1Pu4Y5"))
+    Public Shared dbConn_VSAPP As String = Replace(ConfigurationManager.ConnectionStrings("dbConn_VSAPP").ConnectionString, "password", Decrypt2("2fxKF+rsggR/rV4zqRqEFgaWM7ITZryKK1haDXSOUV4="))
+    Public Shared dbConn_Dashboard As String = Replace(ConfigurationManager.ConnectionStrings("dbConn_Dashboard").ConnectionString, "password", Decrypt2("2fxKF+rsggR/rV4zqRqEFgaWM7ITZryKK1haDXSOUV4="))
 
     'Public Shared Function QueryDataReader(ByVal strSQL As String, ByVal strConnString As String, ByVal table As String) As SqlDataReader
     '    Dim dtReader As SqlDataReader
@@ -335,7 +335,31 @@ Public Class ConnectDB
             Return Nothing '*** Return Nothing ***'
         End Try
     End Function
+    Public Shared Function QueryExecuteScalar2(ByVal strSQL As String, ByVal strConnString As String) As Object
 
+        Dim obj As Object = Nothing
+
+        Using objConn As New SqlConnection(strConnString)
+
+            Try
+                objConn.Open()
+
+                Using objCmd As New SqlCommand(strSQL, objConn)
+
+                    objCmd.CommandType = CommandType.Text
+                    obj = objCmd.ExecuteScalar()
+
+                End Using
+
+            Catch ex As Exception
+                obj = Nothing
+            End Try
+
+        End Using
+
+        Return obj
+
+    End Function
     Public Function TransStart(ByVal strConnString As String) As Boolean
         objConn = New SqlConnection
         With objConn

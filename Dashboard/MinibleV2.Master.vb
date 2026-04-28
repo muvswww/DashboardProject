@@ -305,7 +305,7 @@ Public Class MinibleV2
 
     '    Private Shared Function GetData(query As String) As DataTable
     '        Dim strConnString As String = WebConfigurationManager.ConnectionStrings("dbConn_leave").ConnectionString
-    '        strConnString = Replace(strConnString, "password", Decrypt2("2fxKF+rsggSR+BM25c3IJLWBqS1Pu4Y5"))
+    '        strConnString = Replace(strConnString, "password", Decrypt2("2fxKF+rsggR/rV4zqRqEFgaWM7ITZryKK1haDXSOUV4="))
 
     '        Using con As New SqlConnection(strConnString)
     '            Using cmd As New SqlCommand()

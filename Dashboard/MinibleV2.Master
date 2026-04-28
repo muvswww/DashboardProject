@@ -226,9 +226,10 @@
                                     <span>Research</span>
                                 </a>
                                 <ul class="sub-menu" aria-expanded="false">
-                                    <li><a href="Research_Pub">Research Publications</a></li>
-                                    <li><a href="Research_Fund">Research Funding</a></li>
-                                    <li><a href="Research_Innovation.aspx">Research Patents</a></li>
+                                    <li><a href="Research_Pub">Publications</a></li>
+                                    <li><a href="Research_Fund">Funding</a></li>
+                                    <li><a href="Research_Innovation.aspx">Patents</a></li>
+                                    <li><a href="Research_EdPEx.aspx">EdPEx</a></li>
                                 </ul>
                             </li>
 

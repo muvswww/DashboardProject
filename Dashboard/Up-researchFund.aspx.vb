@@ -37,7 +37,7 @@ ORDER BY dbo.[user].fname"
         ddlUserFund.Items.Insert(0, New ListItem("-- เลือกหัวหน้าโครงการ --", "0"))
 
 
-        SQLRN = "SELECT     Fund_ID, Fund_source, Fund_type
+        SQLRN = "SELECT     Fund_ID, CASE WHEN grant_name IS NULL THEN Fund_source ELSE Fund_source + SPACE(2) + grant_name END AS Fund_source, Fund_type
 FROM            FundType
 ORDER BY Fund_ID"
         dt = QueryDataTable2(SQLRN, dbConn, "Dashboard", Nothing)
@@ -107,7 +107,7 @@ ORDER BY Fund_ID"
         BindgridFund()
     End Sub
     Private Sub BindgridFund()
-        Dim SQLRN As String = "SELECT  dbo.Research_Fund.no, dbo.Research_Fund.year, dbo.Research_Fund.user_id, dbo.Research_Fund.title, dbo.Research_Fund.type, CASE WHEN itjobs.dbo.title_technical.title_technicalName IS NULL 
+        Dim SQLRN As String = "SELECT  dbo.Research_Fund.id, dbo.Research_Fund.year, dbo.Research_Fund.user_id, dbo.Research_Fund.title, dbo.Research_Fund.type, CASE WHEN itjobs.dbo.title_technical.title_technicalName IS NULL 
                          THEN itjobs.dbo.title.title_name + itjobs.dbo.[user].fname + SPACE(2) + itjobs.dbo.[user].lname ELSE itjobs.dbo.title_technical.title_technicalName + itjobs.dbo.[user].fname + SPACE(2) + itjobs.dbo.[user].lname END AS fullname, 
                          CASE WHEN dbo.Research_Fund.type = 1 THEN 'ทุนวิจัย' WHEN dbo.Research_Fund.type = 2 THEN 'บริการวิชาการ' ELSE '-' END AS type_name
 FROM            dbo.Research_Fund INNER JOIN
@@ -121,7 +121,7 @@ FROM            dbo.Research_Fund INNER JOIN
 
         End If
 
-        SQLRN &= " ORDER BY Research_Fund.no DESC "
+        SQLRN &= " ORDER BY Research_Fund.id DESC "
         Dim parameters As SqlParameter() = {
                     New SqlParameter("@year", ddlYearFund1.SelectedValue)
                                                    }
@@ -174,14 +174,18 @@ FROM            dbo.Research_Fund INNER JOIN
     Protected Sub LinkButton1_Click(ByVal sender As Object, ByVal e As EventArgs)
         Dim btnEdit As LinkButton = TryCast(sender, LinkButton)
         Dim rowIndex As Integer = Convert.ToInt32(btnEdit.CommandArgument)
-        Dim NO As Integer = Convert.ToInt32(GridViewFund.DataKeys(rowIndex).Value)
-        hfFundNo.Value = NO.ToString()
-        LabelFund.Text = NO.ToString()
+        Dim id As Integer = Convert.ToInt32(GridViewFund.DataKeys(rowIndex).Value)
+        hfFundNo.Value = id.ToString()
+        LabelFund.Text = id.ToString()
         'LoadYearFund()
 
-        Dim SQLRN As String = "SELECT        no, year, user_id, title, Fund_ID, type, dept_id, stDate, fnDate, GrantExtDate, amount
-    FROM            Research_Fund
-    WHERE (no = " & NO & ")"
+        Dim SQLRN As String = "SELECT        TOP (200) Research_Fund.id, Research_Fund.year, Research_Fund.user_id, Research_Fund.title, Research_Fund.Fund_ID, Research_Fund.type, Research_Fund.stDate, Research_Fund.fnDate, Research_Fund.GrantExtDate, 
+                         Research_Fund.amount, Research_Fund.IO, Research_Fund.period, Research_Fund.student_name, Research_Fund.inputDate, Research_Fund.editDate, Research_Fund.installment, Research_Fund.IsClosedOnTime, 
+                         itjobs.dbo.department.dept_name
+FROM            Research_Fund INNER JOIN
+                         itjobs.dbo.[user] ON Research_Fund.user_id = itjobs.dbo.[user].user_id INNER JOIN
+                         itjobs.dbo.department ON itjobs.dbo.[user].dept_id = itjobs.dbo.department.dept_id
+    WHERE (id = " & id & ")"
         Dim dt As DataTable = QueryDataTable2(SQLRN, dbConn, "Dashboard", Nothing)
 
         If dt.Rows.Count > 0 Then
@@ -236,32 +240,32 @@ FROM            dbo.Research_Fund INNER JOIN
         panelUpsource.Visible = False
         panelUpFund.Visible = False
         BindgridFund()
+        ddlNameuserFund()
     End Sub
 
     Protected Sub btnsubmitFund_Click(sender As Object, e As EventArgs) Handles btnsubmitFund.Click
 
 
         Dim constr As String = WebConfigurationManager.ConnectionStrings("dbConn_Dashboard").ConnectionString
-        constr = Replace(constr, "password", Decrypt2("2fxKF+rsggSR+BM25c3IJLWBqS1Pu4Y5"))
+        constr = Replace(constr, "password", Decrypt2("2fxKF+rsggR/rV4zqRqEFgaWM7ITZryKK1haDXSOUV4="))
 
-        Dim SQLRN As String = "SELECT  ISNULL(MAX(no), 0) AS newNo FROM Research_Fund"
+        Dim SQLRN As String = "SELECT  ISNULL(MAX(id), 0) AS newID FROM Research_Fund"
         Dim dt As DataTable = QueryDataTable2(SQLRN, dbConn, "Dashboard", Nothing)
         If dt.Rows.Count > 0 Then
-            Dim newNo As Integer = Convert.ToInt32(dt.Rows(0)("newNo")) + 1
+            Dim newID As Integer = Convert.ToInt32(dt.Rows(0)("newID")) + 1
             Dim query As String = "INSERT INTO Research_Fund
-        (no, year, user_id, title, Fund_ID, type, dept_id, stDate, fnDate, GrantExtDate, amount, inputDate)
+        (id, year, user_id, title, Fund_ID, type, stDate, fnDate, GrantExtDate, amount, inputDate)
         VALUES
-        (@no, @year, @user_id, @title, @Fund_ID, @type, @dept_id, @stDate, @fnDate, @GrantExtDate, @amount, GETDATE())"
+        (@id, @year, @user_id, @title, @Fund_ID, @type, @stDate, @fnDate, @GrantExtDate, @amount, GETDATE())"
 
             Using con As New SqlConnection(constr)
                 Using cmd As New SqlCommand(query, con)
-                    cmd.Parameters.AddWithValue("@no", newNo)
+                    cmd.Parameters.AddWithValue("@id", newID)
                     cmd.Parameters.AddWithValue("@year", txtyear.Text.Trim())
                     cmd.Parameters.AddWithValue("@user_id", ddlUserFund.SelectedValue)
                     cmd.Parameters.AddWithValue("@title", txtTitle.Text.Trim())
                     cmd.Parameters.AddWithValue("@Fund_ID", ddlSource.SelectedValue)
                     cmd.Parameters.AddWithValue("@type", ddlType.SelectedValue)
-                    cmd.Parameters.AddWithValue("@dept_id", ddlDept.SelectedValue)
 
                     If String.IsNullOrWhiteSpace(txtStartDate.Value) Then
                         cmd.Parameters.AddWithValue("@stDate", DBNull.Value)
@@ -305,12 +309,12 @@ FROM            dbo.Research_Fund INNER JOIN
 
         If String.IsNullOrEmpty(hfFundNo.Value) Then Exit Sub
 
-        Dim NO As Integer = Convert.ToInt32(hfFundNo.Value)
+        Dim ID As Integer = Convert.ToInt32(hfFundNo.Value)
         Dim type As Integer = Convert.ToInt32(ddlType.SelectedValue)
 
 
         Dim constr As String = WebConfigurationManager.ConnectionStrings("dbConn_Dashboard").ConnectionString
-        constr = Replace(constr, "password", Decrypt2("2fxKF+rsggSR+BM25c3IJLWBqS1Pu4Y5"))
+        constr = Replace(constr, "password", Decrypt2("2fxKF+rsggR/rV4zqRqEFgaWM7ITZryKK1haDXSOUV4="))
 
 
         Dim query As String = "UPDATE Research_Fund SET 
@@ -319,13 +323,12 @@ FROM            dbo.Research_Fund INNER JOIN
         title = @title,
         Fund_ID = @Fund_ID,
         type = @type,
-        dept_id = @dept_id,
         stDate = @stDate,
         fnDate = @fnDate,
         GrantExtDate = @GrantExtDate,
         amount = @amount,
         editDate = GETDATE()
-        WHERE no = @no"
+        WHERE ID = @ID"
 
         Using con As New SqlConnection(constr)
             Using cmd As New SqlCommand(query, con)
@@ -345,8 +348,6 @@ FROM            dbo.Research_Fund INNER JOIN
                 ' 📂 ประเภทงาน
                 cmd.Parameters.AddWithValue("@type", ddlType.SelectedValue)
 
-                ' 🏢 หน่วยงาน
-                cmd.Parameters.AddWithValue("@dept_id", ddlDept.SelectedValue)
 
                 ' 📅 วันที่เริ่ม
                 If String.IsNullOrWhiteSpace(txtStartDate.Value) Then
@@ -375,7 +376,7 @@ FROM            dbo.Research_Fund INNER JOIN
                 cmd.Parameters.AddWithValue("@amount", amt)
 
                 ' 🔑 primary key
-                cmd.Parameters.AddWithValue("@no", NO)
+                cmd.Parameters.AddWithValue("@ID", ID)
 
                 con.Open()
                 cmd.ExecuteNonQuery()
@@ -401,7 +402,7 @@ FROM            dbo.Research_Fund INNER JOIN
     End Sub
     Private Sub BindFundSource()
 
-        Dim SQLRN As String = "SELECT Fund_ID as no, Fund_source, Fund_type,
+        Dim SQLRN As String = "SELECT Fund_ID as NO, Fund_source, Fund_type, grant_name,
         CASE WHEN Fund_type = 1 THEN 'ภายใน'
              WHEN Fund_type = 2 THEN 'ภายนอก'
              ELSE '-' END AS type_name
@@ -411,7 +412,7 @@ FROM            dbo.Research_Fund INNER JOIN
             SQLRN &= " AND Fund_type = @type"
 
         End If
-        SQLRN &= " ORDER BY no DESC"
+        SQLRN &= " ORDER BY NO DESC"
         Dim parameters As SqlParameter() = {
                     New SqlParameter("@type", rblFundType.SelectedValue)
                                                    }
@@ -430,20 +431,22 @@ FROM            dbo.Research_Fund INNER JOIN
         If e.CommandName = "AddNew" Then
 
             Dim txtSource As TextBox = CType(GridViewsource.FooterRow.FindControl("txtNewSource"), TextBox)
+            Dim txtGrantName As TextBox = CType(GridViewsource.FooterRow.FindControl("txtNewgrant_name"), TextBox)
             Dim ddlType As DropDownList = CType(GridViewsource.FooterRow.FindControl("ddlNewType"), DropDownList)
 
 
             Dim constr As String = WebConfigurationManager.ConnectionStrings("dbConn_Dashboard").ConnectionString
-            constr = Replace(constr, "password", Decrypt2("2fxKF+rsggSR+BM25c3IJLWBqS1Pu4Y5"))
+            constr = Replace(constr, "password", Decrypt2("2fxKF+rsggR/rV4zqRqEFgaWM7ITZryKK1haDXSOUV4="))
 
             Dim SQLRN As String = "SELECT  ISNULL(MAX(Fund_ID), 0) AS newNo FROM FundType"
             Dim dt As DataTable = QueryDataTable2(SQLRN, dbConn, "Dashboard", Nothing)
             If dt.Rows.Count > 0 Then
                 Dim newNo As Integer = Convert.ToInt32(dt.Rows(0)("newNo")) + 1
                 Using conn As New SqlConnection(constr)
-                    Using cmd As New SqlCommand("INSERT INTO FundType (Fund_ID, Fund_source, Fund_type) VALUES (@fund_ID, @source, @type)", conn)
+                    Using cmd As New SqlCommand("INSERT INTO FundType (Fund_ID, Fund_source,grant_name, Fund_type) VALUES (@fund_ID, @source,@grant, @type)", conn)
                         cmd.Parameters.AddWithValue("@fund_ID", newNo)
                         cmd.Parameters.AddWithValue("@source", txtSource.Text.Trim())
+                        cmd.Parameters.AddWithValue("@grant", txtGrantName.Text.Trim())
                         cmd.Parameters.AddWithValue("@type", ddlType.SelectedValue)
                         conn.Open()
                         cmd.ExecuteNonQuery()
@@ -469,15 +472,17 @@ FROM            dbo.Research_Fund INNER JOIN
 
         Dim row As GridViewRow = GridViewsource.Rows(e.RowIndex)
         Dim txtSource As TextBox = CType(row.FindControl("txtEditSource"), TextBox)
+        Dim txtGrantName As TextBox = CType(GridViewsource.FooterRow.FindControl("txtEditgrant_name"), TextBox)
         Dim ddlType As DropDownList = CType(row.FindControl("ddlEditType"), DropDownList)
 
 
         Dim constr As String = WebConfigurationManager.ConnectionStrings("dbConn_Dashboard").ConnectionString
-        constr = Replace(constr, "password", Decrypt2("2fxKF+rsggSR+BM25c3IJLWBqS1Pu4Y5"))
+        constr = Replace(constr, "password", Decrypt2("2fxKF+rsggR/rV4zqRqEFgaWM7ITZryKK1haDXSOUV4="))
 
         Using conn As New SqlConnection(constr)
-            Using cmd As New SqlCommand("UPDATE FundType SET Fund_source=@source, Fund_type=@type WHERE Fund_ID=@no", conn)
+            Using cmd As New SqlCommand("UPDATE FundType SET Fund_source=@source,grant_name=@grant_name, Fund_type=@type WHERE Fund_ID=@no", conn)
                 cmd.Parameters.AddWithValue("@source", txtSource.Text.Trim())
+                cmd.Parameters.AddWithValue("@grant_name", txtGrantName.Text.Trim())
                 cmd.Parameters.AddWithValue("@type", ddlType.SelectedValue)
                 cmd.Parameters.AddWithValue("@no", no)
                 conn.Open()
@@ -495,5 +500,6 @@ FROM            dbo.Research_Fund INNER JOIN
         panelUpsource.Visible = False
         panelUpFund.Visible = False
         BindgridFund()
+        ddlNameuserFund()
     End Sub
 End Class

@@ -247,7 +247,7 @@ FROM            dbo.Research_Fund INNER JOIN
 
 
         Dim constr As String = WebConfigurationManager.ConnectionStrings("dbConn_Dashboard").ConnectionString
-        constr = Replace(constr, "password", Decrypt2("2fxKF+rsggSR+BM25c3IJLWBqS1Pu4Y5"))
+        constr = Replace(constr, "password", Decrypt2("2fxKF+rsggR/rV4zqRqEFgaWM7ITZryKK1haDXSOUV4="))
 
         Dim SQLRN As String = "SELECT  ISNULL(MAX(no), 0) AS newNo FROM Research_Fund"
         Dim dt As DataTable = QueryDataTable2(SQLRN, dbConn, "Dashboard", Nothing)
@@ -315,7 +315,7 @@ FROM            dbo.Research_Fund INNER JOIN
 
 
         Dim constr As String = WebConfigurationManager.ConnectionStrings("dbConn_Dashboard").ConnectionString
-        constr = Replace(constr, "password", Decrypt2("2fxKF+rsggSR+BM25c3IJLWBqS1Pu4Y5"))
+        constr = Replace(constr, "password", Decrypt2("2fxKF+rsggR/rV4zqRqEFgaWM7ITZryKK1haDXSOUV4="))
 
 
         Dim query As String = "UPDATE Research_Fund SET 
@@ -443,7 +443,7 @@ FROM            dbo.Research_Fund INNER JOIN
 
 
             Dim constr As String = WebConfigurationManager.ConnectionStrings("dbConn_Dashboard").ConnectionString
-            constr = Replace(constr, "password", Decrypt2("2fxKF+rsggSR+BM25c3IJLWBqS1Pu4Y5"))
+            constr = Replace(constr, "password", Decrypt2("2fxKF+rsggR/rV4zqRqEFgaWM7ITZryKK1haDXSOUV4="))
 
             Dim SQLRN As String = "SELECT  ISNULL(MAX(Fund_ID), 0) AS newNo FROM FundType"
             Dim dt As DataTable = QueryDataTable2(SQLRN, dbConn, "Dashboard", Nothing)
@@ -482,7 +482,7 @@ FROM            dbo.Research_Fund INNER JOIN
 
 
         Dim constr As String = WebConfigurationManager.ConnectionStrings("dbConn_Dashboard").ConnectionString
-        constr = Replace(constr, "password", Decrypt2("2fxKF+rsggSR+BM25c3IJLWBqS1Pu4Y5"))
+        constr = Replace(constr, "password", Decrypt2("2fxKF+rsggR/rV4zqRqEFgaWM7ITZryKK1haDXSOUV4="))
 
         Using conn As New SqlConnection(constr)
             Using cmd As New SqlCommand("UPDATE FundType SET Fund_source=@source, Fund_type=@type WHERE Fund_ID=@no", conn)

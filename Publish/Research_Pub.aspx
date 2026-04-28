@@ -315,10 +315,10 @@
                             </div>
                         </div>
 
+
+
                         <div data-simplebar style="max-height: 500px;">
                             <div class="table-responsive gridview-scroll">
-                              
-
 <!-- ===== GridView ===== -->
 <asp:GridView ID="data" runat="server"
     AutoGenerateColumns="False"

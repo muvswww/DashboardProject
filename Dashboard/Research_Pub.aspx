@@ -140,36 +140,7 @@
 
                             <div class="pub-summary luxury mt-5">
 
-                               <asp:Repeater ID="rptProject" runat="server">
-    <ItemTemplate>
-        <div class="pub-item accent-gold text-decoration-none d-block">
-            
-            <div class="pub-code">
-                <%# Eval("Project_no") %>
-            </div>
-
-            <div class="pub-code">
-                <%# Eval("ProjectName") %>
-            </div>
-
-            <div class="pub-value">
-                <%# Eval("LatestQuarterValue") %>
-            </div>
-
-        </div>
-    </ItemTemplate>
-</asp:Repeater>
-
-
-
-
-                                <%-- <div class="pub-item accent-gold">
-                                    <div class="pub-code">1.9</div>
-                                    <div class="pub-code">International Publications in Top 1 Journal</div>
-                                    <div class="pub-value">
-                                        <asp:Label ID="lbl19" runat="server" />
-                                    </div>
-                                </div>--%>
+                         
                             </div>
 
                         </div>
@@ -179,9 +150,10 @@
                         <div class="row mb-3">
                             <div class="col-md-12">
                                 
-                                                              <!-- ===== Dropdown เลือกคอลัมน์ ===== -->
-                                <div class="d-flex justify-content-end align-items-start gap-2 mb-3">
+                                                            
+<div class="d-flex justify-content-end align-items-start gap-2 mb-3">
 <div class="dropdown mb-3">
+
     <button class="btn btn-outline-secondary dropdown-toggle"
         type="button"
         id="colDropdown"
@@ -191,108 +163,63 @@
     </button>
 
     <div class="dropdown-menu p-3"
-     aria-labelledby="colDropdown"
-     onclick="event.stopPropagation();"
-     style="min-width: 260px;">
-      <div class="form-check mb-2">
-    <input type="checkbox"
-           id="chkAllColumns"
-           runat="server"
-           class="form-check-input"
-           onserverchange="chkAllColumns_CheckedChanged" />
-           
-    <label class="form-check-label fw-bold text-primary" for="chkAllColumns">
-        แสดงทั้งหมด
-    </label>
-</div>
+         aria-labelledby="colDropdown"
+         onclick="event.stopPropagation();"
+         style="min-width: 300px; max-height: 400px; overflow:auto;">
 
-    <div class="fw-bold text-secondary mb-2">ข้อมูลบทความ</div>
+        <!-- 🔥 เลือกทั้งหมด -->
+        <div class="form-check mb-2">
+            <input type="checkbox" id="chkAllColumns" runat="server"
+                   class="form-check-input"
+                   onserverchange="chkAllColumns_CheckedChanged" />
+            <label class="form-check-label fw-bold text-primary" for="chkAllColumns">
+                แสดงทั้งหมด
+            </label>
+        </div>
 
-    <%--<div class="form-check">
-        <asp:CheckBox ID="chkTitle" type="checkbox" runat="server" />
-        <label class="form-check-label" for="<%= chkTitle.ClientID %>">ชื่อบทความ</label>
+        <hr />
+
+        <!-- ข้อมูลบทความ -->
+<div class="fw-bold text-secondary mb-2">ข้อมูลบทความ</div>
+<div class="form-check"><input type="checkbox" id="chkYear" runat="server" class="form-check-input"  /><label>Year</label></div>
+<div class="form-check"><input type="checkbox" id="chkMonth" runat="server" class="form-check-input" /><label>Month</label></div>
+<div class="form-check"><input type="checkbox" id="chkType" runat="server" class="form-check-input"/><label>Type</label></div>
+<div class="form-check"><input type="checkbox" id="chkTitle" runat="server" class="form-check-input"/><label>Title</label></div>
+<div class="form-check"><input type="checkbox" id="chkAuthors" runat="server" class="form-check-input" /><label>Authors</label></div>
+<div class="form-check"><input type="checkbox" id="chkSource" runat="server" class="form-check-input" /><label>Scopus</label></div>
+
+<div class="form-check"><input type="checkbox" id="chkVolume" runat="server" class="form-check-input" /><label>Volume</label></div>
+<div class="form-check"><input type="checkbox" id="chkIssue" runat="server" class="form-check-input" /><label>Issue</label></div>
+<div class="form-check"><input type="checkbox" id="chkPages" runat="server" class="form-check-input" /><label>Pages</label></div>
+<div class="form-check"><input type="checkbox" id="chkDOI" runat="server" class="form-check-input" /><label>DOI</label></div>
+
+<div class="form-check"><input type="checkbox" id="chkInterCollab" runat="server" class="form-check-input" /><label>InterCollab</label></div>
+<div class="form-check"><input type="checkbox" id="chkAcademicCollab" runat="server" class="form-check-input" /><label>AcademicCollab</label></div>
+<div class="form-check"><input type="checkbox" id="chkSDG" runat="server" class="form-check-input" /><label>SDG</label></div>
+
+
+<div class="form-check"><input type="checkbox" id="chkCluster" runat="server" class="form-check-input" /><label>Cluster</label></div>
+
+<div class="form-check"><input type="checkbox" id="chkQ1" runat="server" class="form-check-input" /><label>Q1</label></div>
+<div class="form-check"><input type="checkbox" id="chkQ2" runat="server" class="form-check-input" /><label>Q2</label></div>
+<div class="form-check"><input type="checkbox" id="chkQ3" runat="server" class="form-check-input" /><label>Q3</label></div>
+<div class="form-check"><input type="checkbox" id="chkQ4" runat="server" class="form-check-input" /><label>Q4</label></div>
+
+<div class="form-check"><input type="checkbox" id="chkTop1" runat="server" class="form-check-input" /><label>Top1</label></div>
+<div class="form-check"><input type="checkbox" id="chkTop10" runat="server" class="form-check-input" /><label>Top10</label></div>
+
+<div class="form-check"><input type="checkbox" id="chkTCI1" runat="server" class="form-check-input" /><label>TCI G1</label></div>
+<div class="form-check"><input type="checkbox" id="chkTCI2" runat="server" class="form-check-input" /><label>TCI G2</label></div>
+<div class="form-check"><input type="checkbox" id="chkTCI3" runat="server" class="form-check-input" /><label>TCI G3</label></div>
     </div>
-
-    <div class="form-check">
-        <asp:CheckBox ID="chkAuthors" runat="server"  />
-        <label class="form-check-label" for="<%= chkAuthors.ClientID %>">ผู้แต่ง</label>
-    </div>
-
-    <div class="form-check">
-        <asp:CheckBox ID="chkSource" runat="server"/>
-        <label class="form-check-label" for="<%= chkSource.ClientID %>">แหล่งตีพิมพ์</label>
-    </div>
-
-    <div class="form-check">
-        <asp:CheckBox ID="chkVolume" runat="server" />
-        <label class="form-check-label" for="<%= chkVolume.ClientID %>">Volume</label>
-    </div>
-
-    <div class="form-check">
-        <asp:CheckBox ID="chkIssue" runat="server" />
-        <label class="form-check-label" for="<%= chkIssue.ClientID %>">Issue</label>
-    </div>
-
-    <div class="form-check">
-        <asp:CheckBox ID="chkPages" runat="server" />
-        <label class="form-check-label" for="<%= chkPages.ClientID %>">Pages</label>
-    </div>
-
-    <div class="form-check mb-2">
-        <asp:CheckBox ID="chkDOI" runat="server"  />
-        <label class="form-check-label" for="<%= chkDOI.ClientID %>">DOI</label>
-    </div>--%>
-        <div class="form-check">
-    <input type="checkbox" id="chkTitle" runat="server" class="form-check-input" />
-    <label class="form-check-label" for="chkTitle">ชื่อบทความ</label>
 </div>
-
-<div class="form-check">
-    <input type="checkbox" id="chkAuthors" runat="server" class="form-check-input" />
-    <label class="form-check-label" for="chkAuthors">ผู้แต่ง</label>
-</div>
-
-<div class="form-check">
-    <input type="checkbox" id="chkSource" runat="server" class="form-check-input" />
-    <label class="form-check-label" for="chkSource">แหล่งตีพิมพ์</label>
-</div>
-
-<div class="form-check">
-    <input type="checkbox" id="chkVolume" runat="server" class="form-check-input" />
-    <label class="form-check-label" for="chkVolume">Volume</label>
-</div>
-
-<div class="form-check">
-    <input type="checkbox" id="chkIssue" runat="server" class="form-check-input" />
-    <label class="form-check-label" for="chkIssue">Issue</label>
-</div>
-
-<div class="form-check">
-    <input type="checkbox" id="chkPages" runat="server" class="form-check-input" />
-    <label class="form-check-label" for="chkPages">Pages</label>
-</div>
-
-<div class="form-check mb-2">
-    <input type="checkbox" id="chkDOI" runat="server" class="form-check-input" />
-    <label class="form-check-label" for="chkDOI">DOI</label>
-</div>
-
-    <hr />
-
-    <div class="fw-bold text-secondary mb-2">ตัวชี้วัด</div>
-       
-    <asp:PlaceHolder ID="phKPI" runat="server"></asp:PlaceHolder>
-
-</div>
-
+<asp:Button ID="btnLoad" runat="server"
+    Text="แสดงข้อมูล"
+    CssClass="btn btn-primary mb-3"
+    OnClick="btnLoad_Click" />
 </div>
 
 <!-- ===== ปุ่มแสดงผล ===== -->
-<asp:Button ID="btnApply" runat="server"
-    Text="แสดงผล"
-    CssClass="btn btn-primary mb-3"
-    OnClick="btnApply_Click" />
-                                    </div>
                                 <label class="form-label">รายละเอียด :</label>
                                 <div class="btn-group w-100" role="group">
 
@@ -315,10 +242,10 @@
                             </div>
                         </div>
 
+
+
                         <div data-simplebar style="max-height: 500px;">
                             <div class="table-responsive gridview-scroll">
-                              
-
 <!-- ===== GridView ===== -->
 <asp:GridView ID="data" runat="server"
     AutoGenerateColumns="False"
@@ -326,25 +253,20 @@
     EmptyDataText="ไม่พบข้อมูล">
 
 </asp:GridView>
-
-
                             </div>
                         </div>
                     </div>
-
-
-
                 </div>
             </div>
         </ContentTemplate>
     </asp:UpdatePanel>
     
-    <script>
+  <%--  <script>
     document.getElementById('<%= chkAllColumns.ClientID %>')
         .addEventListener('change', function () {
             __doPostBack('<%= chkAllColumns.UniqueID %>', '');
         });
-    </script>
+    </script>--%>
 
     <!-- apexcharts -->
     <script src="minible/layouts/assets/libs/apexcharts/apexcharts.min.js"></script>
